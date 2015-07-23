@@ -12,6 +12,8 @@
 #import "AAPLTransforms.h"
 #import "AAPLSharedTypes.h"
 
+#import "effect.h"
+
 using namespace AAPL;
 using namespace simd;
 
@@ -186,15 +188,7 @@ static const float kCubeVertexData[] =
 
 - (BOOL)preparePipelineState:(AAPLView *)view
 {
-    // get the fragment function from the library
-    id <MTLFunction> fragmentProgram = [_defaultLibrary newFunctionWithName:@"lighting_fragment"];
-    if(!fragmentProgram)
-        NSLog(@">> ERROR: Couldn't load fragment function from default library");
-    
-    // get the vertex function from the library
-    id <MTLFunction> vertexProgram = [_defaultLibrary newFunctionWithName:@"lighting_vertex"];
-    if(!vertexProgram)
-        NSLog(@">> ERROR: Couldn't load vertex function from default library");
+    Effect* effect = [[Effect alloc]initWithLibrary:_defaultLibrary vertexName:@"lighting_vertex" fragmentName:@"lighting_fragment"];
     
     // setup the vertex buffers
     _vertexBuffer = [_device newBufferWithBytes:kCubeVertexData length:sizeof(kCubeVertexData) options:MTLResourceOptionCPUCacheModeDefault];
@@ -205,8 +199,8 @@ static const float kCubeVertexData[] =
     
     pipelineStateDescriptor.label                           = @"MyPipeline";
     pipelineStateDescriptor.sampleCount                     = view.sampleCount;
-    pipelineStateDescriptor.vertexFunction                  = vertexProgram;
-    pipelineStateDescriptor.fragmentFunction                = fragmentProgram;
+    pipelineStateDescriptor.vertexFunction                  = effect.vertexProgram;
+    pipelineStateDescriptor.fragmentFunction                = effect.fragmentProgram;
     pipelineStateDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
     pipelineStateDescriptor.depthAttachmentPixelFormat      = view.depthPixelFormat;
     
