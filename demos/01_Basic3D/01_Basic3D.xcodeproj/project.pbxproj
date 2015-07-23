@@ -25,6 +25,8 @@
 		D86ADF9F1B6186EA00994B06 /* AAPLRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86ADF9B1B6186EA00994B06 /* AAPLRenderer.mm */; };
 		D86ADFA01B6186EA00994B06 /* AAPLSharedTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = D86ADF9C1B6186EA00994B06 /* AAPLSharedTypes.h */; };
 		D86ADFA11B6186EA00994B06 /* shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = D86ADF9D1B6186EA00994B06 /* shaders.metal */; };
+		D86ADFAC1B6188D800994B06 /* effect.m in Sources */ = {isa = PBXBuildFile; fileRef = D86ADFAB1B6188D800994B06 /* effect.m */; };
+		D86ADFB01B6188EE00994B06 /* effect.h in Headers */ = {isa = PBXBuildFile; fileRef = D86ADFAF1B6188EE00994B06 /* effect.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +50,8 @@
 		D86ADF9B1B6186EA00994B06 /* AAPLRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AAPLRenderer.mm; path = src/AAPLRenderer.mm; sourceTree = SOURCE_ROOT; };
 		D86ADF9C1B6186EA00994B06 /* AAPLSharedTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPLSharedTypes.h; path = src/AAPLSharedTypes.h; sourceTree = SOURCE_ROOT; };
 		D86ADF9D1B6186EA00994B06 /* shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = shaders.metal; path = src/shaders.metal; sourceTree = SOURCE_ROOT; };
+		D86ADFAB1B6188D800994B06 /* effect.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = effect.m; path = ../../../../../../Code/projects/metal/engine/renderer/src/effect.m; sourceTree = "<group>"; };
+		D86ADFAF1B6188EE00994B06 /* effect.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = effect.h; path = ../../../../../../Code/projects/metal/engine/renderer/inc/effect.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,6 +94,7 @@
 		626C60B51932F12C007A3E00 /* 01_Basic3D */ = {
 			isa = PBXGroup;
 			children = (
+				D86ADFA31B61888300994B06 /* engine */,
 				629ADF541933EBD100DEFFB1 /* Renderer */,
 				622A9BA319A983FC007F8120 /* Common */,
 				626C60B61932F12C007A3E00 /* Supporting Files */,
@@ -155,6 +160,40 @@
 			name = Math;
 			sourceTree = "<group>";
 		};
+		D86ADFA31B61888300994B06 /* engine */ = {
+			isa = PBXGroup;
+			children = (
+				D86ADFA41B61888300994B06 /* renderer */,
+			);
+			name = engine;
+			path = ../../../engine;
+			sourceTree = "<group>";
+		};
+		D86ADFA41B61888300994B06 /* renderer */ = {
+			isa = PBXGroup;
+			children = (
+				D86ADFA51B61888300994B06 /* inc */,
+				D86ADFA71B61888300994B06 /* src */,
+			);
+			path = renderer;
+			sourceTree = "<group>";
+		};
+		D86ADFA51B61888300994B06 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				D86ADFAF1B6188EE00994B06 /* effect.h */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		D86ADFA71B61888300994B06 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				D86ADFAB1B6188D800994B06 /* effect.m */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -163,6 +202,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D85992F21B61864A00AF167E /* AAPLTransforms.h in Headers */,
+				D86ADFB01B6188EE00994B06 /* effect.h in Headers */,
 				D86ADFA01B6186EA00994B06 /* AAPLSharedTypes.h in Headers */,
 				D85992FC1B61868800AF167E /* AAPLView.h in Headers */,
 				D86ADF9E1B6186EA00994B06 /* AAPLRenderer.h in Headers */,
@@ -249,6 +289,7 @@
 				D85992F31B61864A00AF167E /* AAPLTransforms.mm in Sources */,
 				D85992FD1B61868800AF167E /* AAPLView.mm in Sources */,
 				D85992EF1B61861C00AF167E /* main.m in Sources */,
+				D86ADFAC1B6188D800994B06 /* effect.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
