@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:">
+      location = "self:/Users/joe/code/projects/metal/demos/MetalBasic3D/01_Basic3D.xcodeproj">
    </FileRef>
 </Workspace>
