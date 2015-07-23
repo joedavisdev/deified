@@ -31,7 +31,7 @@
 		6218D85B19AFB63A005BC8AB /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
 		622A9B5E19A97B0A007F8120 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		623F27DB19340FA2000FA88C /* shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = shaders.metal; sourceTree = "<group>"; };
-		626C60B31932F12C007A3E00 /* MetalBasic3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetalBasic3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		626C60B31932F12C007A3E00 /* 01_Basic3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 01_Basic3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		626C60B71932F12C007A3E00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		626C60C81932F12C007A3E00 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		626C60DE1932F14E007A3E00 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -83,7 +83,7 @@
 		626C60B41932F12C007A3E00 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				626C60B31932F12C007A3E00 /* MetalBasic3D.app */,
+				626C60B31932F12C007A3E00 /* 01_Basic3D.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -173,9 +173,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		626C60B21932F12C007A3E00 /* MetalBasic3D */ = {
+		626C60B21932F12C007A3E00 /* 01_Basic3D */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 626C60D81932F12C007A3E00 /* Build configuration list for PBXNativeTarget "MetalBasic3D" */;
+			buildConfigurationList = 626C60D81932F12C007A3E00 /* Build configuration list for PBXNativeTarget "01_Basic3D" */;
 			buildPhases = (
 				626C60AE1932F12C007A3E00 /* Sources */,
 				626C60AF1932F12C007A3E00 /* Frameworks */,
@@ -186,9 +186,9 @@
 			);
 			dependencies = (
 			);
-			name = MetalBasic3D;
+			name = 01_Basic3D;
 			productName = MetalBasic3D;
-			productReference = 626C60B31932F12C007A3E00 /* MetalBasic3D.app */;
+			productReference = 626C60B31932F12C007A3E00 /* 01_Basic3D.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -205,7 +205,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 626C60AD1932F12C007A3E00 /* Build configuration list for PBXProject "MetalBasic3D" */;
+			buildConfigurationList = 626C60AD1932F12C007A3E00 /* Build configuration list for PBXProject "01_Basic3D" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -218,7 +218,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				626C60B21932F12C007A3E00 /* MetalBasic3D */,
+				626C60B21932F12C007A3E00 /* 01_Basic3D */,
 			);
 		};
 /* End PBXProject section */
@@ -346,7 +346,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MetalBasic3D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = 01_Basic3D;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
@@ -362,7 +362,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = MetalBasic3D/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = 01_Basic3D;
 				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
@@ -370,7 +370,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		626C60AD1932F12C007A3E00 /* Build configuration list for PBXProject "MetalBasic3D" */ = {
+		626C60AD1932F12C007A3E00 /* Build configuration list for PBXProject "01_Basic3D" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				626C60D61932F12C007A3E00 /* Debug */,
@@ -379,7 +379,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		626C60D81932F12C007A3E00 /* Build configuration list for PBXNativeTarget "MetalBasic3D" */ = {
+		626C60D81932F12C007A3E00 /* Build configuration list for PBXNativeTarget "01_Basic3D" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				626C60D91932F12C007A3E00 /* Debug */,
