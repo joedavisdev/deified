@@ -7,47 +7,47 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6218D85C19AFB63A005BC8AB /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6218D85B19AFB63A005BC8AB /* LaunchScreen.xib */; };
-		622A9B5F19A97B0A007F8120 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 622A9B5E19A97B0A007F8120 /* Main.storyboard */; };
-		623F27DC19340FA2000FA88C /* shaders.metal in Resources */ = {isa = PBXBuildFile; fileRef = 623F27DB19340FA2000FA88C /* shaders.metal */; };
-		626C60C91932F12C007A3E00 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 626C60C81932F12C007A3E00 /* Images.xcassets */; };
-		626C60DF1932F14E007A3E00 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 626C60DE1932F14E007A3E00 /* main.m */; };
-		626C60F01932F165007A3E00 /* AAPLAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 626C60E41932F165007A3E00 /* AAPLAppDelegate.h */; };
-		626C60F11932F165007A3E00 /* AAPLAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 626C60E51932F165007A3E00 /* AAPLAppDelegate.mm */; };
-		626C60F21932F165007A3E00 /* AAPLRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = 626C60E61932F165007A3E00 /* AAPLRenderer.h */; };
-		626C60F31932F165007A3E00 /* AAPLRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = 626C60E71932F165007A3E00 /* AAPLRenderer.mm */; };
-		626C60F41932F165007A3E00 /* AAPLSharedTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 626C60E81932F165007A3E00 /* AAPLSharedTypes.h */; };
-		626C60F51932F165007A3E00 /* AAPLTransforms.h in Headers */ = {isa = PBXBuildFile; fileRef = 626C60E91932F165007A3E00 /* AAPLTransforms.h */; };
-		626C60F61932F165007A3E00 /* AAPLTransforms.mm in Sources */ = {isa = PBXBuildFile; fileRef = 626C60EA1932F165007A3E00 /* AAPLTransforms.mm */; };
-		626C60F71932F165007A3E00 /* AAPLView.h in Headers */ = {isa = PBXBuildFile; fileRef = 626C60EB1932F165007A3E00 /* AAPLView.h */; };
-		626C60F81932F165007A3E00 /* AAPLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = 626C60EC1932F165007A3E00 /* AAPLView.mm */; };
-		626C60F91932F165007A3E00 /* AAPLViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 626C60ED1932F165007A3E00 /* AAPLViewController.h */; };
-		626C60FA1932F165007A3E00 /* AAPLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 626C60EE1932F165007A3E00 /* AAPLViewController.mm */; };
 		626C61091932F259007A3E00 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626C61081932F259007A3E00 /* Metal.framework */; };
 		626C610B1932F25E007A3E00 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626C610A1932F25E007A3E00 /* QuartzCore.framework */; };
+		D85992EC1B61861C00AF167E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D85992E81B61861C00AF167E /* Images.xcassets */; };
+		D85992EE1B61861C00AF167E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D85992EA1B61861C00AF167E /* LaunchScreen.xib */; };
+		D85992EF1B61861C00AF167E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D85992EB1B61861C00AF167E /* main.m */; };
+		D85992F21B61864A00AF167E /* AAPLTransforms.h in Headers */ = {isa = PBXBuildFile; fileRef = D85992F01B61864A00AF167E /* AAPLTransforms.h */; };
+		D85992F31B61864A00AF167E /* AAPLTransforms.mm in Sources */ = {isa = PBXBuildFile; fileRef = D85992F11B61864A00AF167E /* AAPLTransforms.mm */; };
+		D85992FA1B61868800AF167E /* AAPLAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = D85992F41B61868800AF167E /* AAPLAppDelegate.h */; };
+		D85992FB1B61868800AF167E /* AAPLAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = D85992F51B61868800AF167E /* AAPLAppDelegate.mm */; };
+		D85992FC1B61868800AF167E /* AAPLView.h in Headers */ = {isa = PBXBuildFile; fileRef = D85992F61B61868800AF167E /* AAPLView.h */; };
+		D85992FD1B61868800AF167E /* AAPLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = D85992F71B61868800AF167E /* AAPLView.mm */; };
+		D85992FE1B61868800AF167E /* AAPLViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = D85992F81B61868800AF167E /* AAPLViewController.h */; };
+		D85992FF1B61868800AF167E /* AAPLViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = D85992F91B61868800AF167E /* AAPLViewController.mm */; };
+		D86ADF991B6186D600994B06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D86ADF981B6186D600994B06 /* Main.storyboard */; };
+		D86ADF9E1B6186EA00994B06 /* AAPLRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D86ADF9A1B6186EA00994B06 /* AAPLRenderer.h */; };
+		D86ADF9F1B6186EA00994B06 /* AAPLRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86ADF9B1B6186EA00994B06 /* AAPLRenderer.mm */; };
+		D86ADFA01B6186EA00994B06 /* AAPLSharedTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = D86ADF9C1B6186EA00994B06 /* AAPLSharedTypes.h */; };
+		D86ADFA11B6186EA00994B06 /* shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = D86ADF9D1B6186EA00994B06 /* shaders.metal */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		6218D85B19AFB63A005BC8AB /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LaunchScreen.xib; sourceTree = "<group>"; };
-		622A9B5E19A97B0A007F8120 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
-		623F27DB19340FA2000FA88C /* shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; path = shaders.metal; sourceTree = "<group>"; };
 		626C60B31932F12C007A3E00 /* 01_Basic3D.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 01_Basic3D.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		626C60B71932F12C007A3E00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		626C60C81932F12C007A3E00 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		626C60DE1932F14E007A3E00 /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		626C60E41932F165007A3E00 /* AAPLAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLAppDelegate.h; sourceTree = "<group>"; };
-		626C60E51932F165007A3E00 /* AAPLAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AAPLAppDelegate.mm; sourceTree = "<group>"; };
-		626C60E61932F165007A3E00 /* AAPLRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLRenderer.h; sourceTree = "<group>"; };
-		626C60E71932F165007A3E00 /* AAPLRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AAPLRenderer.mm; sourceTree = "<group>"; };
-		626C60E81932F165007A3E00 /* AAPLSharedTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLSharedTypes.h; sourceTree = "<group>"; };
-		626C60E91932F165007A3E00 /* AAPLTransforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLTransforms.h; sourceTree = "<group>"; };
-		626C60EA1932F165007A3E00 /* AAPLTransforms.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AAPLTransforms.mm; sourceTree = "<group>"; };
-		626C60EB1932F165007A3E00 /* AAPLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLView.h; sourceTree = "<group>"; };
-		626C60EC1932F165007A3E00 /* AAPLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AAPLView.mm; sourceTree = "<group>"; };
-		626C60ED1932F165007A3E00 /* AAPLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AAPLViewController.h; sourceTree = "<group>"; };
-		626C60EE1932F165007A3E00 /* AAPLViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = AAPLViewController.mm; sourceTree = "<group>"; };
 		626C61081932F259007A3E00 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		626C610A1932F25E007A3E00 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D85992E81B61861C00AF167E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = src/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		D85992E91B61861C00AF167E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = src/Info.plist; sourceTree = SOURCE_ROOT; };
+		D85992EA1B61861C00AF167E /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = src/LaunchScreen.xib; sourceTree = SOURCE_ROOT; };
+		D85992EB1B61861C00AF167E /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = src/main.m; sourceTree = SOURCE_ROOT; };
+		D85992F01B61864A00AF167E /* AAPLTransforms.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPLTransforms.h; path = src/common/math/AAPLTransforms.h; sourceTree = SOURCE_ROOT; };
+		D85992F11B61864A00AF167E /* AAPLTransforms.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AAPLTransforms.mm; path = src/common/math/AAPLTransforms.mm; sourceTree = SOURCE_ROOT; };
+		D85992F41B61868800AF167E /* AAPLAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPLAppDelegate.h; path = src/common/app/AAPLAppDelegate.h; sourceTree = SOURCE_ROOT; };
+		D85992F51B61868800AF167E /* AAPLAppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AAPLAppDelegate.mm; path = src/common/app/AAPLAppDelegate.mm; sourceTree = SOURCE_ROOT; };
+		D85992F61B61868800AF167E /* AAPLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPLView.h; path = src/common/app/AAPLView.h; sourceTree = SOURCE_ROOT; };
+		D85992F71B61868800AF167E /* AAPLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AAPLView.mm; path = src/common/app/AAPLView.mm; sourceTree = SOURCE_ROOT; };
+		D85992F81B61868800AF167E /* AAPLViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPLViewController.h; path = src/common/app/AAPLViewController.h; sourceTree = SOURCE_ROOT; };
+		D85992F91B61868800AF167E /* AAPLViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AAPLViewController.mm; path = src/common/app/AAPLViewController.mm; sourceTree = SOURCE_ROOT; };
+		D86ADF981B6186D600994B06 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = src/common/app/Main.storyboard; sourceTree = SOURCE_ROOT; };
+		D86ADF9A1B6186EA00994B06 /* AAPLRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPLRenderer.h; path = src/AAPLRenderer.h; sourceTree = SOURCE_ROOT; };
+		D86ADF9B1B6186EA00994B06 /* AAPLRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AAPLRenderer.mm; path = src/AAPLRenderer.mm; sourceTree = SOURCE_ROOT; };
+		D86ADF9C1B6186EA00994B06 /* AAPLSharedTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPLSharedTypes.h; path = src/AAPLSharedTypes.h; sourceTree = SOURCE_ROOT; };
+		D86ADF9D1B6186EA00994B06 /* shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = shaders.metal; path = src/shaders.metal; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,7 +67,6 @@
 			isa = PBXGroup;
 			children = (
 				629ADF531933EBBC00DEFFB1 /* App */,
-				629ADF551933EBD800DEFFB1 /* Math */,
 			);
 			name = Common;
 			sourceTree = "<group>";
@@ -75,7 +74,7 @@
 		626C60A91932F12C007A3E00 = {
 			isa = PBXGroup;
 			children = (
-				626C60B51932F12C007A3E00 /* MetalBasic3D */,
+				626C60B51932F12C007A3E00 /* 01_Basic3D */,
 				626C60B41932F12C007A3E00 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,7 +87,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		626C60B51932F12C007A3E00 /* MetalBasic3D */ = {
+		626C60B51932F12C007A3E00 /* 01_Basic3D */ = {
 			isa = PBXGroup;
 			children = (
 				629ADF541933EBD100DEFFB1 /* Renderer */,
@@ -96,16 +95,17 @@
 				626C60B61932F12C007A3E00 /* Supporting Files */,
 				626C610C1932F266007A3E00 /* Frameworks */,
 			);
+			name = 01_Basic3D;
 			path = MetalBasic3D;
 			sourceTree = "<group>";
 		};
 		626C60B61932F12C007A3E00 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6218D85B19AFB63A005BC8AB /* LaunchScreen.xib */,
-				626C60C81932F12C007A3E00 /* Images.xcassets */,
-				626C60DE1932F14E007A3E00 /* main.m */,
-				626C60B71932F12C007A3E00 /* Info.plist */,
+				D85992E81B61861C00AF167E /* Images.xcassets */,
+				D85992E91B61861C00AF167E /* Info.plist */,
+				D85992EA1B61861C00AF167E /* LaunchScreen.xib */,
+				D85992EB1B61861C00AF167E /* main.m */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -123,13 +123,14 @@
 		629ADF531933EBBC00DEFFB1 /* App */ = {
 			isa = PBXGroup;
 			children = (
-				626C60E41932F165007A3E00 /* AAPLAppDelegate.h */,
-				626C60E51932F165007A3E00 /* AAPLAppDelegate.mm */,
-				626C60EB1932F165007A3E00 /* AAPLView.h */,
-				626C60EC1932F165007A3E00 /* AAPLView.mm */,
-				626C60ED1932F165007A3E00 /* AAPLViewController.h */,
-				626C60EE1932F165007A3E00 /* AAPLViewController.mm */,
-				622A9B5E19A97B0A007F8120 /* Main.storyboard */,
+				D86ADF981B6186D600994B06 /* Main.storyboard */,
+				D85992F41B61868800AF167E /* AAPLAppDelegate.h */,
+				D85992F51B61868800AF167E /* AAPLAppDelegate.mm */,
+				D85992F61B61868800AF167E /* AAPLView.h */,
+				D85992F71B61868800AF167E /* AAPLView.mm */,
+				D85992F81B61868800AF167E /* AAPLViewController.h */,
+				D85992F91B61868800AF167E /* AAPLViewController.mm */,
+				629ADF551933EBD800DEFFB1 /* Math */,
 			);
 			name = App;
 			sourceTree = "<group>";
@@ -137,10 +138,10 @@
 		629ADF541933EBD100DEFFB1 /* Renderer */ = {
 			isa = PBXGroup;
 			children = (
-				626C60E61932F165007A3E00 /* AAPLRenderer.h */,
-				626C60E71932F165007A3E00 /* AAPLRenderer.mm */,
-				626C60E81932F165007A3E00 /* AAPLSharedTypes.h */,
-				623F27DB19340FA2000FA88C /* shaders.metal */,
+				D86ADF9A1B6186EA00994B06 /* AAPLRenderer.h */,
+				D86ADF9B1B6186EA00994B06 /* AAPLRenderer.mm */,
+				D86ADF9C1B6186EA00994B06 /* AAPLSharedTypes.h */,
+				D86ADF9D1B6186EA00994B06 /* shaders.metal */,
 			);
 			name = Renderer;
 			sourceTree = "<group>";
@@ -148,8 +149,8 @@
 		629ADF551933EBD800DEFFB1 /* Math */ = {
 			isa = PBXGroup;
 			children = (
-				626C60E91932F165007A3E00 /* AAPLTransforms.h */,
-				626C60EA1932F165007A3E00 /* AAPLTransforms.mm */,
+				D85992F01B61864A00AF167E /* AAPLTransforms.h */,
+				D85992F11B61864A00AF167E /* AAPLTransforms.mm */,
 			);
 			name = Math;
 			sourceTree = "<group>";
@@ -161,12 +162,12 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				626C60F01932F165007A3E00 /* AAPLAppDelegate.h in Headers */,
-				626C60F91932F165007A3E00 /* AAPLViewController.h in Headers */,
-				626C60F41932F165007A3E00 /* AAPLSharedTypes.h in Headers */,
-				626C60F21932F165007A3E00 /* AAPLRenderer.h in Headers */,
-				626C60F51932F165007A3E00 /* AAPLTransforms.h in Headers */,
-				626C60F71932F165007A3E00 /* AAPLView.h in Headers */,
+				D85992F21B61864A00AF167E /* AAPLTransforms.h in Headers */,
+				D86ADFA01B6186EA00994B06 /* AAPLSharedTypes.h in Headers */,
+				D85992FC1B61868800AF167E /* AAPLView.h in Headers */,
+				D86ADF9E1B6186EA00994B06 /* AAPLRenderer.h in Headers */,
+				D85992FA1B61868800AF167E /* AAPLAppDelegate.h in Headers */,
+				D85992FE1B61868800AF167E /* AAPLViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,10 +229,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6218D85C19AFB63A005BC8AB /* LaunchScreen.xib in Resources */,
-				622A9B5F19A97B0A007F8120 /* Main.storyboard in Resources */,
-				623F27DC19340FA2000FA88C /* shaders.metal in Resources */,
-				626C60C91932F12C007A3E00 /* Images.xcassets in Resources */,
+				D85992EE1B61861C00AF167E /* LaunchScreen.xib in Resources */,
+				D86ADF991B6186D600994B06 /* Main.storyboard in Resources */,
+				D85992EC1B61861C00AF167E /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -242,12 +242,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				626C60F11932F165007A3E00 /* AAPLAppDelegate.mm in Sources */,
-				626C60F81932F165007A3E00 /* AAPLView.mm in Sources */,
-				626C60F31932F165007A3E00 /* AAPLRenderer.mm in Sources */,
-				626C60F61932F165007A3E00 /* AAPLTransforms.mm in Sources */,
-				626C60FA1932F165007A3E00 /* AAPLViewController.mm in Sources */,
-				626C60DF1932F14E007A3E00 /* main.m in Sources */,
+				D86ADFA11B6186EA00994B06 /* shaders.metal in Sources */,
+				D85992FF1B61868800AF167E /* AAPLViewController.mm in Sources */,
+				D86ADF9F1B6186EA00994B06 /* AAPLRenderer.mm in Sources */,
+				D85992FB1B61868800AF167E /* AAPLAppDelegate.mm in Sources */,
+				D85992F31B61864A00AF167E /* AAPLTransforms.mm in Sources */,
+				D85992FD1B61868800AF167E /* AAPLView.mm in Sources */,
+				D85992EF1B61861C00AF167E /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,7 +345,7 @@
 				CLANG_MODULES_AUTOLINK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = MetalBasic3D/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/src/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = 01_Basic3D;
 				PROVISIONING_PROFILE = "";
@@ -360,7 +361,7 @@
 				CLANG_MODULES_AUTOLINK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				INFOPLIST_FILE = MetalBasic3D/Info.plist;
+				INFOPLIST_FILE = "$(SRCROOT)/src/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = 01_Basic3D;
 				PROVISIONING_PROFILE = "";
