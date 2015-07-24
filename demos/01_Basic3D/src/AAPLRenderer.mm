@@ -94,7 +94,6 @@ static const float kCubeVertexData[] =
     id <MTLDevice> _device;
     id <MTLCommandQueue> _commandQueue;
     id <MTLLibrary> _defaultLibrary;
-    id <MTLRenderPipelineState> _pipelineState;
     id <MTLBuffer> _vertexBuffer;
     id <MTLDepthStencilState> _depthState;
     
@@ -109,6 +108,8 @@ static const float kCubeVertexData[] =
     // this value will cycle from 0 to g_max_inflight_buffers whenever a display completes ensuring renderer clients
     // can synchronize between g_max_inflight_buffers count buffers, and thus avoiding a constant buffer from being overwritten between draws
     NSUInteger _constantDataBufferIndex;
+    
+    Pipeline* _defaultPipeline;
 }
 
 - (instancetype)init
@@ -188,31 +189,17 @@ static const float kCubeVertexData[] =
 
 - (BOOL)preparePipelineState:(AAPLView *)view
 {
+    MTLRenderPipelineDescriptor *renderpassPipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
+    renderpassPipelineDescriptor.sampleCount = view.sampleCount;
+    renderpassPipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
+    renderpassPipelineDescriptor.depthAttachmentPixelFormat = view.depthPixelFormat;
+    
     Effect* effect = [[Effect alloc]initWithLibrary:_defaultLibrary vertexName:@"lighting_vertex" fragmentName:@"lighting_fragment"];
+    _defaultPipeline = [[Pipeline alloc]initWithPipeline:_device templatePipelineDesc:renderpassPipelineDescriptor effect:effect];
     
     // setup the vertex buffers
     _vertexBuffer = [_device newBufferWithBytes:kCubeVertexData length:sizeof(kCubeVertexData) options:MTLResourceOptionCPUCacheModeDefault];
     _vertexBuffer.label = @"Vertices";
-    
-    // create a pipeline state descriptor which can be used to create a compiled pipeline state object
-    MTLRenderPipelineDescriptor *pipelineStateDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
-    
-    pipelineStateDescriptor.label                           = @"MyPipeline";
-    pipelineStateDescriptor.sampleCount                     = view.sampleCount;
-    pipelineStateDescriptor.vertexFunction                  = effect.vertexProgram;
-    pipelineStateDescriptor.fragmentFunction                = effect.fragmentProgram;
-    pipelineStateDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
-    pipelineStateDescriptor.depthAttachmentPixelFormat      = view.depthPixelFormat;
-    
-    // create a compiled pipeline state object. Shader functions (from the render pipeline descriptor)
-    // are compiled when this is created unlessed they are obtained from the device's cache
-    NSError *error = nil;
-    _pipelineState = [_device newRenderPipelineStateWithDescriptor:pipelineStateDescriptor error:&error];
-    if(!_pipelineState) {
-        NSLog(@">> ERROR: Failed Aquiring pipeline state: %@", error);
-        return NO;
-    }
-    
     return YES;
 }
 
@@ -238,7 +225,7 @@ static const float kCubeVertexData[] =
         id <MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
         [renderEncoder pushDebugGroup:@"Boxes"];
         [renderEncoder setDepthStencilState:_depthState];
-        [renderEncoder setRenderPipelineState:_pipelineState];
+        [renderEncoder setRenderPipelineState:_defaultPipeline.state];
         [renderEncoder setVertexBuffer:_vertexBuffer offset:0 atIndex:0 ];
         
         for (int i = 0; i < kNumberOfBoxes; i++) {

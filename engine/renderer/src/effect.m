@@ -15,3 +15,24 @@
     return self;
 }
 @end
+
+@implementation Pipeline: NSObject {
+}
+- (id)initWithPipeline: (id <MTLDevice>)device templatePipelineDesc: (MTLRenderPipelineDescriptor*)templatePipelineDesc effect: (Effect*)effect {
+    if (self = [super init]) {
+        MTLRenderPipelineDescriptor *pipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
+        pipelineDescriptor.sampleCount                     = templatePipelineDesc.sampleCount;
+        pipelineDescriptor.vertexFunction                  = effect.vertexProgram;
+        pipelineDescriptor.fragmentFunction                = effect.fragmentProgram;
+        pipelineDescriptor.colorAttachments[0].pixelFormat = templatePipelineDesc.colorAttachments[0].pixelFormat;
+        pipelineDescriptor.depthAttachmentPixelFormat      = templatePipelineDesc.depthAttachmentPixelFormat;
+        
+        NSError *error = nil;
+        _state = [device newRenderPipelineStateWithDescriptor:pipelineDescriptor error:&error];
+        if(!_state) {
+            NSLog(@">> ERROR: Failed Aquiring pipeline state: %@", error);
+        }
+    }
+    return self;
+}
+@end

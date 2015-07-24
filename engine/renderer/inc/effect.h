@@ -8,3 +8,10 @@
 
 - (id)initWithLibrary: (id<MTLLibrary>)library vertexName: (NSString*)vertexName fragmentName: (NSString*)fragmentName;
 @end
+
+@interface Pipeline: NSObject {
+}
+@property (nonatomic, readonly) id <MTLRenderPipelineState> state;
+
+- (id)initWithPipeline: (id <MTLDevice>)device templatePipelineDesc: (MTLRenderPipelineDescriptor*)templatePipelineDesc effect: (Effect*)effect;
+@end
