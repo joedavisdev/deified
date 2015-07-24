@@ -12,7 +12,7 @@
 #import "AAPLTransforms.h"
 #import "AAPLSharedTypes.h"
 
-#import "effect.h"
+#import "pipeline.h"
 
 using namespace AAPL;
 using namespace simd;

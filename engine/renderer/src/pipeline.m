@@ -1,4 +1,4 @@
-#import "effect.h"
+#import "pipeline.h"
 
 @implementation Effect {
 }
