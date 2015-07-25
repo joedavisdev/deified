@@ -15,6 +15,7 @@
 #import "pipeline.h"
 
 using namespace AAPL;
+using namespace JMD;
 using namespace simd;
 
 static const long kInFlightCommandBuffers = 3;
@@ -117,7 +118,7 @@ static const float kCubeVertexData[] =
     self = [super init];
     if (self) {
         
-        _sizeOfConstantT = sizeof(constants_t);
+        _sizeOfConstantT = sizeof(UB::CubeLighting);
         _maxBufferBytesPerFrame = _sizeOfConstantT*kNumberOfBoxes;
         _constantDataBufferIndex = 0;
         _inflight_semaphore = dispatch_semaphore_create(kInFlightCommandBuffers);
@@ -170,7 +171,7 @@ static const float kCubeVertexData[] =
         
         // write initial color values for both cubes (at each offset).
         // Note, these will get animated during update
-        constants_t *constant_buffer = (constants_t *)[_dynamicConstantBuffer[i] contents];
+        UB::CubeLighting *constant_buffer = (UB::CubeLighting *)[_dynamicConstantBuffer[i] contents];
         for (int j = 0; j < kNumberOfBoxes; j++)
         {
             if (j%2==0) {
@@ -278,7 +279,7 @@ static const float kCubeVertexData[] =
     float4x4 baseModelViewMatrix = translate(0.0f, 0.0f, 5.0f) * rotate(_rotation, 1.0f, 1.0f, 1.0f);
     baseModelViewMatrix = _viewMatrix * baseModelViewMatrix;
     
-    constants_t *constant_buffer = (constants_t *)[_dynamicConstantBuffer[_constantDataBufferIndex] contents];
+    UB::CubeLighting *constant_buffer = (UB::CubeLighting *)[_dynamicConstantBuffer[_constantDataBufferIndex] contents];
     for (int i = 0; i < kNumberOfBoxes; i++)
     {
         // calculate the Model view projection matrix of each box

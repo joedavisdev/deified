@@ -11,6 +11,7 @@
 #include "AAPLSharedTypes.h"
 
 using namespace metal;
+using namespace JMD;
 
 // variables in constant address space
 constant float3 light_position = float3(0.0, 1.0, -1.0);
@@ -28,7 +29,7 @@ struct ColorInOut {
 
 // vertex shader function
 vertex ColorInOut lighting_vertex(device vertex_t* vertex_array [[ buffer(0) ]],
-                                  constant AAPL::constants_t& constants [[ buffer(1) ]],
+                                  constant UB::CubeLighting& constants [[ buffer(1) ]],
                                   unsigned int vid [[ vertex_id ]])
 {
     ColorInOut out;
