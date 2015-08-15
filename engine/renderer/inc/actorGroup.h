@@ -3,17 +3,17 @@
 #import "mesh.h"
 #import "pipeline.h"
 
-// TODO: Make Actor a C++ API independant class
-@interface Actor : NSObject {
+// TODO: Make Object a C++ API independant class
+@interface Object : NSObject {
 }
 //@property (nonatomic, readonly) float4 position;
 //@property (nonatomic, readonly) float4 rotation;
-@endx
+@end
 
 @interface ActorGroup : NSObject {
 }
 @property (nonatomic, readonly) Mesh* mesh;
-@property (nonatomic, readonly) NSMutableArray* actorPtrs;
+@property (nonatomic, readonly) NSMutableArray* objectPtrs;
 @end
 
 @interface ConstantBufferGroup : NSObject {

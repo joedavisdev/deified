@@ -2,13 +2,13 @@
 
 #import "AAPLSharedTypes.h"
 
-@implementation Actor : NSObject {
+@implementation Object : NSObject {
 }
 @end
 
 @implementation ActorGroup : NSObject {
 }
-@end
+@end 
 
 @implementation ConstantBufferGroup : NSObject {
 }
