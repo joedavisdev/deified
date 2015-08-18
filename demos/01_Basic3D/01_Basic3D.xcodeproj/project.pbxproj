@@ -11,6 +11,8 @@
 		626C610B1932F25E007A3E00 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626C610A1932F25E007A3E00 /* QuartzCore.framework */; };
 		D80CB8251B7D32750070AB3F /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D80CB8241B7D32750070AB3F /* mesh.h */; };
 		D80CB8271B7D328A0070AB3F /* mesh.m in Sources */ = {isa = PBXBuildFile; fileRef = D80CB8261B7D328A0070AB3F /* mesh.m */; };
+		D831D7AE1B83CC110047B3B2 /* body.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D831D7AD1B83CC110047B3B2 /* body.hpp */; };
+		D831D7B01B83CC180047B3B2 /* body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D831D7AF1B83CC180047B3B2 /* body.cpp */; };
 		D85992EC1B61861C00AF167E /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D85992E81B61861C00AF167E /* Images.xcassets */; };
 		D85992EE1B61861C00AF167E /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D85992EA1B61861C00AF167E /* LaunchScreen.xib */; };
 		D85992EF1B61861C00AF167E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = D85992EB1B61861C00AF167E /* main.m */; };
@@ -39,6 +41,8 @@
 		626C610A1932F25E007A3E00 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		D80CB8241B7D32750070AB3F /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mesh.h; path = ../../../../../Code/projects/metal/engine/renderer/inc/mesh.h; sourceTree = "<group>"; };
 		D80CB8261B7D328A0070AB3F /* mesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = mesh.m; path = ../../../../../Code/projects/metal/engine/renderer/src/mesh.m; sourceTree = "<group>"; };
+		D831D7AD1B83CC110047B3B2 /* body.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = body.hpp; path = ../../../../../Code/projects/metal/engine/core/inc/body.hpp; sourceTree = "<group>"; };
+		D831D7AF1B83CC180047B3B2 /* body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = body.cpp; path = ../../../../../Code/projects/metal/engine/core/src/body.cpp; sourceTree = "<group>"; };
 		D85992E81B61861C00AF167E /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = src/Images.xcassets; sourceTree = SOURCE_ROOT; };
 		D85992E91B61861C00AF167E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = src/Info.plist; sourceTree = SOURCE_ROOT; };
 		D85992EA1B61861C00AF167E /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = src/LaunchScreen.xib; sourceTree = SOURCE_ROOT; };
@@ -171,6 +175,7 @@
 		D86ADFA31B61888300994B06 /* engine */ = {
 			isa = PBXGroup;
 			children = (
+				D8B684941B83AAB100E00989 /* core */,
 				D86ADFA41B61888300994B06 /* renderer */,
 			);
 			name = engine;
@@ -190,6 +195,15 @@
 			path = renderer;
 			sourceTree = "<group>";
 		};
+		D8B684941B83AAB100E00989 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				D831D7AD1B83CC110047B3B2 /* body.hpp */,
+				D831D7AF1B83CC180047B3B2 /* body.cpp */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -197,6 +211,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D831D7AE1B83CC110047B3B2 /* body.hpp in Headers */,
 				D85992F21B61864A00AF167E /* AAPLTransforms.h in Headers */,
 				D86ADFA01B6186EA00994B06 /* AAPLSharedTypes.h in Headers */,
 				D85992FC1B61868800AF167E /* AAPLView.h in Headers */,
@@ -282,6 +297,7 @@
 			files = (
 				D80CB8271B7D328A0070AB3F /* mesh.m in Sources */,
 				D89A0A5A1B62E50700A98512 /* actorGroup.m in Sources */,
+				D831D7B01B83CC180047B3B2 /* body.cpp in Sources */,
 				D86ADFA11B6186EA00994B06 /* shaders.metal in Sources */,
 				D85992FF1B61868800AF167E /* AAPLViewController.mm in Sources */,
 				D86ADF9F1B6186EA00994B06 /* AAPLRenderer.mm in Sources */,
