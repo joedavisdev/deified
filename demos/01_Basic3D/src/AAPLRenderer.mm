@@ -13,6 +13,9 @@
 #import "AAPLSharedTypes.h"
 
 #import "pipeline.h"
+#import "mesh.h"
+
+#include "body.hpp"
 
 using namespace AAPL;
 using namespace JMD;
@@ -95,7 +98,6 @@ static const float kCubeVertexData[] =
     id <MTLDevice> _device;
     id <MTLCommandQueue> _commandQueue;
     id <MTLLibrary> _defaultLibrary;
-    id <MTLBuffer> _vertexBuffer;
     id <MTLDepthStencilState> _depthState;
     
     // globals used in update calculation
@@ -111,6 +113,8 @@ static const float kCubeVertexData[] =
     NSUInteger _constantDataBufferIndex;
     
     Pipeline* _defaultPipeline;
+    Mesh* _cubeMesh;
+    demo::Body cubes[2];
 }
 
 - (instancetype)init
@@ -199,8 +203,7 @@ static const float kCubeVertexData[] =
     _defaultPipeline = [[Pipeline alloc]initWithPipeline:_device templatePipelineDesc:renderpassPipelineDescriptor effect:effect];
     
     // setup the vertex buffers
-    _vertexBuffer = [_device newBufferWithBytes:kCubeVertexData length:sizeof(kCubeVertexData) options:MTLResourceOptionCPUCacheModeDefault];
-    _vertexBuffer.label = @"Vertices";
+    _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:kCubeVertexData vertexBufferLength:sizeof(kCubeVertexData) indexBuffer:nil indexBufferLength:0];
     return YES;
 }
 
@@ -227,7 +230,7 @@ static const float kCubeVertexData[] =
         [renderEncoder pushDebugGroup:@"Boxes"];
         [renderEncoder setDepthStencilState:_depthState];
         [renderEncoder setRenderPipelineState:_defaultPipeline.state];
-        [renderEncoder setVertexBuffer:_vertexBuffer offset:0 atIndex:0 ];
+        [renderEncoder setVertexBuffer:_cubeMesh.vertexBuffer offset:0 atIndex:0 ];
         
         for (int i = 0; i < kNumberOfBoxes; i++) {
             //  set constant buffer for each box
