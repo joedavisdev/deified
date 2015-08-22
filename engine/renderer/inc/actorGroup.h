@@ -6,8 +6,8 @@
 @interface ActorGroup : NSObject {
 }
 @property (nonatomic, readonly) Mesh* mesh;
-@property (nonatomic, readonly) NSMutableArray* bodyPtrs;
-- (id)initWithMeshAndBodies: (Mesh*)mesh bodies: (NSMutableArray*)bodies;
+@property (nonatomic, readonly) void* bodyPtrs;
+- (id)initWithMeshAndBodies: (Mesh*)mesh bodies: (const void*)bodies numberOfBodies:(NSUInteger)numberOfBodies;
 @end
 
 @interface ConstantBufferGroup : NSObject {

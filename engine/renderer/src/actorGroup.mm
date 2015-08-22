@@ -1,13 +1,15 @@
 #import "actorGroup.h"
-
 #import "AAPLSharedTypes.h"
+
+#include "body.hpp"
 
 @implementation ActorGroup : NSObject {
 }
-- (id)initWithMeshAndBodies: (Mesh*)mesh bodies: (NSMutableArray*)bodies {
+- (id)initWithMeshAndBodies: (Mesh*)mesh bodies: (const void*)bodies numberOfBodies:(NSUInteger)numberOfBodies {
     if(self = [super init]) {
         _mesh = mesh;
-        _bodyPtrs = [[NSMutableArray alloc]initWithArray:bodies];
+        _bodyPtrs = new void*[numberOfBodies];
+        memcpy(_bodyPtrs, bodies, numberOfBodies);
     }
     return self;
 }
@@ -22,4 +24,4 @@
     }
     return self;
 }
-@end
+@end 

@@ -32,7 +32,7 @@
 		D89A0A541B62DDA000A98512 /* pipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = D89A0A531B62DDA000A98512 /* pipeline.h */; };
 		D89A0A561B62DDA700A98512 /* pipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = D89A0A551B62DDA700A98512 /* pipeline.m */; };
 		D89A0A581B62E4FA00A98512 /* actorGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D89A0A571B62E4FA00A98512 /* actorGroup.h */; };
-		D89A0A5A1B62E50700A98512 /* actorGroup.m in Sources */ = {isa = PBXBuildFile; fileRef = D89A0A591B62E50700A98512 /* actorGroup.m */; };
+		D89A0A5A1B62E50700A98512 /* actorGroup.mm in Sources */ = {isa = PBXBuildFile; fileRef = D89A0A591B62E50700A98512 /* actorGroup.mm */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,7 +63,7 @@
 		D89A0A531B62DDA000A98512 /* pipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pipeline.h; path = ../../../../../Code/projects/metal/engine/renderer/inc/pipeline.h; sourceTree = "<group>"; };
 		D89A0A551B62DDA700A98512 /* pipeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = pipeline.m; path = ../../../../../Code/projects/metal/engine/renderer/src/pipeline.m; sourceTree = "<group>"; };
 		D89A0A571B62E4FA00A98512 /* actorGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = actorGroup.h; path = ../../../../../Code/projects/metal/engine/renderer/inc/actorGroup.h; sourceTree = "<group>"; };
-		D89A0A591B62E50700A98512 /* actorGroup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = actorGroup.m; path = ../../../../../Code/projects/metal/engine/renderer/src/actorGroup.m; sourceTree = "<group>"; };
+		D89A0A591B62E50700A98512 /* actorGroup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = actorGroup.mm; path = ../../../../../Code/projects/metal/engine/renderer/src/actorGroup.mm; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -186,7 +186,7 @@
 			isa = PBXGroup;
 			children = (
 				D89A0A571B62E4FA00A98512 /* actorGroup.h */,
-				D89A0A591B62E50700A98512 /* actorGroup.m */,
+				D89A0A591B62E50700A98512 /* actorGroup.mm */,
 				D80CB8241B7D32750070AB3F /* mesh.h */,
 				D80CB8261B7D328A0070AB3F /* mesh.m */,
 				D89A0A531B62DDA000A98512 /* pipeline.h */,
@@ -296,7 +296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D80CB8271B7D328A0070AB3F /* mesh.m in Sources */,
-				D89A0A5A1B62E50700A98512 /* actorGroup.m in Sources */,
+				D89A0A5A1B62E50700A98512 /* actorGroup.mm in Sources */,
 				D831D7B01B83CC180047B3B2 /* body.cpp in Sources */,
 				D86ADFA11B6186EA00994B06 /* shaders.metal in Sources */,
 				D85992FF1B61868800AF167E /* AAPLViewController.mm in Sources */,

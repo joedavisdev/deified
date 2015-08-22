@@ -14,6 +14,7 @@
 
 #import "pipeline.h"
 #import "mesh.h"
+#import "actorGroup.h"
 
 #include "body.hpp"
 
@@ -114,7 +115,8 @@ static const float kCubeVertexData[] =
     
     Pipeline* _defaultPipeline;
     Mesh* _cubeMesh;
-    demo::Body cubes[2];
+    demo::Body* _cubeBodies;
+    ActorGroup* _cubeActorGroup;
 }
 
 - (instancetype)init
@@ -159,6 +161,9 @@ static const float kCubeVertexData[] =
         // cannot render anything without a valid compiled pipeline state object.
         assert(0);
     }
+    _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:kCubeVertexData vertexBufferLength:sizeof(kCubeVertexData) indexBuffer:nil indexBufferLength:0];
+    _cubeActorGroup = [[ActorGroup alloc]initWithMeshAndBodies:_cubeMesh bodies:_cubeBodies numberOfBodies:sizeof(_cubeBodies)];
+    
     
     MTLDepthStencilDescriptor *depthStateDesc = [[MTLDepthStencilDescriptor alloc] init];
     depthStateDesc.depthCompareFunction = MTLCompareFunctionLess;
@@ -201,9 +206,6 @@ static const float kCubeVertexData[] =
     
     Effect* effect = [[Effect alloc]initWithLibrary:_defaultLibrary vertexName:@"lighting_vertex" fragmentName:@"lighting_fragment"];
     _defaultPipeline = [[Pipeline alloc]initWithPipeline:_device templatePipelineDesc:renderpassPipelineDescriptor effect:effect];
-    
-    // setup the vertex buffers
-    _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:kCubeVertexData vertexBufferLength:sizeof(kCubeVertexData) indexBuffer:nil indexBufferLength:0];
     return YES;
 }
 
