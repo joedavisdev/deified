@@ -13,8 +13,13 @@
 #import "AAPLSharedTypes.h"
 
 #import "pipeline.h"
+#import "mesh.h"
+#import "actorGroup.h"
+
+#include "body.hpp"
 
 using namespace AAPL;
+using namespace JMD;
 using namespace simd;
 
 static const long kInFlightCommandBuffers = 3;
@@ -94,7 +99,6 @@ static const float kCubeVertexData[] =
     id <MTLDevice> _device;
     id <MTLCommandQueue> _commandQueue;
     id <MTLLibrary> _defaultLibrary;
-    id <MTLBuffer> _vertexBuffer;
     id <MTLDepthStencilState> _depthState;
     
     // globals used in update calculation
@@ -110,6 +114,9 @@ static const float kCubeVertexData[] =
     NSUInteger _constantDataBufferIndex;
     
     Pipeline* _defaultPipeline;
+    Mesh* _cubeMesh;
+    demo::Body* _cubeBodies;
+    ActorGroup* _cubeActorGroup;
 }
 
 - (instancetype)init
@@ -117,7 +124,7 @@ static const float kCubeVertexData[] =
     self = [super init];
     if (self) {
         
-        _sizeOfConstantT = sizeof(constants_t);
+        _sizeOfConstantT = sizeof(UB::CubeLighting);
         _maxBufferBytesPerFrame = _sizeOfConstantT*kNumberOfBoxes;
         _constantDataBufferIndex = 0;
         _inflight_semaphore = dispatch_semaphore_create(kInFlightCommandBuffers);
@@ -154,6 +161,9 @@ static const float kCubeVertexData[] =
         // cannot render anything without a valid compiled pipeline state object.
         assert(0);
     }
+    _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:kCubeVertexData vertexBufferLength:sizeof(kCubeVertexData) indexBuffer:nil indexBufferLength:0];
+    _cubeActorGroup = [[ActorGroup alloc]initWithMeshAndBodies:_cubeMesh bodies:_cubeBodies numberOfBodies:sizeof(_cubeBodies)];
+    
     
     MTLDepthStencilDescriptor *depthStateDesc = [[MTLDepthStencilDescriptor alloc] init];
     depthStateDesc.depthCompareFunction = MTLCompareFunctionLess;
@@ -170,7 +180,7 @@ static const float kCubeVertexData[] =
         
         // write initial color values for both cubes (at each offset).
         // Note, these will get animated during update
-        constants_t *constant_buffer = (constants_t *)[_dynamicConstantBuffer[i] contents];
+        UB::CubeLighting *constant_buffer = (UB::CubeLighting *)[_dynamicConstantBuffer[i] contents];
         for (int j = 0; j < kNumberOfBoxes; j++)
         {
             if (j%2==0) {
@@ -196,10 +206,6 @@ static const float kCubeVertexData[] =
     
     Effect* effect = [[Effect alloc]initWithLibrary:_defaultLibrary vertexName:@"lighting_vertex" fragmentName:@"lighting_fragment"];
     _defaultPipeline = [[Pipeline alloc]initWithPipeline:_device templatePipelineDesc:renderpassPipelineDescriptor effect:effect];
-    
-    // setup the vertex buffers
-    _vertexBuffer = [_device newBufferWithBytes:kCubeVertexData length:sizeof(kCubeVertexData) options:MTLResourceOptionCPUCacheModeDefault];
-    _vertexBuffer.label = @"Vertices";
     return YES;
 }
 
@@ -226,7 +232,7 @@ static const float kCubeVertexData[] =
         [renderEncoder pushDebugGroup:@"Boxes"];
         [renderEncoder setDepthStencilState:_depthState];
         [renderEncoder setRenderPipelineState:_defaultPipeline.state];
-        [renderEncoder setVertexBuffer:_vertexBuffer offset:0 atIndex:0 ];
+        [renderEncoder setVertexBuffer:_cubeMesh.vertexBuffer offset:0 atIndex:0 ];
         
         for (int i = 0; i < kNumberOfBoxes; i++) {
             //  set constant buffer for each box
@@ -278,7 +284,7 @@ static const float kCubeVertexData[] =
     float4x4 baseModelViewMatrix = translate(0.0f, 0.0f, 5.0f) * rotate(_rotation, 1.0f, 1.0f, 1.0f);
     baseModelViewMatrix = _viewMatrix * baseModelViewMatrix;
     
-    constants_t *constant_buffer = (constants_t *)[_dynamicConstantBuffer[_constantDataBufferIndex] contents];
+    UB::CubeLighting *constant_buffer = (UB::CubeLighting *)[_dynamicConstantBuffer[_constantDataBufferIndex] contents];
     for (int i = 0; i < kNumberOfBoxes; i++)
     {
         // calculate the Model view projection matrix of each box
