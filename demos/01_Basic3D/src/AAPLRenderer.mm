@@ -205,7 +205,7 @@ static const float kCubeVertexData[] =
     renderpassPipelineDescriptor.depthAttachmentPixelFormat = view.depthPixelFormat;
     
     Effect* effect = [[Effect alloc]initWithLibrary:_defaultLibrary vertexName:@"lighting_vertex" fragmentName:@"lighting_fragment"];
-    _defaultPipeline = [[Pipeline alloc]initWithPipeline:_device templatePipelineDesc:renderpassPipelineDescriptor effect:effect];
+    _defaultPipeline = [[Pipeline alloc]initWithDescTemplate:_device templatePipelineDesc:renderpassPipelineDescriptor effect:effect];
     return YES;
 }
 

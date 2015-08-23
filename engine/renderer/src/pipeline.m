@@ -18,7 +18,7 @@
 
 @implementation Pipeline: NSObject {
 }
-- (id)initWithPipeline: (id <MTLDevice>)device templatePipelineDesc: (MTLRenderPipelineDescriptor*)templatePipelineDesc effect: (Effect*)effect {
+- (id)initWithDescTemplate: (id <MTLDevice>)device templatePipelineDesc: (MTLRenderPipelineDescriptor*)templatePipelineDesc effect: (Effect*)effect {
     if (self = [super init]) {
         MTLRenderPipelineDescriptor *pipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
         pipelineDescriptor.sampleCount                     = templatePipelineDesc.sampleCount;
