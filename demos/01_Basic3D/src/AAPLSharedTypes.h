@@ -1,20 +1,19 @@
-/*
- Copyright (C) 2015 Apple Inc. All Rights Reserved.
- See LICENSE.txt for this sample’s licensing information
- 
- Abstract:
- Shared data types between CPU code and metal shader code
- */
-
-#ifndef _AAPL_SHARED_TYPES_H_
-#define _AAPL_SHARED_TYPES_H_
-
+#pragma once
 #import <simd/simd.h>
 
 #ifdef __cplusplus
+#include <unordered_map>
+#include <string>
 
 namespace JMD {
     namespace UB { // Uniform block
+        enum Index {
+            CUBE_LIGHTING
+        };
+        std::unordered_map<std::string,int> IndexNames {
+            {"CubeLighting",CUBE_LIGHTING}
+        };
+
         struct CubeLighting {
             simd::float4x4 modelview_projection_matrix;
             simd::float4x4 normal_matrix;
@@ -24,7 +23,4 @@ namespace JMD {
         };
     }
 }
-
-#endif
-
 #endif
