@@ -79,12 +79,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		622A9BA319A983FC007F8120 /* Common */ = {
+		622A9BA319A983FC007F8120 /* common */ = {
 			isa = PBXGroup;
 			children = (
-				629ADF531933EBBC00DEFFB1 /* App */,
+				629ADF531933EBBC00DEFFB1 /* app */,
 			);
-			name = Common;
+			name = common;
 			sourceTree = "<group>";
 		};
 		626C60A91932F12C007A3E00 = {
@@ -107,8 +107,8 @@
 			isa = PBXGroup;
 			children = (
 				D86ADFA31B61888300994B06 /* engine */,
-				629ADF541933EBD100DEFFB1 /* Renderer */,
-				622A9BA319A983FC007F8120 /* Common */,
+				629ADF541933EBD100DEFFB1 /* demo */,
+				622A9BA319A983FC007F8120 /* common */,
 				626C60B61932F12C007A3E00 /* Supporting Files */,
 				626C610C1932F266007A3E00 /* Frameworks */,
 			);
@@ -137,7 +137,7 @@
 			path = ..;
 			sourceTree = "<group>";
 		};
-		629ADF531933EBBC00DEFFB1 /* App */ = {
+		629ADF531933EBBC00DEFFB1 /* app */ = {
 			isa = PBXGroup;
 			children = (
 				D86ADF981B6186D600994B06 /* Main.storyboard */,
@@ -147,12 +147,12 @@
 				D85992F71B61868800AF167E /* AAPLView.mm */,
 				D85992F81B61868800AF167E /* AAPLViewController.h */,
 				D85992F91B61868800AF167E /* AAPLViewController.mm */,
-				629ADF551933EBD800DEFFB1 /* Math */,
+				629ADF551933EBD800DEFFB1 /* math */,
 			);
-			name = App;
+			name = app;
 			sourceTree = "<group>";
 		};
-		629ADF541933EBD100DEFFB1 /* Renderer */ = {
+		629ADF541933EBD100DEFFB1 /* demo */ = {
 			isa = PBXGroup;
 			children = (
 				D86ADF9A1B6186EA00994B06 /* AAPLRenderer.h */,
@@ -160,16 +160,16 @@
 				D86ADF9C1B6186EA00994B06 /* AAPLSharedTypes.h */,
 				D86ADF9D1B6186EA00994B06 /* shaders.metal */,
 			);
-			name = Renderer;
+			name = demo;
 			sourceTree = "<group>";
 		};
-		629ADF551933EBD800DEFFB1 /* Math */ = {
+		629ADF551933EBD800DEFFB1 /* math */ = {
 			isa = PBXGroup;
 			children = (
 				D85992F01B61864A00AF167E /* AAPLTransforms.h */,
 				D85992F11B61864A00AF167E /* AAPLTransforms.mm */,
 			);
-			name = Math;
+			name = math;
 			sourceTree = "<group>";
 		};
 		D86ADFA31B61888300994B06 /* engine */ = {
