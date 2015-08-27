@@ -1,5 +1,4 @@
 #import "actorGroup.h"
-#import "AAPLSharedTypes.h"
 
 #include "body.hpp"
 

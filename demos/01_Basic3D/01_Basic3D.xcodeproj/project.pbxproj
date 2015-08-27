@@ -27,7 +27,7 @@
 		D86ADF991B6186D600994B06 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D86ADF981B6186D600994B06 /* Main.storyboard */; };
 		D86ADF9E1B6186EA00994B06 /* AAPLRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D86ADF9A1B6186EA00994B06 /* AAPLRenderer.h */; };
 		D86ADF9F1B6186EA00994B06 /* AAPLRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D86ADF9B1B6186EA00994B06 /* AAPLRenderer.mm */; };
-		D86ADFA01B6186EA00994B06 /* AAPLSharedTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = D86ADF9C1B6186EA00994B06 /* AAPLSharedTypes.h */; };
+		D86ADFA01B6186EA00994B06 /* UniformBlocks.h in Headers */ = {isa = PBXBuildFile; fileRef = D86ADF9C1B6186EA00994B06 /* UniformBlocks.h */; };
 		D86ADFA11B6186EA00994B06 /* shaders.metal in Sources */ = {isa = PBXBuildFile; fileRef = D86ADF9D1B6186EA00994B06 /* shaders.metal */; };
 		D89A0A541B62DDA000A98512 /* pipeline.h in Headers */ = {isa = PBXBuildFile; fileRef = D89A0A531B62DDA000A98512 /* pipeline.h */; };
 		D89A0A561B62DDA700A98512 /* pipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = D89A0A551B62DDA700A98512 /* pipeline.m */; };
@@ -58,12 +58,13 @@
 		D86ADF981B6186D600994B06 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Main.storyboard; path = src/common/app/Main.storyboard; sourceTree = SOURCE_ROOT; };
 		D86ADF9A1B6186EA00994B06 /* AAPLRenderer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPLRenderer.h; path = src/AAPLRenderer.h; sourceTree = SOURCE_ROOT; };
 		D86ADF9B1B6186EA00994B06 /* AAPLRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AAPLRenderer.mm; path = src/AAPLRenderer.mm; sourceTree = SOURCE_ROOT; };
-		D86ADF9C1B6186EA00994B06 /* AAPLSharedTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AAPLSharedTypes.h; path = src/AAPLSharedTypes.h; sourceTree = SOURCE_ROOT; };
+		D86ADF9C1B6186EA00994B06 /* UniformBlocks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UniformBlocks.h; path = src/UniformBlocks.h; sourceTree = SOURCE_ROOT; };
 		D86ADF9D1B6186EA00994B06 /* shaders.metal */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.metal; name = shaders.metal; path = src/shaders.metal; sourceTree = SOURCE_ROOT; };
 		D89A0A531B62DDA000A98512 /* pipeline.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = pipeline.h; path = ../../../../../Code/projects/metal/engine/renderer/inc/pipeline.h; sourceTree = "<group>"; };
 		D89A0A551B62DDA700A98512 /* pipeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = pipeline.m; path = ../../../../../Code/projects/metal/engine/renderer/src/pipeline.m; sourceTree = "<group>"; };
 		D89A0A571B62E4FA00A98512 /* actorGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = actorGroup.h; path = ../../../../../Code/projects/metal/engine/renderer/inc/actorGroup.h; sourceTree = "<group>"; };
 		D89A0A591B62E50700A98512 /* actorGroup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = actorGroup.mm; path = ../../../../../Code/projects/metal/engine/renderer/src/actorGroup.mm; sourceTree = "<group>"; };
+		D8C5FD8A1B8F7F6100DAECF7 /* UniformBlockMap.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = UniformBlockMap.h; path = src/UniformBlockMap.h; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -157,7 +158,8 @@
 			children = (
 				D86ADF9A1B6186EA00994B06 /* AAPLRenderer.h */,
 				D86ADF9B1B6186EA00994B06 /* AAPLRenderer.mm */,
-				D86ADF9C1B6186EA00994B06 /* AAPLSharedTypes.h */,
+				D86ADF9C1B6186EA00994B06 /* UniformBlocks.h */,
+				D8C5FD8A1B8F7F6100DAECF7 /* UniformBlockMap.h */,
 				D86ADF9D1B6186EA00994B06 /* shaders.metal */,
 			);
 			name = demo;
@@ -213,7 +215,7 @@
 			files = (
 				D831D7AE1B83CC110047B3B2 /* body.hpp in Headers */,
 				D85992F21B61864A00AF167E /* AAPLTransforms.h in Headers */,
-				D86ADFA01B6186EA00994B06 /* AAPLSharedTypes.h in Headers */,
+				D86ADFA01B6186EA00994B06 /* UniformBlocks.h in Headers */,
 				D85992FC1B61868800AF167E /* AAPLView.h in Headers */,
 				D86ADF9E1B6186EA00994B06 /* AAPLRenderer.h in Headers */,
 				D89A0A541B62DDA000A98512 /* pipeline.h in Headers */,

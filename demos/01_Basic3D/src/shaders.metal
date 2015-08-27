@@ -8,7 +8,7 @@
 
 #include <metal_stdlib>
 #include <simd/simd.h>
-#include "AAPLSharedTypes.h"
+#include "UniformBlocks.h"
 
 using namespace metal;
 using namespace JMD;

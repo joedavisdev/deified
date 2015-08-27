@@ -10,7 +10,7 @@
 #import "AAPLViewController.h"
 #import "AAPLView.h"
 #import "AAPLTransforms.h"
-#import "AAPLSharedTypes.h"
+#import "UniformBlocks.h"
 
 #import "pipeline.h"
 #import "mesh.h"
