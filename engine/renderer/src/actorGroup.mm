@@ -2,7 +2,7 @@
 
 #include "body.hpp"
 
-@implementation ActorGroup : NSObject {
+@implementation ActorGroup {
 }
 - (id)initWithMeshAndBodies: (Mesh*)mesh bodies: (const void*)bodies numberOfBodies:(NSUInteger)numberOfBodies {
     if(self = [super init]) {
@@ -14,13 +14,23 @@
 }
 @end
 
-@implementation ConstantBufferGroup : NSObject {
+static const long kInFlightCommandBuffers = 3;
+@implementation ConstantBufferGroup {
+    id <MTLBuffer> constantBuffers[kInFlightCommandBuffers];
 }
-- (id)initPipelineAndActorGroups: (Pipeline*)pipeline bodies: (NSMutableArray*)actor_groups {
+- (id)initPipelineAndActorGroups: (id<MTLDevice>)device pipeline:(Pipeline*)pipeline uniformBlockSize:(NSUInteger)uniformBlockSize bodies: (NSMutableArray*)actorGroups {
     if(self = [super init]) {
         _pipeline = pipeline;
-        _actorGroupPtrs = [[NSMutableArray alloc]initWithArray:actor_groups];
+        _actorGroupPtrs = [[NSMutableArray alloc]initWithArray:actorGroups];
+        for (int index = 0; index < kInFlightCommandBuffers; index++) {
+            constantBuffers[index] = [device newBufferWithLength:uniformBlockSize options:0];
+        }
     }
     return self;
 }
-@end 
+- (id<MTLBuffer>)getConstantBuffer: (NSUInteger)bufferIndex {
+    if(bufferIndex > kInFlightCommandBuffers)
+        return NULL;
+    return constantBuffers[bufferIndex];
+}
+@end

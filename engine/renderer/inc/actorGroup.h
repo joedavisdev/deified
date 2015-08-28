@@ -14,5 +14,6 @@
 }
 @property (nonatomic, readonly) Pipeline* pipeline;
 @property (nonatomic, readonly) NSMutableArray* actorGroupPtrs;
-- (id)initPipelineAndActorGroups: (Pipeline*)pipeline bodies: (NSMutableArray*)actor_groups;
+- (id)initPipelineAndActorGroups: (id<MTLDevice>)device pipeline:(Pipeline*)pipeline uniformBlockSize:(NSUInteger)uniformBlockSize bodies: (NSMutableArray*)actorGroups;
+- (id<MTLBuffer>)getConstantBuffer: (NSUInteger)bufferIndex;
 @end
