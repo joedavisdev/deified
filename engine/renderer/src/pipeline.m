@@ -16,7 +16,7 @@
 }
 @end
 
-@implementation Pipeline: NSObject {
+@implementation Pipeline {
 }
 - (id)initWithDescTemplate: (id <MTLDevice>)device templatePipelineDesc: (MTLRenderPipelineDescriptor*)templatePipelineDesc effect: (Effect*)effect {
     if (self = [super init]) {
