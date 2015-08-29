@@ -13,5 +13,5 @@
 }
 @property (nonatomic, readonly) id <MTLRenderPipelineState> state;
 
-- (id)initWithPipeline: (id <MTLDevice>)device templatePipelineDesc: (MTLRenderPipelineDescriptor*)templatePipelineDesc effect: (Effect*)effect;
+- (id)initWithDescTemplate: (id <MTLDevice>)device templatePipelineDesc: (MTLRenderPipelineDescriptor*)templatePipelineDesc effect: (Effect*)effect;
 @end

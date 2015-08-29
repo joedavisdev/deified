@@ -5,14 +5,15 @@
 
 @interface ActorGroup : NSObject {
 }
-@property (nonatomic, readonly) Mesh* mesh;
-@property (nonatomic, readonly) void* bodyPtrs;
-- (id)initWithMeshAndBodies: (Mesh*)mesh bodies: (const void*)bodies numberOfBodies:(NSUInteger)numberOfBodies;
+@property (nonatomic, readonly) __weak Mesh* mesh;
+@property (nonatomic, readonly) NSArray* bodyPtrs;
+- (id)initWithMeshAndNSArray: (Mesh*)mesh bodyPtrs: (NSArray*)bodyPtrs;
 @end
 
 @interface ConstantBufferGroup : NSObject {
 }
-@property (nonatomic, readonly) Pipeline* pipeline;
-@property (nonatomic, readonly) NSMutableArray* actorGroupPtrs;
-- (id)initPipelineAndActorGroups: (Pipeline*)pipeline bodies: (NSMutableArray*)actor_groups;
+@property (nonatomic, readonly) __weak Pipeline* pipeline;
+@property (nonatomic, readonly) NSMutableArray* actorGroups;
+- (id)initPipelineAndActorGroups: (id<MTLDevice>)device pipeline:(Pipeline*)pipeline uniformBlockSize:(NSUInteger)uniformBlockSize actorGroups: (NSMutableArray*)actorGroups;
+- (id<MTLBuffer>)getConstantBuffer: (NSUInteger)bufferIndex;
 @end

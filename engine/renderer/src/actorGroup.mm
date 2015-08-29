@@ -1,27 +1,37 @@
 #import "actorGroup.h"
-#import "AAPLSharedTypes.h"
 
-#include "body.hpp"
-
-@implementation ActorGroup : NSObject {
+@implementation ActorGroup {
 }
-- (id)initWithMeshAndBodies: (Mesh*)mesh bodies: (const void*)bodies numberOfBodies:(NSUInteger)numberOfBodies {
+- (id)initWithMeshAndNSArray: (Mesh*)mesh bodyPtrs: (NSArray*)bodyPtrs {
     if(self = [super init]) {
         _mesh = mesh;
-        _bodyPtrs = new void*[numberOfBodies];
-        memcpy(_bodyPtrs, bodies, numberOfBodies);
+        _bodyPtrs = [[NSArray alloc]initWithArray:bodyPtrs];
     }
     return self;
 }
 @end
 
-@implementation ConstantBufferGroup : NSObject {
+static const long kInFlightCommandBuffers = 3;
+@implementation ConstantBufferGroup {
+    id <MTLBuffer> constantBuffers[kInFlightCommandBuffers];
 }
-- (id)initPipelineAndActorGroups: (Pipeline*)pipeline bodies: (NSMutableArray*)actor_groups {
+- (id)initPipelineAndActorGroups: (id<MTLDevice>)device pipeline:(Pipeline*)pipeline uniformBlockSize:(NSUInteger)uniformBlockSize actorGroups:(NSMutableArray*)actorGroups {
     if(self = [super init]) {
         _pipeline = pipeline;
-        _actorGroupPtrs = [[NSMutableArray alloc]initWithArray:actor_groups];
+        _actorGroups = [[NSMutableArray alloc]initWithArray:actorGroups];
+        NSUInteger numberOfActors(0);
+        for (ActorGroup* actorGroup in _actorGroups) {
+            numberOfActors += [[actorGroup bodyPtrs]count];
+        }
+        for (int index = 0; index < kInFlightCommandBuffers; index++) {
+            constantBuffers[index] = [device newBufferWithLength:(numberOfActors*uniformBlockSize) options:0];
+        }
     }
     return self;
 }
-@end 
+- (id<MTLBuffer>)getConstantBuffer: (NSUInteger)bufferIndex {
+    if(bufferIndex > kInFlightCommandBuffers)
+        return NULL;
+    return constantBuffers[bufferIndex];
+}
+@end

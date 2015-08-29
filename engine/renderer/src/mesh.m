@@ -1,6 +1,6 @@
 #import "mesh.h"
 
-@implementation Mesh: NSObject {
+@implementation Mesh {
 }
 -(id)initWithBytes:(id <MTLDevice>)device vertexBuffer:(const float[]) vertexBuffer vertexBufferLength:(NSUInteger)vertexBufferLength
        indexBuffer:(const int[]) indexBuffer indexBufferLength:(NSUInteger) indexBufferLength {
