@@ -18,9 +18,13 @@ static const long kInFlightCommandBuffers = 3;
 - (id)initPipelineAndActorGroups: (id<MTLDevice>)device pipeline:(Pipeline*)pipeline uniformBlockSize:(NSUInteger)uniformBlockSize actorGroups:(NSMutableArray*)actorGroups {
     if(self = [super init]) {
         _pipeline = pipeline;
-        _actorGroupPtrs = [[NSMutableArray alloc]initWithArray:actorGroups];
+        _actorGroups = [[NSMutableArray alloc]initWithArray:actorGroups];
+        NSUInteger numberOfActors(0);
+        for (ActorGroup* actorGroup in _actorGroups) {
+            numberOfActors += [[actorGroup bodyPtrs]count];
+        }
         for (int index = 0; index < kInFlightCommandBuffers; index++) {
-            constantBuffers[index] = [device newBufferWithLength:uniformBlockSize options:0];
+            constantBuffers[index] = [device newBufferWithLength:(numberOfActors*uniformBlockSize) options:0];
         }
     }
     return self;
