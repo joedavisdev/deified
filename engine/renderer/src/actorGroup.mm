@@ -18,7 +18,7 @@ static const long kInFlightCommandBuffers = 3;
 @implementation ConstantBufferGroup {
     id <MTLBuffer> constantBuffers[kInFlightCommandBuffers];
 }
-- (id)initPipelineAndActorGroups: (id<MTLDevice>)device pipeline:(Pipeline*)pipeline uniformBlockSize:(NSUInteger)uniformBlockSize bodies: (NSMutableArray*)actorGroups {
+- (id)initPipelineAndActorGroups: (id<MTLDevice>)device pipeline:(Pipeline*)pipeline uniformBlockSize:(NSUInteger)uniformBlockSize actorGroups:(NSMutableArray*)actorGroups {
     if(self = [super init]) {
         _pipeline = pipeline;
         _actorGroupPtrs = [[NSMutableArray alloc]initWithArray:actorGroups];
