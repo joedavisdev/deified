@@ -1,7 +1,7 @@
 #pragma once
 #include "simd/simd.h"
 
-namespace demo {
+namespace JMD {
 struct Body {
     simd::float4 position;
     simd::float4 rotation;

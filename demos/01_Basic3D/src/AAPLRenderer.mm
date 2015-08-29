@@ -115,8 +115,8 @@ static const float kCubeVertexData[] =
     
     Pipeline* _defaultPipeline;
     Mesh* _cubeMesh;
-    demo::Body* _cubeBodies;
-    ActorGroup* _cubeActorGroup;
+    JMD::Body _cubeBodies[kNumberOfBoxes];
+    ConstantBufferGroup* _constantBufferGroup;
 }
 
 - (instancetype)init
@@ -133,7 +133,6 @@ static const float kCubeVertexData[] =
 }
 
 #pragma mark Configure
-
 - (void)configure:(AAPLView *)view
 {
     // find a usable Device
@@ -162,7 +161,14 @@ static const float kCubeVertexData[] =
         assert(0);
     }
     _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:kCubeVertexData vertexBufferLength:sizeof(kCubeVertexData) indexBuffer:nil indexBufferLength:0];
-    _cubeActorGroup = [[ActorGroup alloc]initWithMeshAndBodies:_cubeMesh bodies:_cubeBodies numberOfBodies:sizeof(_cubeBodies)];
+    NSMutableArray* actorGroupArray = [[NSMutableArray alloc]init];
+    NSMutableArray* bodies = [[NSMutableArray alloc]init];
+    for(unsigned int index = 0; index < kNumberOfBoxes; ++index) {
+        [bodies addObject:[NSValue valueWithPointer:&_cubeBodies[index]]];
+    }
+    [actorGroupArray addObject: [[ActorGroup alloc]initWithMeshAndNSArray:_cubeMesh bodyPtrs:bodies]];
+    
+    _constantBufferGroup = [[ConstantBufferGroup alloc]initPipelineAndActorGroups:_device pipeline:_defaultPipeline uniformBlockSize:sizeof(JMD::UB::CubeLighting) actorGroups:actorGroupArray];
     
     
     MTLDepthStencilDescriptor *depthStateDesc = [[MTLDepthStencilDescriptor alloc] init];

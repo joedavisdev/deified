@@ -1,14 +1,11 @@
 #import "actorGroup.h"
 
-#include "body.hpp"
-
 @implementation ActorGroup {
 }
-- (id)initWithMeshAndBodies: (Mesh*)mesh bodies: (const void*)bodies numberOfBodies:(NSUInteger)numberOfBodies {
+- (id)initWithMeshAndNSArray: (Mesh*)mesh bodyPtrs: (NSArray*)bodyPtrs {
     if(self = [super init]) {
         _mesh = mesh;
-        _bodyPtrs = new void*[numberOfBodies];
-        memcpy(_bodyPtrs, bodies, numberOfBodies);
+        _bodyPtrs = [[NSArray alloc]initWithArray:bodyPtrs];
     }
     return self;
 }
