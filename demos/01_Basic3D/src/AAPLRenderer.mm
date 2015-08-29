@@ -234,7 +234,7 @@ static const float kCubeVertexData[] =
         id<MTLBuffer> constantBuffer = [_constantBufferGroup getConstantBuffer:_constantDataBufferIndex];
         [renderEncoder pushDebugGroup:@"Boxes"];
         [renderEncoder setDepthStencilState:_depthState];
-        [renderEncoder setRenderPipelineState:_defaultPipeline.state];
+        [renderEncoder setRenderPipelineState:[_constantBufferGroup pipeline].state];
         [renderEncoder setVertexBuffer:_cubeMesh.vertexBuffer offset:0 atIndex:0 ];
         
         for (int i = 0; i < kNumberOfBoxes; i++) {
