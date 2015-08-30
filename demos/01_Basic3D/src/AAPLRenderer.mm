@@ -16,6 +16,7 @@
 #import "mesh.h"
 #import "actorGroup.h"
 
+#include <vector>
 #include "body.hpp"
 
 using namespace AAPL;
@@ -122,6 +123,11 @@ static const float kCubeVertexData[] =
         
         _constantDataBufferIndex = 0;
         _inflight_semaphore = dispatch_semaphore_create(kInFlightCommandBuffers);
+        for(auto& body: _cubeBodies) {
+            body.rotation += simd::float4(1.0);
+        }
+        _cubeBodies[0].position.z = 1.5f;
+        _cubeBodies[1].position.z = -1.5f;
     }
     return self;
 }
@@ -274,13 +280,17 @@ static const float kCubeVertexData[] =
 - (void)reshape:(AAPLView *)view
 {
     // when reshape is called, update the view and projection matricies since this means the view orientation or size changed
-    float aspect = fabsf(view.bounds.size.width / view.bounds.size.height);
+    float aspect = fabsf((float)view.bounds.size.width / (float)view.bounds.size.height);
     _projectionMatrix = perspective_fov(kFOVY, aspect, 0.1f, 100.0f);
     _viewMatrix = lookAt(kEye, kCenter, kUp);
 }
 
 #pragma mark Update
-
+- (void)updateBodies:(NSTimeInterval)timeSinceLastDraw {
+    for(auto& body: _cubeBodies) {
+        body.rotation.x += timeSinceLastDraw * 50.0f;
+    }
+}
 // called every frame
 - (void)updateConstantBuffer
 {
@@ -289,12 +299,11 @@ static const float kCubeVertexData[] =
     
     id<MTLBuffer> constantBuffer = [_constantBufferGroup getConstantBuffer:_constantDataBufferIndex];
     UB::CubeLighting *constant_buffer = (UB::CubeLighting *)[constantBuffer contents];
-    for (int i = 0; i < kNumberOfBoxes; i++)
-    {
-        // calculate the Model view projection matrix of each box
-        // for each box, if its odd, create a negative multiplier to offset boxes in space
-        int multiplier = ((i % 2 == 0)?1:-1);
-        simd::float4x4 modelViewMatrix = AAPL::translate(0.0f, 0.0f, multiplier*1.5f) * AAPL::rotate(_rotation, 1.0f, 1.0f, 1.0f);
+    for (int i = 0; i < kNumberOfBoxes; i++) {
+        const simd::float4 position = _cubeBodies[i].position;
+        const simd::float4 rotation = _cubeBodies[i].rotation;
+        simd::float4x4 modelViewMatrix
+            = AAPL::translate(position.x, position.y, position.z) * AAPL::rotate(rotation.x, rotation.y, rotation.z, rotation.w);
         modelViewMatrix = baseModelViewMatrix * modelViewMatrix;
         
         constant_buffer[i].normal_matrix = inverse(transpose(modelViewMatrix));
@@ -316,6 +325,7 @@ static const float kCubeVertexData[] =
 // just use this to update app globals
 - (void)update:(AAPLViewController *)controller
 {
+    [self updateBodies:controller.timeSinceLastDraw];
     _rotation += controller.timeSinceLastDraw * 50.0f;
 }
 
