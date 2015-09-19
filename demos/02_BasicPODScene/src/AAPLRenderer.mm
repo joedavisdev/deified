@@ -48,6 +48,7 @@ static const float kWidth  = 0.75f;
 static const float kHeight = 0.75f;
 static const float kDepth  = 0.75f;
 
+static const unsigned int kCubeNumberOfVertices = 36;
 static const float kCubeVertexData[] =
 {
     kWidth, -kHeight, kDepth,   0.0, -1.0,  0.0,
@@ -120,6 +121,7 @@ static const float kCubeVertexData[] =
     
     // 3D Model
     CPVRTModelPOD _model;
+    Mesh* _mesh;
 }
 
 - (instancetype)init
@@ -167,7 +169,7 @@ static const float kCubeVertexData[] =
         assert(0);
     }
     // Load meshes
-    _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:kCubeVertexData vertexBufferLength:sizeof(kCubeVertexData) indexBuffer:nil indexBufferLength:0];
+    _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:(char*)kCubeVertexData numberOfVertices:kCubeNumberOfVertices stride:sizeof(float)*6 indexBuffer:NULL indexBufferLength:0];
     // Prepare constant buffer groups
     NSMutableArray* actorGroupArray = [[NSMutableArray alloc]init];
     NSMutableArray* bodies = [[NSMutableArray alloc]init];
@@ -177,7 +179,6 @@ static const float kCubeVertexData[] =
     [actorGroupArray addObject: [[ActorGroup alloc]initWithMeshAndNSArray:_cubeMesh bodyPtrs:bodies]];
     
     _constantBufferGroup = [[ConstantBufferGroup alloc]initPipelineAndActorGroups:_device pipeline:_defaultPipeline uniformBlockSize:sizeof(JMD::UB::CubeLighting) actorGroups:actorGroupArray];
-    
     
     MTLDepthStencilDescriptor *depthStateDesc = [[MTLDepthStencilDescriptor alloc] init];
     depthStateDesc.depthCompareFunction = MTLCompareFunctionLess;
@@ -210,6 +211,16 @@ static const float kCubeVertexData[] =
         }
     }
     [self pvrFrameworkSetup];
+    _mesh = [self loadModel:_model];
+}
+-(Mesh*)loadModel:(CPVRTModelPOD&)pod {
+    SPODMesh& podMesh(pod.pMesh[0]); // TODO: Support more than one mesh
+    const NSUInteger iboSize(PVRTModelPODCountIndices(podMesh) * podMesh.sFaces.nStride);
+    return [[Mesh alloc]initWithBytes:_device vertexBuffer:(char*)podMesh.pInterleaved
+                            numberOfVertices:podMesh.nNumVertex
+                            stride:podMesh.sVertex.nStride
+                            indexBuffer:(char*)podMesh.sFaces.pData
+                            indexBufferLength:iboSize];
 }
 -(void)pvrFrameworkSetup {
     NSString* readPath = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] bundlePath], @"/"];
@@ -267,7 +278,7 @@ static const float kCubeVertexData[] =
             [renderEncoder setVertexBuffer:constantBuffer offset:i*sizeof(UB::CubeLighting) atIndex:1 ];
             
             // tell the render context we want to draw our primitives
-            [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:36];
+            [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:kCubeNumberOfVertices];
         }
         
         [renderEncoder endEncoding];
