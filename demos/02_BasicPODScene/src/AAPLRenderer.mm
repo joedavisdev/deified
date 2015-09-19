@@ -19,6 +19,9 @@
 #include <vector>
 #include "body.hpp"
 
+#include "PVRTModelPOD.h"
+#include "PVRTResourceFile.h"
+
 using namespace AAPL;
 using namespace JMD;
 using namespace simd;
@@ -114,6 +117,9 @@ static const float kCubeVertexData[] =
     Mesh* _cubeMesh;
     JMD::Body _cubeBodies[kNumberOfBoxes];
     ConstantBufferGroup* _constantBufferGroup;
+    
+    // 3D Model
+    CPVRTModelPOD _model;
 }
 
 - (instancetype)init
@@ -203,8 +209,21 @@ static const float kCubeVertexData[] =
             }
         }
     }
+    [self pvrFrameworkSetup];
 }
-
+-(void)pvrFrameworkSetup {
+    NSString* readPath = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] bundlePath], @"/"];
+    CPVRTResourceFile::SetReadPath([readPath UTF8String]);
+    CPVRTResourceFile::SetLoadReleaseFunctions(NULL, NULL);
+    // Load the scene
+    if (_model.ReadFromFile("test.pod") != PVR_SUCCESS) {
+        printf("ERROR: Couldn't load the .pod file\n");
+        return;
+    }
+}
+-(void)pvrFrameworkShutdown {
+    _model.Destroy();
+}
 - (BOOL)preparePipelineState:(AAPLView *)view
 {
     MTLRenderPipelineDescriptor *renderpassPipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];

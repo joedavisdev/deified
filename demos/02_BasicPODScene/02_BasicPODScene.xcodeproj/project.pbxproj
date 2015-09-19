@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		626C61091932F259007A3E00 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626C61081932F259007A3E00 /* Metal.framework */; };
 		626C610B1932F25E007A3E00 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626C610A1932F25E007A3E00 /* QuartzCore.framework */; };
-		D82C61D11B98E85B00553EC3 /* libPVRFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D82C61D01B98E84600553EC3 /* libPVRFramework.a */; };
 		D854F15A1B93947400D02CB8 /* body.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D854F14E1B93947400D02CB8 /* body.hpp */; };
 		D854F15B1B93947400D02CB8 /* body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D854F1501B93947400D02CB8 /* body.cpp */; };
 		D854F15C1B93947400D02CB8 /* actorGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D854F1531B93947400D02CB8 /* actorGroup.h */; };
@@ -34,15 +33,17 @@
 		D87699BD1B93795900A77979 /* AAPLRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D87699BB1B93795900A77979 /* AAPLRenderer.h */; };
 		D87699BE1B93795900A77979 /* AAPLRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D87699BC1B93795900A77979 /* AAPLRenderer.mm */; };
 		D87699CC1B937A1A00A77979 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87699CA1B937A1A00A77979 /* LaunchScreen.xib */; };
+		D8EA86471BA473A6007BB508 /* test.pod in Resources */ = {isa = PBXBuildFile; fileRef = D8EA86461BA47395007BB508 /* test.pod */; };
+		D8EA86551BA47665007BB508 /* libOGLES3Tools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8EA86541BA4765D007BB508 /* libOGLES3Tools.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D82C61CF1B98E84600553EC3 /* PBXContainerItemProxy */ = {
+		D8EA86531BA4765D007BB508 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D82C61C21B98E84100553EC3 /* PVRFramework.xcodeproj */;
+			containerPortal = D8EA864F1BA4765D007BB508 /* OGLES3Tools.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = A2C20CDF79F84A4FBE97B78A;
-			remoteInfo = PVRFramework;
+			remoteGlobalIDString = F8748A3A0FF221480052D400;
+			remoteInfo = OGLES3Tools;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -50,7 +51,6 @@
 		626C60B31932F12C007A3E00 /* 02_BasicPODScene.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 02_BasicPODScene.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		626C61081932F259007A3E00 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		626C610A1932F25E007A3E00 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		D82C61C21B98E84100553EC3 /* PVRFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PVRFramework.xcodeproj; path = ../../thirdParty/pvrSdk/framework/build/ios/PVRFramework.xcodeproj; sourceTree = "<group>"; };
 		D854F14E1B93947400D02CB8 /* body.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = body.hpp; sourceTree = "<group>"; };
 		D854F1501B93947400D02CB8 /* body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = body.cpp; sourceTree = "<group>"; };
 		D854F1531B93947400D02CB8 /* actorGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = actorGroup.h; sourceTree = "<group>"; };
@@ -76,6 +76,8 @@
 		D87699BC1B93795900A77979 /* AAPLRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AAPLRenderer.mm; path = src/AAPLRenderer.mm; sourceTree = SOURCE_ROOT; };
 		D87699C91B937A1A00A77979 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = src/Info.plist; sourceTree = SOURCE_ROOT; };
 		D87699CA1B937A1A00A77979 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = src/LaunchScreen.xib; sourceTree = SOURCE_ROOT; };
+		D8EA86461BA47395007BB508 /* test.pod */ = {isa = PBXFileReference; lastKnownFileType = file; name = test.pod; path = ../../../Code/projects/metal/demos/02_BasicPODScene/src/assets/test.pod; sourceTree = "<group>"; };
+		D8EA864F1BA4765D007BB508 /* OGLES3Tools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OGLES3Tools.xcodeproj; path = ../../../../../Code/SDKsAndTools/pvrSdk/Tools/OGLES3/Build/iOS/OGLES3Tools.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D82C61D11B98E85B00553EC3 /* libPVRFramework.a in Frameworks */,
+				D8EA86551BA47665007BB508 /* libOGLES3Tools.a in Frameworks */,
 				626C610B1932F25E007A3E00 /* QuartzCore.framework in Frameworks */,
 				626C61091932F259007A3E00 /* Metal.framework in Frameworks */,
 			);
@@ -95,7 +97,7 @@
 		626C60A91932F12C007A3E00 = {
 			isa = PBXGroup;
 			children = (
-				D82C61C21B98E84100553EC3 /* PVRFramework.xcodeproj */,
+				D8EA864F1BA4765D007BB508 /* OGLES3Tools.xcodeproj */,
 				626C60B51932F12C007A3E00 /* 02_BasicPODScene */,
 				626C60B41932F12C007A3E00 /* Products */,
 			);
@@ -146,6 +148,7 @@
 		629ADF541933EBD100DEFFB1 /* demo */ = {
 			isa = PBXGroup;
 			children = (
+				D8EA86421BA47344007BB508 /* assets */,
 				D87699BB1B93795900A77979 /* AAPLRenderer.h */,
 				D87699BC1B93795900A77979 /* AAPLRenderer.mm */,
 				D87699B51B93794900A77979 /* shaders.metal */,
@@ -153,14 +156,6 @@
 				D87699B71B93794900A77979 /* UniformBlocks.h */,
 			);
 			name = demo;
-			sourceTree = "<group>";
-		};
-		D82C61CA1B98E84600553EC3 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D82C61D01B98E84600553EC3 /* libPVRFramework.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		D854F14B1B93947400D02CB8 /* engine */ = {
@@ -258,6 +253,22 @@
 			path = math;
 			sourceTree = "<group>";
 		};
+		D8EA86421BA47344007BB508 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				D8EA86461BA47395007BB508 /* test.pod */,
+			);
+			name = assets;
+			sourceTree = "<group>";
+		};
+		D8EA86501BA4765D007BB508 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D8EA86541BA4765D007BB508 /* libOGLES3Tools.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -306,7 +317,7 @@
 		626C60AA1932F12C007A3E00 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0600;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Apple Inc";
 			};
 			buildConfigurationList = 626C60AD1932F12C007A3E00 /* Build configuration list for PBXProject "02_BasicPODScene" */;
@@ -322,8 +333,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D82C61CA1B98E84600553EC3 /* Products */;
-					ProjectRef = D82C61C21B98E84100553EC3 /* PVRFramework.xcodeproj */;
+					ProductGroup = D8EA86501BA4765D007BB508 /* Products */;
+					ProjectRef = D8EA864F1BA4765D007BB508 /* OGLES3Tools.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -334,11 +345,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D82C61D01B98E84600553EC3 /* libPVRFramework.a */ = {
+		D8EA86541BA4765D007BB508 /* libOGLES3Tools.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libPVRFramework.a;
-			remoteRef = D82C61CF1B98E84600553EC3 /* PBXContainerItemProxy */;
+			path = libOGLES3Tools.a;
+			remoteRef = D8EA86531BA4765D007BB508 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -348,6 +359,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D8EA86471BA473A6007BB508 /* test.pod in Resources */,
 				D86FC43F1B938DC2006AD475 /* Main.storyboard in Resources */,
 				D87699CC1B937A1A00A77979 /* LaunchScreen.xib in Resources */,
 			);
@@ -398,6 +410,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -461,8 +474,6 @@
 		626C60D91932F12C007A3E00 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_MODULES_AUTOLINK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -471,9 +482,12 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					../../thirdParty/glm/,
+					../../thirdParty/pvrSdk/framework,
+					../../sdksAndTools/pvrSdk/Tools/,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/src/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jdavis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = 02_BasicPODScene;
 				PROVISIONING_PROFILE = "";
 			};
@@ -482,8 +496,6 @@
 		626C60DA1932F12C007A3E00 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_MODULES_AUTOLINK = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -492,9 +504,12 @@
 					"$(inherited)",
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					../../thirdParty/glm/,
+					../../thirdParty/pvrSdk/framework,
+					../../sdksAndTools/pvrSdk/Tools/,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/src/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jdavis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = 02_BasicPODScene;
 				PROVISIONING_PROFILE = "";
 			};
