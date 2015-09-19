@@ -267,19 +267,24 @@ static const float kCubeVertexData[] =
     MTLRenderPassDescriptor *renderPassDescriptor = view.renderPassDescriptor;
     if (renderPassDescriptor)
     {
+        Mesh* mesh = _mesh;
         id <MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
         id<MTLBuffer> constantBuffer = [_constantBufferGroup getConstantBuffer:_constantDataBufferIndex];
         [renderEncoder pushDebugGroup:@"Boxes"];
         [renderEncoder setDepthStencilState:_depthState];
         [renderEncoder setRenderPipelineState:[_constantBufferGroup pipeline].state];
-        [renderEncoder setVertexBuffer:_cubeMesh.vertexBuffer offset:0 atIndex:0];
+        [renderEncoder setVertexBuffer:mesh.vertexBuffer offset:0 atIndex:0];
         
-        for (int i = 0; i < kNumberOfBoxes; i++) {
+        for (int i = 0; i < 1; i++) {
             //  set constant buffer for each box
             [renderEncoder setVertexBuffer:constantBuffer offset:i*sizeof(UB::CubeLighting) atIndex:1 ];
             
             // tell the render context we want to draw our primitives
-            [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:_cubeMesh.numberOfVertices];
+            if(mesh.indexBuffer == NULL) {
+                [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:mesh.numberOfVertices];
+            }else{
+                [renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle indexCount:mesh.numberOfIndices indexType:MTLIndexTypeUInt16 indexBuffer:mesh.indexBuffer indexBufferOffset:0];
+            }
         }
         
         [renderEncoder endEncoding];
@@ -325,7 +330,7 @@ static const float kCubeVertexData[] =
 // called every frame
 - (void)updateConstantBuffer
 {
-    float4x4 baseModelViewMatrix = translate(0.0f, 0.0f, 5.0f) * rotate(_rotation, 1.0f, 1.0f, 1.0f);
+    float4x4 baseModelViewMatrix = translate(0.0f, 0.0f, 35.0f) * rotate(_rotation, 1.0f, 1.0f, 1.0f);
     baseModelViewMatrix = _viewMatrix * baseModelViewMatrix;
     
     id<MTLBuffer> constantBuffer = [_constantBufferGroup getConstantBuffer:_constantDataBufferIndex];
