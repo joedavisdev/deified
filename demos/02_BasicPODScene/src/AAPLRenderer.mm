@@ -169,7 +169,7 @@ static const float kCubeVertexData[] =
         assert(0);
     }
     // Load meshes
-    _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:(char*)kCubeVertexData numberOfVertices:kCubeNumberOfVertices stride:sizeof(float)*6 indexBuffer:NULL indexBufferLength:0];
+    _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:(char*)kCubeVertexData numberOfVertices:kCubeNumberOfVertices stride:sizeof(float)*6 indexBuffer:NULL numberOfIndices:0 sizeOfIndices:0];
     // Prepare constant buffer groups
     NSMutableArray* actorGroupArray = [[NSMutableArray alloc]init];
     NSMutableArray* bodies = [[NSMutableArray alloc]init];
@@ -215,12 +215,13 @@ static const float kCubeVertexData[] =
 }
 -(Mesh*)loadModel:(CPVRTModelPOD&)pod {
     SPODMesh& podMesh(pod.pMesh[0]); // TODO: Support more than one mesh
-    const NSUInteger iboSize(PVRTModelPODCountIndices(podMesh) * podMesh.sFaces.nStride);
-    return [[Mesh alloc]initWithBytes:_device vertexBuffer:(char*)podMesh.pInterleaved
+    return [[Mesh alloc]initWithBytes:_device
+                            vertexBuffer:(char*)podMesh.pInterleaved
                             numberOfVertices:podMesh.nNumVertex
                             stride:podMesh.sVertex.nStride
                             indexBuffer:(char*)podMesh.sFaces.pData
-                            indexBufferLength:iboSize];
+                            numberOfIndices:PVRTModelPODCountIndices(podMesh)
+                            sizeOfIndices:podMesh.sFaces.nStride];
 }
 -(void)pvrFrameworkSetup {
     NSString* readPath = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] bundlePath], @"/"];
@@ -271,14 +272,14 @@ static const float kCubeVertexData[] =
         [renderEncoder pushDebugGroup:@"Boxes"];
         [renderEncoder setDepthStencilState:_depthState];
         [renderEncoder setRenderPipelineState:[_constantBufferGroup pipeline].state];
-        [renderEncoder setVertexBuffer:_cubeMesh.vertexBuffer offset:0 atIndex:0 ];
+        [renderEncoder setVertexBuffer:_cubeMesh.vertexBuffer offset:0 atIndex:0];
         
         for (int i = 0; i < kNumberOfBoxes; i++) {
             //  set constant buffer for each box
             [renderEncoder setVertexBuffer:constantBuffer offset:i*sizeof(UB::CubeLighting) atIndex:1 ];
             
             // tell the render context we want to draw our primitives
-            [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:kCubeNumberOfVertices];
+            [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:_cubeMesh.numberOfVertices];
         }
         
         [renderEncoder endEncoding];
