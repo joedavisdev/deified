@@ -33,17 +33,17 @@
 		D87699BD1B93795900A77979 /* AAPLRenderer.h in Headers */ = {isa = PBXBuildFile; fileRef = D87699BB1B93795900A77979 /* AAPLRenderer.h */; };
 		D87699BE1B93795900A77979 /* AAPLRenderer.mm in Sources */ = {isa = PBXBuildFile; fileRef = D87699BC1B93795900A77979 /* AAPLRenderer.mm */; };
 		D87699CC1B937A1A00A77979 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87699CA1B937A1A00A77979 /* LaunchScreen.xib */; };
+		D8D2EF601BADCE5200704B14 /* libPVRFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D2EF5F1BADCDA600704B14 /* libPVRFramework.a */; };
 		D8EA86471BA473A6007BB508 /* test.pod in Resources */ = {isa = PBXBuildFile; fileRef = D8EA86461BA47395007BB508 /* test.pod */; };
-		D8EA86551BA47665007BB508 /* libOGLES3Tools.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8EA86541BA4765D007BB508 /* libOGLES3Tools.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		D8EA86531BA4765D007BB508 /* PBXContainerItemProxy */ = {
+		D8D2EF5E1BADCDA600704B14 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = D8EA864F1BA4765D007BB508 /* OGLES3Tools.xcodeproj */;
+			containerPortal = D8D2EF581BADCDA600704B14 /* PVRFramework.xcodeproj */;
 			proxyType = 2;
-			remoteGlobalIDString = F8748A3A0FF221480052D400;
-			remoteInfo = OGLES3Tools;
+			remoteGlobalIDString = 000CF95836C84DFDA2AB98CA;
+			remoteInfo = PVRFramework;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -76,8 +76,8 @@
 		D87699BC1B93795900A77979 /* AAPLRenderer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AAPLRenderer.mm; path = src/AAPLRenderer.mm; sourceTree = SOURCE_ROOT; };
 		D87699C91B937A1A00A77979 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = src/Info.plist; sourceTree = SOURCE_ROOT; };
 		D87699CA1B937A1A00A77979 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = src/LaunchScreen.xib; sourceTree = SOURCE_ROOT; };
+		D8D2EF581BADCDA600704B14 /* PVRFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PVRFramework.xcodeproj; path = ../../thirdParty/pvrSdk/framework/build/ios/PVRFramework.xcodeproj; sourceTree = "<group>"; };
 		D8EA86461BA47395007BB508 /* test.pod */ = {isa = PBXFileReference; lastKnownFileType = file; name = test.pod; path = ../../../Code/projects/metal/demos/02_BasicPODScene/src/assets/test.pod; sourceTree = "<group>"; };
-		D8EA864F1BA4765D007BB508 /* OGLES3Tools.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = OGLES3Tools.xcodeproj; path = ../../../../../Code/SDKsAndTools/pvrSdk/Tools/OGLES3/Build/iOS/OGLES3Tools.xcodeproj; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,7 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8EA86551BA47665007BB508 /* libOGLES3Tools.a in Frameworks */,
+				D8D2EF601BADCE5200704B14 /* libPVRFramework.a in Frameworks */,
 				626C610B1932F25E007A3E00 /* QuartzCore.framework in Frameworks */,
 				626C61091932F259007A3E00 /* Metal.framework in Frameworks */,
 			);
@@ -97,7 +97,7 @@
 		626C60A91932F12C007A3E00 = {
 			isa = PBXGroup;
 			children = (
-				D8EA864F1BA4765D007BB508 /* OGLES3Tools.xcodeproj */,
+				D8D2EF581BADCDA600704B14 /* PVRFramework.xcodeproj */,
 				626C60B51932F12C007A3E00 /* 02_BasicPODScene */,
 				626C60B41932F12C007A3E00 /* Products */,
 			);
@@ -253,20 +253,20 @@
 			path = math;
 			sourceTree = "<group>";
 		};
+		D8D2EF591BADCDA600704B14 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D8D2EF5F1BADCDA600704B14 /* libPVRFramework.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		D8EA86421BA47344007BB508 /* assets */ = {
 			isa = PBXGroup;
 			children = (
 				D8EA86461BA47395007BB508 /* test.pod */,
 			);
 			name = assets;
-			sourceTree = "<group>";
-		};
-		D8EA86501BA4765D007BB508 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				D8EA86541BA4765D007BB508 /* libOGLES3Tools.a */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,8 +333,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = D8EA86501BA4765D007BB508 /* Products */;
-					ProjectRef = D8EA864F1BA4765D007BB508 /* OGLES3Tools.xcodeproj */;
+					ProductGroup = D8D2EF591BADCDA600704B14 /* Products */;
+					ProjectRef = D8D2EF581BADCDA600704B14 /* PVRFramework.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -345,11 +345,11 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		D8EA86541BA4765D007BB508 /* libOGLES3Tools.a */ = {
+		D8D2EF5F1BADCDA600704B14 /* libPVRFramework.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
-			path = libOGLES3Tools.a;
-			remoteRef = D8EA86531BA4765D007BB508 /* PBXContainerItemProxy */;
+			path = libPVRFramework.a;
+			remoteRef = D8D2EF5E1BADCDA600704B14 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -483,7 +483,6 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					../../thirdParty/glm/,
 					../../thirdParty/pvrSdk/framework,
-					../../sdksAndTools/pvrSdk/Tools/,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/src/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -505,7 +504,6 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					../../thirdParty/glm/,
 					../../thirdParty/pvrSdk/framework,
-					../../sdksAndTools/pvrSdk/Tools/,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/src/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
