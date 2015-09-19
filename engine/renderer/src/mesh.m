@@ -2,8 +2,8 @@
 
 @implementation Mesh {
 }
--(id)initWithBytes:(id <MTLDevice>)device vertexBuffer:(const float[]) vertexBuffer vertexBufferLength:(NSUInteger)vertexBufferLength
-       indexBuffer:(const int[]) indexBuffer indexBufferLength:(NSUInteger) indexBufferLength {
+-(id)initWithBytes:(id <MTLDevice>)device vertexBuffer:(const char[]) vertexBuffer vertexBufferLength:(NSUInteger)vertexBufferLength
+       indexBuffer:(const char[]) indexBuffer indexBufferLength:(NSUInteger) indexBufferLength {
     if( self = [super init]) {
         assert(vertexBuffer != nil);
         _vertexBuffer = [device newBufferWithBytes:vertexBuffer length:vertexBufferLength options:MTLResourceOptionCPUCacheModeDefault];
