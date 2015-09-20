@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		626C61091932F259007A3E00 /* Metal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626C61081932F259007A3E00 /* Metal.framework */; };
 		626C610B1932F25E007A3E00 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626C610A1932F25E007A3E00 /* QuartzCore.framework */; };
+		D8469A851BAF338500F84284 /* bunny.pod in Resources */ = {isa = PBXBuildFile; fileRef = D8469A841BAF338500F84284 /* bunny.pod */; settings = {ASSET_TAGS = (); }; };
 		D854F15A1B93947400D02CB8 /* body.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D854F14E1B93947400D02CB8 /* body.hpp */; };
 		D854F15B1B93947400D02CB8 /* body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D854F1501B93947400D02CB8 /* body.cpp */; };
 		D854F15C1B93947400D02CB8 /* actorGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D854F1531B93947400D02CB8 /* actorGroup.h */; };
@@ -34,7 +35,6 @@
 		D8B4795C1BAF0A39006094B8 /* BasicPODScene.h in Headers */ = {isa = PBXBuildFile; fileRef = D8B4795A1BAF0A39006094B8 /* BasicPODScene.h */; settings = {ASSET_TAGS = (); }; };
 		D8B4795D1BAF0A39006094B8 /* BasicPODScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = D8B4795B1BAF0A39006094B8 /* BasicPODScene.mm */; settings = {ASSET_TAGS = (); }; };
 		D8D2EF601BADCE5200704B14 /* libPVRFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D2EF5F1BADCDA600704B14 /* libPVRFramework.a */; };
-		D8EA86471BA473A6007BB508 /* test.pod in Resources */ = {isa = PBXBuildFile; fileRef = D8EA86461BA47395007BB508 /* test.pod */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +51,7 @@
 		626C60B31932F12C007A3E00 /* 02_BasicPODScene.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 02_BasicPODScene.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		626C61081932F259007A3E00 /* Metal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Metal.framework; path = System/Library/Frameworks/Metal.framework; sourceTree = SDKROOT; };
 		626C610A1932F25E007A3E00 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		D8469A841BAF338500F84284 /* bunny.pod */ = {isa = PBXFileReference; lastKnownFileType = file; name = bunny.pod; path = demos/02_BasicPODScene/src/assets/bunny.pod; sourceTree = "<group>"; };
 		D854F14E1B93947400D02CB8 /* body.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = body.hpp; sourceTree = "<group>"; };
 		D854F1501B93947400D02CB8 /* body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = body.cpp; sourceTree = "<group>"; };
 		D854F1531B93947400D02CB8 /* actorGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = actorGroup.h; sourceTree = "<group>"; };
@@ -77,7 +78,6 @@
 		D8B4795A1BAF0A39006094B8 /* BasicPODScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicPODScene.h; path = demos/02_BasicPODScene/src/BasicPODScene.h; sourceTree = "<group>"; };
 		D8B4795B1BAF0A39006094B8 /* BasicPODScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BasicPODScene.mm; path = demos/02_BasicPODScene/src/BasicPODScene.mm; sourceTree = "<group>"; };
 		D8D2EF581BADCDA600704B14 /* PVRFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PVRFramework.xcodeproj; path = ../../thirdParty/pvrSdk/framework/build/ios/PVRFramework.xcodeproj; sourceTree = "<group>"; };
-		D8EA86461BA47395007BB508 /* test.pod */ = {isa = PBXFileReference; lastKnownFileType = file; name = test.pod; path = ../../../Code/projects/metal/demos/02_BasicPODScene/src/assets/test.pod; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,7 +264,7 @@
 		D8EA86421BA47344007BB508 /* assets */ = {
 			isa = PBXGroup;
 			children = (
-				D8EA86461BA47395007BB508 /* test.pod */,
+				D8469A841BAF338500F84284 /* bunny.pod */,
 			);
 			name = assets;
 			sourceTree = "<group>";
@@ -359,8 +359,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D8EA86471BA473A6007BB508 /* test.pod in Resources */,
 				D86FC43F1B938DC2006AD475 /* Main.storyboard in Resources */,
+				D8469A851BAF338500F84284 /* bunny.pod in Resources */,
 				D87699CC1B937A1A00A77979 /* LaunchScreen.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -132,7 +132,7 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     CPVRTResourceFile::SetReadPath([readPath UTF8String]);
     CPVRTResourceFile::SetLoadReleaseFunctions(NULL, NULL);
     
-    if (_podModel.ReadFromFile("test.pod") != PVR_SUCCESS) {
+    if (_podModel.ReadFromFile("bunny.pod") != PVR_SUCCESS) {
         printf("ERROR: Couldn't load the .pod file\n");
         return;
     }
@@ -176,7 +176,9 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
         if(mesh.indexBuffer == NULL) {
             [mtlRenderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:mesh.numberOfVertices];
         }else{
-            [mtlRenderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle indexCount:mesh.numberOfIndices indexType:MTLIndexTypeUInt16 indexBuffer:mesh.indexBuffer indexBufferOffset:0];
+            MTLIndexType indexType(MTLIndexTypeUInt32);
+            if(mesh.sizeOfIndices == 2) indexType = MTLIndexTypeUInt16;
+            [mtlRenderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle indexCount:mesh.numberOfIndices indexType:indexType indexBuffer:mesh.indexBuffer indexBufferOffset:0];
         }
         
         [mtlRenderEncoder endEncoding];
@@ -209,7 +211,7 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
 }
 // called every frame
 - (void)updateConstantBuffer {
-    float4x4 baseModelViewMatrix = translate(0.0f, 0.0f, 35.0f) * rotate(_rotation, 1.0f, 1.0f, 1.0f);
+    float4x4 baseModelViewMatrix = translate(0.0f, 0.0f, 0.25f) * rotate(_rotation, 1.0f, 1.0f, 1.0f);
     baseModelViewMatrix = _viewMatrix * baseModelViewMatrix;
     
     id<MTLBuffer> mtlConstantBuffer = [_constantBufferGroup getConstantBuffer:_constantDataBufferIndex];
