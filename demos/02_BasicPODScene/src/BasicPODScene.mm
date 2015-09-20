@@ -65,7 +65,8 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     if (self) {
         _constantDataBufferIndex = 0;
         _inflightSemaphore = dispatch_semaphore_create(kInFlightCommandBuffers);
-        _body.rotation += simd::float4(1.0);
+        _body.position.z = 0.25;
+        _body.rotation = simd::float4(1.0);
     }
     return self;
 }
@@ -210,17 +211,14 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     _body.rotation.x += timeSinceLastDraw * 50.0f;
 }
 // called every frame
-- (void)updateConstantBuffer {
-    float4x4 baseModelViewMatrix = translate(0.0f, 0.0f, 0.25f) * rotate(_rotation, 1.0f, 1.0f, 1.0f);
-    baseModelViewMatrix = _viewMatrix * baseModelViewMatrix;
-    
+- (void)updateConstantBuffer {    
     id<MTLBuffer> mtlConstantBuffer = [_constantBufferGroup getConstantBuffer:_constantDataBufferIndex];
     UB::BasicLighting *constantBuffer = (UB::BasicLighting*)[mtlConstantBuffer contents];
         const simd::float4 position = _body.position;
         const simd::float4 rotation = _body.rotation;
         simd::float4x4 modelViewMatrix
         = AAPL::translate(position.x, position.y, position.z) * AAPL::rotate(rotation.x, rotation.y, rotation.z, rotation.w);
-        modelViewMatrix = baseModelViewMatrix * modelViewMatrix;
+        modelViewMatrix = _viewMatrix * modelViewMatrix;
         
         constantBuffer[0].normalMatrix = inverse(transpose(modelViewMatrix));
         constantBuffer[0].mvpMatrix = _projectionMatrix * modelViewMatrix;
