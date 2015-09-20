@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "89A206CDB58B412AA4551503"
+               BlueprintIdentifier = "E33B3FF5C34849C4BD902DDA"
                BuildableName = "libPVRFramework.a"
                BlueprintName = "PVRFramework"
                ReferencedContainer = "container:build/ios/PVRFramework.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "89A206CDB58B412AA4551503"
+            BlueprintIdentifier = "E33B3FF5C34849C4BD902DDA"
             BuildableName = "libPVRFramework.a"
             BlueprintName = "PVRFramework"
             ReferencedContainer = "container:build/ios/PVRFramework.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "89A206CDB58B412AA4551503"
+            BlueprintIdentifier = "E33B3FF5C34849C4BD902DDA"
             BuildableName = "libPVRFramework.a"
             BlueprintName = "PVRFramework"
             ReferencedContainer = "container:build/ios/PVRFramework.xcodeproj">

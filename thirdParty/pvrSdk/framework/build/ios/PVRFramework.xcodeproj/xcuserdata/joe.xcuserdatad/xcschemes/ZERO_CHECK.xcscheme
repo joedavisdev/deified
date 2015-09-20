@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "6D2191E84AA34E7BA6C38698"
+               BlueprintIdentifier = "298896C9024D48528EA7D549"
                BuildableName = "ZERO_CHECK"
                BlueprintName = "ZERO_CHECK"
                ReferencedContainer = "container:build/ios/PVRFramework.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6D2191E84AA34E7BA6C38698"
+            BlueprintIdentifier = "298896C9024D48528EA7D549"
             BuildableName = "ZERO_CHECK"
             BlueprintName = "ZERO_CHECK"
             ReferencedContainer = "container:build/ios/PVRFramework.xcodeproj">
@@ -63,7 +63,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "6D2191E84AA34E7BA6C38698"
+            BlueprintIdentifier = "298896C9024D48528EA7D549"
             BuildableName = "ZERO_CHECK"
             BlueprintName = "ZERO_CHECK"
             ReferencedContainer = "container:build/ios/PVRFramework.xcodeproj">

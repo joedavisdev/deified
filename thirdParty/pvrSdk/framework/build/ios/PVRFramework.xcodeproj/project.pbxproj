@@ -7,26 +7,26 @@
 	objects = {
 
 /* Begin PBXAggregateTarget section */
-		6D2191E84AA34E7BA6C38698 /* ZERO_CHECK */ = {
+		298896C9024D48528EA7D549 /* ZERO_CHECK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 3AAFAFFF77234495A801F8FA /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildConfigurationList = 1181E7FB2CB540AD97831168 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
 			buildPhases = (
-				381FC11D110448AD889748BF /* CMake Rules */,
+				1BB82E957DAE40B88E602464 /* CMake Rules */,
 			);
 			dependencies = (
 			);
 			name = ZERO_CHECK;
 			productName = ZERO_CHECK;
 		};
-		9FA0CF1CD68A43F1958B98EB /* ALL_BUILD */ = {
+		B577C6B5D1D946229AFF2A6A /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = C59474F937E748E28EB30BA7 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildConfigurationList = 9AFCCABF1CE04817AEEE9799 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
-				372F4FF4E207490AB6550F17 /* CMake Rules */,
+				807893EB56964E9C89743873 /* CMake Rules */,
 			);
 			dependencies = (
-				5C6748B49B3D47EC809CDF0D /* PBXTargetDependency */,
-				EA5169C5ACCD439DB666C0ED /* PBXTargetDependency */,
+				1E401D76487141E9BEB43065 /* PBXTargetDependency */,
+				2F95D594A7B04DFA928AEA67 /* PBXTargetDependency */,
 			);
 			name = ALL_BUILD;
 			productName = ALL_BUILD;
@@ -34,195 +34,195 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		16454E48BA674DD4AB543777 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixX.cpp */ = {isa = PBXBuildFile; fileRef = 931EED83219940BF8F2B2D21 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixX.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		3FC71885FBE34413AFA9E7A8 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixF.cpp */ = {isa = PBXBuildFile; fileRef = 15348EACA24845D5ADA7F31D /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixF.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		475B4F11AD78477C8EA053B3 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTModelPOD.cpp */ = {isa = PBXBuildFile; fileRef = E22FEFFC795C4FDD818EF5A0 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTModelPOD.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		62E53CA5E43E41E19CAE371A /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTBoneBatch.cpp */ = {isa = PBXBuildFile; fileRef = 569DD1752D4242628808E6BC /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTBoneBatch.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		650DB7796FF44C0BB472AEAB /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionX.cpp */ = {isa = PBXBuildFile; fileRef = 5AF7DC94311D4D5AB8CA73EE /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionX.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		65A606FF207C45CD89A3ED69 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTString.cpp */ = {isa = PBXBuildFile; fileRef = 9A4C47A4370B43639CF23A58 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTString.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		7FC53B9BA44E4493BD45E07B /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 4E8FDA28543D4BDEAFC1756A /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */; settings = {COMPILER_FLAGS = ""; }; };
-		A98CF80FADBD4E25A9847681 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTTrans.cpp */ = {isa = PBXBuildFile; fileRef = 27D5C01BCDB24285ACBD8639 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTTrans.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		B1191649B0D8469DB3720DB3 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTFixedPoint.cpp */ = {isa = PBXBuildFile; fileRef = 451D8E93F76541279D1974CD /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTFixedPoint.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		C16C62BEF882497DAC3B8B5A /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTVector.cpp */ = {isa = PBXBuildFile; fileRef = 114137D7E4C44ED2BFBC3321 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTVector.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		C90D1073B8D64192B8DEC603 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTError.cpp */ = {isa = PBXBuildFile; fileRef = 27826881DDDE42EFA479270B /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTError.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		DB486F53D69C436285E438F0 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMisc.cpp */ = {isa = PBXBuildFile; fileRef = D07A1940249441E7A18DC5BF /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMisc.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		E6F6946FB6EF49D8907A8985 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTResourceFile.cpp */ = {isa = PBXBuildFile; fileRef = 03FF8E5E7E434E328DEF5607 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTResourceFile.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		F23896E8116B4A58A9EDBEB9 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTVertex.cpp */ = {isa = PBXBuildFile; fileRef = F8CA823091BB486598E24709 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTVertex.cpp */; settings = {COMPILER_FLAGS = ""; }; };
-		FE926A6A318647FBAE5CD389 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionF.cpp */ = {isa = PBXBuildFile; fileRef = 9752E58CC7CD4E6AADE57EFD /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionF.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		12555614392B44159A3FD9F2 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionX.cpp */ = {isa = PBXBuildFile; fileRef = 265D5E846959476F8A4033EA /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionX.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		14E993E0D2444088801976A5 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 70160EFEE9BD49F1898C82BD /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */; settings = {COMPILER_FLAGS = ""; }; };
+		209DD6B7076A41FAB46C2F72 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionF.cpp */ = {isa = PBXBuildFile; fileRef = C7161BDC317E495ABDA57B07 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionF.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		3D44982187F04285B044C2F6 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixF.cpp */ = {isa = PBXBuildFile; fileRef = 5D71677A1006419F91B98F29 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixF.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		465C4A77F1BF4CED9B794E38 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTTrans.cpp */ = {isa = PBXBuildFile; fileRef = 12199801BC4F4E399AE6D5E6 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTTrans.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		59A38726794642429CFDB542 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTFixedPoint.cpp */ = {isa = PBXBuildFile; fileRef = 800ED658B6AF487BA4BBB626 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTFixedPoint.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		88CF942D191F4FDFBB93C9D2 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTVertex.cpp */ = {isa = PBXBuildFile; fileRef = 97D64E9B791C4C73836A8FDA /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTVertex.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		ACD4A04FB6014FF08338E852 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTError.cpp */ = {isa = PBXBuildFile; fileRef = BFD2B8F6AB7D447F9339BAB7 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTError.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		B71BD467CB6646A5A0B42815 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTBoneBatch.cpp */ = {isa = PBXBuildFile; fileRef = 8C02FDE761764D898937AF96 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTBoneBatch.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		D5D01B860A11434B912DCE6E /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTResourceFile.cpp */ = {isa = PBXBuildFile; fileRef = 2717BC4CE39B46C59E5DED8A /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTResourceFile.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		DABFD0D8E1A54BD2BDC04763 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixX.cpp */ = {isa = PBXBuildFile; fileRef = 61DFC27EB40D4352A996705F /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixX.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		DC322198C15346A692090126 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTVector.cpp */ = {isa = PBXBuildFile; fileRef = 58C8D03A1A6143A4AEEAECD2 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTVector.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		DF2552C7B58E4B30BC26987E /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMisc.cpp */ = {isa = PBXBuildFile; fileRef = 7BA08F32D1DF41AF8A806B16 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMisc.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		E6E21CCF32AB46F5A6F70E9F /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTString.cpp */ = {isa = PBXBuildFile; fileRef = 658DF9724F044B8EBAF4705B /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTString.cpp */; settings = {COMPILER_FLAGS = ""; }; };
+		E8826734122145CDBCE0E4FF /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTModelPOD.cpp */ = {isa = PBXBuildFile; fileRef = 99B01446CBEC44748FEDF10A /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTModelPOD.cpp */; settings = {COMPILER_FLAGS = ""; }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-		4C94CFB29F9240BBBB8E6CB1 /* Release */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = Release;
-		};
-		6561908C955846688DD66292 /* MinSizeRel */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = MinSizeRel;
-		};
-		8D7F94A824FC44BCB36B6605 /* Debug */ = {
+		1A87CE7E6A4242F19A06E750 /* Debug */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = Debug;
 		};
-		AC914FFD421843B5AC6B63E6 = {
+		3ECC3A278EEF4098A671B302 = {
 			isa = PBXBuildStyle;
 		};
-		C5430FA41AEE47AE8E204890 /* RelWithDebInfo */ = {
+		78FDD5834F144B6985F9C3F3 /* MinSizeRel */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = MinSizeRel;
+		};
+		7DE95CBAB3734020864B7561 /* RelWithDebInfo */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = RelWithDebInfo;
 		};
+		B6136A4526334F33B0BFAD2D /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-		93D82DBDCF7D4E3F97530D50 /* PBXContainerItemProxy */ = {
+		7DD0C2705FFC43E6BDB8F069 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7073563A335E42E4B53592FA /* Project object */;
+			containerPortal = D4B515E22855424EA3320025 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6D2191E84AA34E7BA6C38698;
+			remoteGlobalIDString = 298896C9024D48528EA7D549;
 			remoteInfo = ZERO_CHECK;
 		};
-		AEADB1A1D3234A169BADFFA8 /* PBXContainerItemProxy */ = {
+		90A41F72300648A0A4D8A4EE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7073563A335E42E4B53592FA /* Project object */;
+			containerPortal = D4B515E22855424EA3320025 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6D2191E84AA34E7BA6C38698;
-			remoteInfo = ZERO_CHECK;
-		};
-		C09E251BC1194B3CBE8C71D7 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7073563A335E42E4B53592FA /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 89A206CDB58B412AA4551503;
+			remoteGlobalIDString = E33B3FF5C34849C4BD902DDA;
 			remoteInfo = PVRFramework;
+		};
+		9886D38D31C8411E8FEEA0BF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D4B515E22855424EA3320025 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 298896C9024D48528EA7D549;
+			remoteInfo = ZERO_CHECK;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		000CF95836C84DFDA2AB98CA /* PVRFramework */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libPVRFramework.a; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
-		03FF8E5E7E434E328DEF5607 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTResourceFile.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTResourceFile.cpp; path = PVRTResourceFile.cpp; sourceTree = SOURCE_ROOT; };
-		114137D7E4C44ED2BFBC3321 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTVector.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTVector.cpp; path = PVRTVector.cpp; sourceTree = SOURCE_ROOT; };
-		15348EACA24845D5ADA7F31D /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixF.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTMatrixF.cpp; path = PVRTMatrixF.cpp; sourceTree = SOURCE_ROOT; };
-		27826881DDDE42EFA479270B /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTError.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTError.cpp; path = PVRTError.cpp; sourceTree = SOURCE_ROOT; };
-		27D5C01BCDB24285ACBD8639 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTTrans.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTTrans.cpp; path = PVRTTrans.cpp; sourceTree = SOURCE_ROOT; };
-		451D8E93F76541279D1974CD /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTFixedPoint.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTFixedPoint.cpp; path = PVRTFixedPoint.cpp; sourceTree = SOURCE_ROOT; };
-		49DA9F5F96534E2F9669E4EC /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		4E8FDA28543D4BDEAFC1756A /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		569DD1752D4242628808E6BC /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTBoneBatch.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTBoneBatch.cpp; path = PVRTBoneBatch.cpp; sourceTree = SOURCE_ROOT; };
-		5AF7DC94311D4D5AB8CA73EE /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionX.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTQuaternionX.cpp; path = PVRTQuaternionX.cpp; sourceTree = SOURCE_ROOT; };
-		931EED83219940BF8F2B2D21 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixX.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTMatrixX.cpp; path = PVRTMatrixX.cpp; sourceTree = SOURCE_ROOT; };
-		9752E58CC7CD4E6AADE57EFD /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionF.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTQuaternionF.cpp; path = PVRTQuaternionF.cpp; sourceTree = SOURCE_ROOT; };
-		9A4C47A4370B43639CF23A58 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTString.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTString.cpp; path = PVRTString.cpp; sourceTree = SOURCE_ROOT; };
-		D07A1940249441E7A18DC5BF /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMisc.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTMisc.cpp; path = PVRTMisc.cpp; sourceTree = SOURCE_ROOT; };
-		E22FEFFC795C4FDD818EF5A0 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTModelPOD.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTModelPOD.cpp; path = PVRTModelPOD.cpp; sourceTree = SOURCE_ROOT; };
-		F8CA823091BB486598E24709 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTVertex.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTVertex.cpp; path = PVRTVertex.cpp; sourceTree = SOURCE_ROOT; };
-		FCEF858B851B4E8C98B83188 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		09D061E2180840868767BF8B /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		12199801BC4F4E399AE6D5E6 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTTrans.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTTrans.cpp; path = PVRTTrans.cpp; sourceTree = SOURCE_ROOT; };
+		265D5E846959476F8A4033EA /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionX.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTQuaternionX.cpp; path = PVRTQuaternionX.cpp; sourceTree = SOURCE_ROOT; };
+		2717BC4CE39B46C59E5DED8A /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTResourceFile.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTResourceFile.cpp; path = PVRTResourceFile.cpp; sourceTree = SOURCE_ROOT; };
+		58C8D03A1A6143A4AEEAECD2 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTVector.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTVector.cpp; path = PVRTVector.cpp; sourceTree = SOURCE_ROOT; };
+		5D71677A1006419F91B98F29 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixF.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTMatrixF.cpp; path = PVRTMatrixF.cpp; sourceTree = SOURCE_ROOT; };
+		61DFC27EB40D4352A996705F /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixX.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTMatrixX.cpp; path = PVRTMatrixX.cpp; sourceTree = SOURCE_ROOT; };
+		658DF9724F044B8EBAF4705B /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTString.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTString.cpp; path = PVRTString.cpp; sourceTree = SOURCE_ROOT; };
+		70160EFEE9BD49F1898C82BD /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		7BA08F32D1DF41AF8A806B16 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMisc.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTMisc.cpp; path = PVRTMisc.cpp; sourceTree = SOURCE_ROOT; };
+		800ED658B6AF487BA4BBB626 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTFixedPoint.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTFixedPoint.cpp; path = PVRTFixedPoint.cpp; sourceTree = SOURCE_ROOT; };
+		8C02FDE761764D898937AF96 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTBoneBatch.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTBoneBatch.cpp; path = PVRTBoneBatch.cpp; sourceTree = SOURCE_ROOT; };
+		97D64E9B791C4C73836A8FDA /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTVertex.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTVertex.cpp; path = PVRTVertex.cpp; sourceTree = SOURCE_ROOT; };
+		99B01446CBEC44748FEDF10A /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTModelPOD.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTModelPOD.cpp; path = PVRTModelPOD.cpp; sourceTree = SOURCE_ROOT; };
+		9C3FC830BBE7473CA64F4844 /* PVRFramework */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libPVRFramework.a; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+		BFD2B8F6AB7D447F9339BAB7 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTError.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTError.cpp; path = PVRTError.cpp; sourceTree = SOURCE_ROOT; };
+		C5B4743201B741CCBD374DB5 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		C7161BDC317E495ABDA57B07 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionF.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = PVRTQuaternionF.cpp; path = PVRTQuaternionF.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		1F3FB5E417934134A4C0AEA2 = {
+		0F6098F23F6647F3AFB7F132 /* PVRFramework */ = {
 			isa = PBXGroup;
 			children = (
-				A15C823423864184B7744167 /* Sources */,
-				29AAB5C076BA45C6BD9E0E82 /* Resources */,
-				A6135A500AB34CA186FD5875 /* Products */,
+				8AEF30F79C1D408C934CB66D /* Source Files */,
+				70160EFEE9BD49F1898C82BD /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */,
 			);
+			name = PVRFramework;
 			sourceTree = "<group>";
 		};
-		29AAB5C076BA45C6BD9E0E82 /* Resources */ = {
+		0F76C678470B4401B83BBFD4 /* CMake Rules */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		2A89540B7B4C4D0197B8A679 /* ZERO_CHECK */ = {
+			isa = PBXGroup;
+			children = (
+				0F76C678470B4401B83BBFD4 /* CMake Rules */,
+				C5B4743201B741CCBD374DB5 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */,
+			);
+			name = ZERO_CHECK;
+			sourceTree = "<group>";
+		};
+		4E0A02D929404D268EC11C0A /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				2A89540B7B4C4D0197B8A679 /* ZERO_CHECK */,
+				EF96EB6B2E44453292A8341C /* ALL_BUILD */,
+				0F6098F23F6647F3AFB7F132 /* PVRFramework */,
+			);
+			name = Sources;
+			sourceTree = "<group>";
+		};
+		4E857B1761604D10BC9C7E57 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9C3FC830BBE7473CA64F4844 /* PVRFramework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		817B79F02CD2431FA4D9B386 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = Resources;
 			sourceTree = "<group>";
 		};
-		2CC9A39F2BC94FB8A0C29A45 /* CMake Rules */ = {
+		8AEF30F79C1D408C934CB66D /* Source Files */ = {
 			isa = PBXGroup;
 			children = (
-			);
-			name = "CMake Rules";
-			sourceTree = "<group>";
-		};
-		4A2FBACEED0E4DDE9C52EAF4 /* CMake Rules */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "CMake Rules";
-			sourceTree = "<group>";
-		};
-		A15C823423864184B7744167 /* Sources */ = {
-			isa = PBXGroup;
-			children = (
-				D5B89B80A6424328A100C557 /* ZERO_CHECK */,
-				EACEE7CE5B1149E298E26376 /* ALL_BUILD */,
-				E6067A03350A4C4598B93C22 /* PVRFramework */,
-			);
-			name = Sources;
-			sourceTree = "<group>";
-		};
-		A6135A500AB34CA186FD5875 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				000CF95836C84DFDA2AB98CA /* PVRFramework */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		D5B89B80A6424328A100C557 /* ZERO_CHECK */ = {
-			isa = PBXGroup;
-			children = (
-				2CC9A39F2BC94FB8A0C29A45 /* CMake Rules */,
-				49DA9F5F96534E2F9669E4EC /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */,
-			);
-			name = ZERO_CHECK;
-			sourceTree = "<group>";
-		};
-		DC787263C8AD4E608A72940F /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				569DD1752D4242628808E6BC /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTBoneBatch.cpp */,
-				27826881DDDE42EFA479270B /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTError.cpp */,
-				451D8E93F76541279D1974CD /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTFixedPoint.cpp */,
-				15348EACA24845D5ADA7F31D /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixF.cpp */,
-				931EED83219940BF8F2B2D21 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixX.cpp */,
-				D07A1940249441E7A18DC5BF /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMisc.cpp */,
-				E22FEFFC795C4FDD818EF5A0 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTModelPOD.cpp */,
-				9752E58CC7CD4E6AADE57EFD /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionF.cpp */,
-				5AF7DC94311D4D5AB8CA73EE /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionX.cpp */,
-				03FF8E5E7E434E328DEF5607 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTResourceFile.cpp */,
-				9A4C47A4370B43639CF23A58 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTString.cpp */,
-				27D5C01BCDB24285ACBD8639 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTTrans.cpp */,
-				114137D7E4C44ED2BFBC3321 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTVector.cpp */,
-				F8CA823091BB486598E24709 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTVertex.cpp */,
+				8C02FDE761764D898937AF96 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTBoneBatch.cpp */,
+				BFD2B8F6AB7D447F9339BAB7 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTError.cpp */,
+				800ED658B6AF487BA4BBB626 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTFixedPoint.cpp */,
+				5D71677A1006419F91B98F29 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixF.cpp */,
+				61DFC27EB40D4352A996705F /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixX.cpp */,
+				7BA08F32D1DF41AF8A806B16 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMisc.cpp */,
+				99B01446CBEC44748FEDF10A /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTModelPOD.cpp */,
+				C7161BDC317E495ABDA57B07 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionF.cpp */,
+				265D5E846959476F8A4033EA /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionX.cpp */,
+				2717BC4CE39B46C59E5DED8A /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTResourceFile.cpp */,
+				658DF9724F044B8EBAF4705B /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTString.cpp */,
+				12199801BC4F4E399AE6D5E6 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTTrans.cpp */,
+				58C8D03A1A6143A4AEEAECD2 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTVector.cpp */,
+				97D64E9B791C4C73836A8FDA /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTVertex.cpp */,
 			);
 			name = "Source Files";
 			sourceTree = "<group>";
 		};
-		E6067A03350A4C4598B93C22 /* PVRFramework */ = {
+		AAEB270970EF472BA77FBDD6 /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
-				DC787263C8AD4E608A72940F /* Source Files */,
-				4E8FDA28543D4BDEAFC1756A /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */,
 			);
-			name = PVRFramework;
+			name = "CMake Rules";
 			sourceTree = "<group>";
 		};
-		EACEE7CE5B1149E298E26376 /* ALL_BUILD */ = {
+		D52AFC1C1CE84E96A252E01D = {
 			isa = PBXGroup;
 			children = (
-				4A2FBACEED0E4DDE9C52EAF4 /* CMake Rules */,
-				FCEF858B851B4E8C98B83188 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */,
+				4E0A02D929404D268EC11C0A /* Sources */,
+				817B79F02CD2431FA4D9B386 /* Resources */,
+				4E857B1761604D10BC9C7E57 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EF96EB6B2E44453292A8341C /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				AAEB270970EF472BA77FBDD6 /* CMake Rules */,
+				09D061E2180840868767BF8B /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/CMakeLists.txt */,
 			);
 			name = ALL_BUILD;
 			sourceTree = "<group>";
@@ -230,54 +230,76 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		89A206CDB58B412AA4551503 /* PVRFramework */ = {
+		E33B3FF5C34849C4BD902DDA /* PVRFramework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 9EFF0278C6A0442ABCFFC0DE /* Build configuration list for PBXNativeTarget "PVRFramework" */;
+			buildConfigurationList = 31B44CCA455A42DB8B873E85 /* Build configuration list for PBXNativeTarget "PVRFramework" */;
 			buildPhases = (
-				3D047CE863A94F2598B4F724 /* Sources */,
+				537498957FE44252A10928FC /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				40C499D671DE4C20BE874C2B /* PBXTargetDependency */,
+				01D6D2A50D4949C182E2FDA3 /* PBXTargetDependency */,
 			);
 			name = PVRFramework;
 			productName = PVRFramework;
-			productReference = 000CF95836C84DFDA2AB98CA /* PVRFramework */;
+			productReference = 9C3FC830BBE7473CA64F4844 /* PVRFramework */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7073563A335E42E4B53592FA /* Project object */ = {
+		D4B515E22855424EA3320025 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 			};
-			buildConfigurationList = 3462A15CB761465E98B4A2C1 /* Build configuration list for PBXProject "PVRFramework" */;
+			buildConfigurationList = 3FF4BC1A8C1F4E21AD88CA21 /* Build configuration list for PBXProject "PVRFramework" */;
 			buildSettings = {
 			};
 			buildStyles = (
-				8D7F94A824FC44BCB36B6605 /* Debug */,
-				4C94CFB29F9240BBBB8E6CB1 /* Release */,
-				6561908C955846688DD66292 /* MinSizeRel */,
-				C5430FA41AEE47AE8E204890 /* RelWithDebInfo */,
+				1A87CE7E6A4242F19A06E750 /* Debug */,
+				B6136A4526334F33B0BFAD2D /* Release */,
+				78FDD5834F144B6985F9C3F3 /* MinSizeRel */,
+				7DE95CBAB3734020864B7561 /* RelWithDebInfo */,
 			);
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
-			mainGroup = 1F3FB5E417934134A4C0AEA2;
+			mainGroup = D52AFC1C1CE84E96A252E01D;
 			projectDirPath = ../../;
 			projectRoot = "";
 			targets = (
-				9FA0CF1CD68A43F1958B98EB /* ALL_BUILD */,
-				89A206CDB58B412AA4551503 /* PVRFramework */,
-				6D2191E84AA34E7BA6C38698 /* ZERO_CHECK */,
+				B577C6B5D1D946229AFF2A6A /* ALL_BUILD */,
+				E33B3FF5C34849C4BD902DDA /* PVRFramework */,
+				298896C9024D48528EA7D549 /* ZERO_CHECK */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		32EDB52BC2A3434BB92D7272 = {
+		1BB82E957DAE40B88E602464 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios -f /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		807893EB56964E9C89743873 /* CMake Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios -f /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+			showEnvVarsInLog = 0;
+		};
+		85DD0142A92F40698673A2C2 = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -292,29 +314,7 @@
 exit 0";
 			showEnvVarsInLog = 0;
 		};
-		372F4FF4E207490AB6550F17 /* CMake Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios -f /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
-			showEnvVarsInLog = 0;
-		};
-		381FC11D110448AD889748BF /* CMake Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios -f /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION all";
-			showEnvVarsInLog = 0;
-		};
-		FDAE922C3CFE4978BCA4A3BF = {
+		A4EBE6FCAE824B72BC9A6A33 = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -332,58 +332,49 @@ exit 0";
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		3D047CE863A94F2598B4F724 /* Sources */ = {
+		537498957FE44252A10928FC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				62E53CA5E43E41E19CAE371A /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTBoneBatch.cpp */,
-				C90D1073B8D64192B8DEC603 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTError.cpp */,
-				B1191649B0D8469DB3720DB3 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTFixedPoint.cpp */,
-				3FC71885FBE34413AFA9E7A8 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixF.cpp */,
-				16454E48BA674DD4AB543777 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixX.cpp */,
-				DB486F53D69C436285E438F0 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTMisc.cpp */,
-				475B4F11AD78477C8EA053B3 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTModelPOD.cpp */,
-				FE926A6A318647FBAE5CD389 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionF.cpp */,
-				650DB7796FF44C0BB472AEAB /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionX.cpp */,
-				E6F6946FB6EF49D8907A8985 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTResourceFile.cpp */,
-				65A606FF207C45CD89A3ED69 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTString.cpp */,
-				A98CF80FADBD4E25A9847681 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTTrans.cpp */,
-				C16C62BEF882497DAC3B8B5A /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTVector.cpp */,
-				F23896E8116B4A58A9EDBEB9 /* /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/PVRTVertex.cpp */,
+				B71BD467CB6646A5A0B42815 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTBoneBatch.cpp */,
+				ACD4A04FB6014FF08338E852 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTError.cpp */,
+				59A38726794642429CFDB542 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTFixedPoint.cpp */,
+				3D44982187F04285B044C2F6 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixF.cpp */,
+				DABFD0D8E1A54BD2BDC04763 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMatrixX.cpp */,
+				DF2552C7B58E4B30BC26987E /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTMisc.cpp */,
+				E8826734122145CDBCE0E4FF /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTModelPOD.cpp */,
+				209DD6B7076A41FAB46C2F72 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionF.cpp */,
+				12555614392B44159A3FD9F2 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTQuaternionX.cpp */,
+				D5D01B860A11434B912DCE6E /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTResourceFile.cpp */,
+				E6E21CCF32AB46F5A6F70E9F /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTString.cpp */,
+				465C4A77F1BF4CED9B794E38 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTTrans.cpp */,
+				DC322198C15346A692090126 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTVector.cpp */,
+				88CF942D191F4FDFBB93C9D2 /* /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/PVRTVertex.cpp */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		40C499D671DE4C20BE874C2B /* PBXTargetDependency */ = {
+		01D6D2A50D4949C182E2FDA3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6D2191E84AA34E7BA6C38698 /* ZERO_CHECK */;
-			targetProxy = 93D82DBDCF7D4E3F97530D50 /* PBXContainerItemProxy */;
+			target = 298896C9024D48528EA7D549 /* ZERO_CHECK */;
+			targetProxy = 9886D38D31C8411E8FEEA0BF /* PBXContainerItemProxy */;
 		};
-		5C6748B49B3D47EC809CDF0D /* PBXTargetDependency */ = {
+		1E401D76487141E9BEB43065 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 89A206CDB58B412AA4551503 /* PVRFramework */;
-			targetProxy = C09E251BC1194B3CBE8C71D7 /* PBXContainerItemProxy */;
+			target = E33B3FF5C34849C4BD902DDA /* PVRFramework */;
+			targetProxy = 90A41F72300648A0A4D8A4EE /* PBXContainerItemProxy */;
 		};
-		EA5169C5ACCD439DB666C0ED /* PBXTargetDependency */ = {
+		2F95D594A7B04DFA928AEA67 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 6D2191E84AA34E7BA6C38698 /* ZERO_CHECK */;
-			targetProxy = AEADB1A1D3234A169BADFFA8 /* PBXContainerItemProxy */;
+			target = 298896C9024D48528EA7D549 /* ZERO_CHECK */;
+			targetProxy = 7DD0C2705FFC43E6BDB8F069 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0298FA6734DD47F1A04B0D89 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk;
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios/build;
-			};
-			name = Release;
-		};
-		1C9A539C924446BEBFB913E4 /* Debug */ = {
+		295C6230473C4AEA8B0A334B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -392,61 +383,61 @@ exit 0";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+			};
+			name = Release;
+		};
+		2E74444AC2F94B0D91A5BADD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = " ";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-			};
-			name = Debug;
-		};
-		269A168A50C340E3A9940B8F /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-			};
-			name = Debug;
-		};
-		2B1F6511CE27470C90E74025 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
 			};
 			name = Release;
 		};
-		3775F1F2D79943EBB3979957 /* RelWithDebInfo */ = {
+		32A6AEB8D87247029706E33D /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+			};
+			name = MinSizeRel;
+		};
+		48E6D6ACBD9342F8B3F554A4 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -458,7 +449,7 @@ exit 0";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
 				ONLY_ACTIVE_ARCH = NO;
@@ -467,76 +458,13 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = PVRFramework;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-			};
-			name = RelWithDebInfo;
-		};
-		485A7CE547FE4AD68F95E6BA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				COMBINE_HIDPI_IMAGES = YES;
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = " -fvisibility=hidden -fvisibility-inlines-hidden -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk  ";
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = PVRFramework;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-			};
-			name = Debug;
-		};
-		4F3CE4ABC6C1451287C25AD7 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk;
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios/build;
-			};
-			name = MinSizeRel;
-		};
-		6638113B4816481A83F3DD20 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
-				COMBINE_HIDPI_IMAGES = YES;
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				ONLY_ACTIVE_ARCH = NO;
-				OTHER_CPLUSPLUSFLAGS = " -fvisibility=hidden -fvisibility-inlines-hidden -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk  ";
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = PVRFramework;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
 			};
 			name = MinSizeRel;
 		};
-		71BE1C3B17C84E8299EC2F59 /* RelWithDebInfo */ = {
+		4DA5910EA89B42E490B644AB /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -545,49 +473,28 @@ exit 0";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = " ";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
 			};
 			name = RelWithDebInfo;
 		};
-		7395DC144BAB4069A250BF8C /* Debug */ = {
+		5AFC0C11CFBB41F69F345999 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk;
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios/build;
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios/build;
 			};
-			name = Debug;
+			name = Release;
 		};
-		7CADE640C0A742FBB53548EE /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-			};
-			name = MinSizeRel;
-		};
-		980EBBA389E240F295E0CA34 /* Release */ = {
+		60E549A50E784B45A0DC56DD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
@@ -599,7 +506,7 @@ exit 0";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
 				INSTALL_PATH = "";
 				LIBRARY_STYLE = STATIC;
 				ONLY_ACTIVE_ARCH = NO;
@@ -608,43 +515,22 @@ exit 0";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = PVRFramework;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
 			};
-			name = Release;
+			name = Debug;
 		};
-		9A6F6B3C157945D7A6166A41 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-			};
-			name = Release;
-		};
-		C9A6E30E21DF46A5B9FE773E /* RelWithDebInfo */ = {
+		7072D8C5AC1C4AA0BCDFABC4 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
 				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk;
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios/build;
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios/build;
 			};
-			name = RelWithDebInfo;
+			name = MinSizeRel;
 		};
-		EB225127938A4D0FAF1B2C12 /* RelWithDebInfo */ = {
+		89B62E8E80AA4BA48166C61D /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -653,87 +539,201 @@ exit 0";
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = " ";
 				OTHER_REZFLAGS = "";
 				PRODUCT_NAME = ZERO_CHECK;
 				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
-			};
-			name = RelWithDebInfo;
-		};
-		F54D1896EE9F4E039068894F /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/joe/code/projects/metal/thirdParty/pvrSdk/framework, );
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/joe/code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
 			};
 			name = MinSizeRel;
+		};
+		8A9B71B7B8CB4F9CBF086081 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk;
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios/build;
+			};
+			name = Debug;
+		};
+		A5C611B2D1B6452BAF566E54 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+			};
+			name = Debug;
+		};
+		CD33F26C3F5A4CDB992D0EEF /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = " -fvisibility=hidden -fvisibility-inlines-hidden -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = PVRFramework;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+			};
+			name = RelWithDebInfo;
+		};
+		D6BEC3681F1840B897270992 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				ONLY_ACTIVE_ARCH = NO;
+				OTHER_CPLUSPLUSFLAGS = " -fvisibility=hidden -fvisibility-inlines-hidden -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = PVRFramework;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+			};
+			name = Release;
+		};
+		D6D6F6797E64429F82340329 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+			};
+			name = Debug;
+		};
+		EB70C4E8B94346F0AF547E49 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'", );
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework, );
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", "$(inherited)", );
+			};
+			name = RelWithDebInfo;
+		};
+		EBFD177B7DC14F7DB1628B50 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk;
+				SYMROOT = /Users/joe/Code/projects/metal/thirdParty/pvrSdk/framework/build/ios/build;
+			};
+			name = RelWithDebInfo;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3462A15CB761465E98B4A2C1 /* Build configuration list for PBXProject "PVRFramework" */ = {
+		1181E7FB2CB540AD97831168 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7395DC144BAB4069A250BF8C /* Debug */,
-				0298FA6734DD47F1A04B0D89 /* Release */,
-				4F3CE4ABC6C1451287C25AD7 /* MinSizeRel */,
-				C9A6E30E21DF46A5B9FE773E /* RelWithDebInfo */,
+				A5C611B2D1B6452BAF566E54 /* Debug */,
+				2E74444AC2F94B0D91A5BADD /* Release */,
+				89B62E8E80AA4BA48166C61D /* MinSizeRel */,
+				EB70C4E8B94346F0AF547E49 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		3AAFAFFF77234495A801F8FA /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		31B44CCA455A42DB8B873E85 /* Build configuration list for PBXNativeTarget "PVRFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1C9A539C924446BEBFB913E4 /* Debug */,
-				9A6F6B3C157945D7A6166A41 /* Release */,
-				F54D1896EE9F4E039068894F /* MinSizeRel */,
-				EB225127938A4D0FAF1B2C12 /* RelWithDebInfo */,
+				60E549A50E784B45A0DC56DD /* Debug */,
+				D6BEC3681F1840B897270992 /* Release */,
+				48E6D6ACBD9342F8B3F554A4 /* MinSizeRel */,
+				CD33F26C3F5A4CDB992D0EEF /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		9EFF0278C6A0442ABCFFC0DE /* Build configuration list for PBXNativeTarget "PVRFramework" */ = {
+		3FF4BC1A8C1F4E21AD88CA21 /* Build configuration list for PBXProject "PVRFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				485A7CE547FE4AD68F95E6BA /* Debug */,
-				980EBBA389E240F295E0CA34 /* Release */,
-				6638113B4816481A83F3DD20 /* MinSizeRel */,
-				3775F1F2D79943EBB3979957 /* RelWithDebInfo */,
+				8A9B71B7B8CB4F9CBF086081 /* Debug */,
+				5AFC0C11CFBB41F69F345999 /* Release */,
+				7072D8C5AC1C4AA0BCDFABC4 /* MinSizeRel */,
+				EBFD177B7DC14F7DB1628B50 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		C59474F937E748E28EB30BA7 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		9AFCCABF1CE04817AEEE9799 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				269A168A50C340E3A9940B8F /* Debug */,
-				2B1F6511CE27470C90E74025 /* Release */,
-				7CADE640C0A742FBB53548EE /* MinSizeRel */,
-				71BE1C3B17C84E8299EC2F59 /* RelWithDebInfo */,
+				D6D6F6797E64429F82340329 /* Debug */,
+				295C6230473C4AEA8B0A334B /* Release */,
+				32A6AEB8D87247029706E33D /* MinSizeRel */,
+				4DA5910EA89B42E490B644AB /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 7073563A335E42E4B53592FA /* Project object */;
+	rootObject = D4B515E22855424EA3320025 /* Project object */;
 }
