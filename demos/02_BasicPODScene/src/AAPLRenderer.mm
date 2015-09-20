@@ -19,6 +19,9 @@
 #include <vector>
 #include "body.hpp"
 
+#include "PVRTModelPOD.h"
+#include "PVRTResourceFile.h"
+
 using namespace AAPL;
 using namespace JMD;
 using namespace simd;
@@ -45,6 +48,7 @@ static const float kWidth  = 0.75f;
 static const float kHeight = 0.75f;
 static const float kDepth  = 0.75f;
 
+static const unsigned int kCubeNumberOfVertices = 36;
 static const float kCubeVertexData[] =
 {
     kWidth, -kHeight, kDepth,   0.0, -1.0,  0.0,
@@ -114,6 +118,10 @@ static const float kCubeVertexData[] =
     Mesh* _cubeMesh;
     JMD::Body _cubeBodies[kNumberOfBoxes];
     ConstantBufferGroup* _constantBufferGroup;
+    
+    // 3D Model
+    CPVRTModelPOD _model;
+    Mesh* _mesh;
 }
 
 - (instancetype)init
@@ -161,7 +169,7 @@ static const float kCubeVertexData[] =
         assert(0);
     }
     // Load meshes
-    _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:kCubeVertexData vertexBufferLength:sizeof(kCubeVertexData) indexBuffer:nil indexBufferLength:0];
+    _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:(char*)kCubeVertexData numberOfVertices:kCubeNumberOfVertices stride:sizeof(float)*6 indexBuffer:NULL numberOfIndices:0 sizeOfIndices:0];
     // Prepare constant buffer groups
     NSMutableArray* actorGroupArray = [[NSMutableArray alloc]init];
     NSMutableArray* bodies = [[NSMutableArray alloc]init];
@@ -171,7 +179,6 @@ static const float kCubeVertexData[] =
     [actorGroupArray addObject: [[ActorGroup alloc]initWithMeshAndNSArray:_cubeMesh bodyPtrs:bodies]];
     
     _constantBufferGroup = [[ConstantBufferGroup alloc]initPipelineAndActorGroups:_device pipeline:_defaultPipeline uniformBlockSize:sizeof(JMD::UB::CubeLighting) actorGroups:actorGroupArray];
-    
     
     MTLDepthStencilDescriptor *depthStateDesc = [[MTLDepthStencilDescriptor alloc] init];
     depthStateDesc.depthCompareFunction = MTLCompareFunctionLess;
@@ -203,8 +210,32 @@ static const float kCubeVertexData[] =
             }
         }
     }
+    [self pvrFrameworkSetup];
+    _mesh = [self loadModel:_model];
 }
-
+-(Mesh*)loadModel:(CPVRTModelPOD&)pod {
+    SPODMesh& podMesh(pod.pMesh[0]); // TODO: Support more than one mesh
+    return [[Mesh alloc]initWithBytes:_device
+                            vertexBuffer:(char*)podMesh.pInterleaved
+                            numberOfVertices:podMesh.nNumVertex
+                            stride:podMesh.sVertex.nStride
+                            indexBuffer:(char*)podMesh.sFaces.pData
+                            numberOfIndices:PVRTModelPODCountIndices(podMesh)
+                            sizeOfIndices:podMesh.sFaces.nStride];
+}
+-(void)pvrFrameworkSetup {
+    NSString* readPath = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] bundlePath], @"/"];
+    CPVRTResourceFile::SetReadPath([readPath UTF8String]);
+    CPVRTResourceFile::SetLoadReleaseFunctions(NULL, NULL);
+    // Load the scene
+    if (_model.ReadFromFile("test.pod") != PVR_SUCCESS) {
+        printf("ERROR: Couldn't load the .pod file\n");
+        return;
+    }
+}
+-(void)pvrFrameworkShutdown {
+    _model.Destroy();
+}
 - (BOOL)preparePipelineState:(AAPLView *)view
 {
     MTLRenderPipelineDescriptor *renderpassPipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
@@ -236,19 +267,24 @@ static const float kCubeVertexData[] =
     MTLRenderPassDescriptor *renderPassDescriptor = view.renderPassDescriptor;
     if (renderPassDescriptor)
     {
+        Mesh* mesh = _mesh;
         id <MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
         id<MTLBuffer> constantBuffer = [_constantBufferGroup getConstantBuffer:_constantDataBufferIndex];
         [renderEncoder pushDebugGroup:@"Boxes"];
         [renderEncoder setDepthStencilState:_depthState];
         [renderEncoder setRenderPipelineState:[_constantBufferGroup pipeline].state];
-        [renderEncoder setVertexBuffer:_cubeMesh.vertexBuffer offset:0 atIndex:0 ];
+        [renderEncoder setVertexBuffer:mesh.vertexBuffer offset:0 atIndex:0];
         
-        for (int i = 0; i < kNumberOfBoxes; i++) {
+        for (int i = 0; i < 1; i++) {
             //  set constant buffer for each box
             [renderEncoder setVertexBuffer:constantBuffer offset:i*sizeof(UB::CubeLighting) atIndex:1 ];
             
             // tell the render context we want to draw our primitives
-            [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:36];
+            if(mesh.indexBuffer == NULL) {
+                [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:mesh.numberOfVertices];
+            }else{
+                [renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle indexCount:mesh.numberOfIndices indexType:MTLIndexTypeUInt16 indexBuffer:mesh.indexBuffer indexBufferOffset:0];
+            }
         }
         
         [renderEncoder endEncoding];
@@ -294,7 +330,7 @@ static const float kCubeVertexData[] =
 // called every frame
 - (void)updateConstantBuffer
 {
-    float4x4 baseModelViewMatrix = translate(0.0f, 0.0f, 5.0f) * rotate(_rotation, 1.0f, 1.0f, 1.0f);
+    float4x4 baseModelViewMatrix = translate(0.0f, 0.0f, 35.0f) * rotate(_rotation, 1.0f, 1.0f, 1.0f);
     baseModelViewMatrix = _viewMatrix * baseModelViewMatrix;
     
     id<MTLBuffer> constantBuffer = [_constantBufferGroup getConstantBuffer:_constantDataBufferIndex];
