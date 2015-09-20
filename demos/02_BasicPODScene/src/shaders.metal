@@ -14,42 +14,40 @@ using namespace metal;
 using namespace JMD;
 
 // variables in constant address space
-constant float3 light_position = float3(0.0, 1.0, -1.0);
+constant float3 _lightPosition = float3(0.0, 1.0, -1.0);
 
 typedef struct
 {
 	packed_float3 position;
 	packed_float3 normal;
-} vertex_t;
+} _attributeLayout;
 
-struct ColorInOut {
+struct VertexOutput {
     float4 position [[position]];
     half4 color;
 };
 
 // vertex shader function
-vertex ColorInOut lighting_vertex(device vertex_t* vertex_array [[ buffer(0) ]],
+vertex VertexOutput basicLightingVertex(device _attributeLayout* vertexArray [[ buffer(0) ]],
                                   constant UB::BasicLighting& constants [[ buffer(1) ]],
-                                  unsigned int vid [[ vertex_id ]])
-{
-    ColorInOut out;
+                                  unsigned int vertexID [[ vertex_id ]]) {
+    VertexOutput out;
     
-	float4 in_position = float4(float3(vertex_array[vid].position), 1.0);
-    out.position = constants.modelview_projection_matrix * in_position;
+	float4 position = float4(float3(vertexArray[vertexID].position), 1.0);
+    out.position = constants.mvpMatrix * position;
     
-    float3 normal = vertex_array[vid].normal;
-    float4 eye_normal = normalize(constants.normal_matrix * float4(normal, 0.0));
-    float n_dot_l = dot(eye_normal.rgb, normalize(light_position));
-    n_dot_l = fmax(0.0, n_dot_l);
+    float3 normal = vertexArray[vertexID].normal;
+    float4 eyeNormal = normalize(constants.normalMatrix * float4(normal, 0.0));
+    float nDotL = dot(eyeNormal.rgb, normalize(_lightPosition));
+    nDotL = fmax(0.0, nDotL);
     
-    out.color = half4(constants.ambient_color + constants.diffuse_color * n_dot_l);
+    out.color = half4(constants.ambientColor + constants.diffuseColor * nDotL);
     
     return out;
 }
 
 // fragment shader function
-fragment half4 lighting_fragment(ColorInOut in [[stage_in]])
-{
+fragment half4 basicLightingFragment(VertexOutput in [[stage_in]]) {
     return in.color;
 };
 

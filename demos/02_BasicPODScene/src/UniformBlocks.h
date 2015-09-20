@@ -5,10 +5,10 @@
 namespace JMD {
 namespace UB { // Uniform block
     struct BasicLighting {
-        simd::float4x4 modelview_projection_matrix;
-        simd::float4x4 normal_matrix;
-        simd::float4   ambient_color;
-        simd::float4   diffuse_color;
+        simd::float4x4 mvpMatrix;
+        simd::float4x4 normalMatrix;
+        simd::float4   ambientColor;
+        simd::float4   diffuseColor;
         int            multiplier;
     };
 }

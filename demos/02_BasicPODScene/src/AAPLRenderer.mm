@@ -121,8 +121,8 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
         mtlConstantBuffer.label = [NSString stringWithFormat:@"ConstantBuffer%i", i];
         UB::BasicLighting *constantBuffer = (UB::BasicLighting*)[mtlConstantBuffer contents];
         constantBuffer[0].multiplier = 1;
-        constantBuffer[0].ambient_color = kAmbientColors[0];
-        constantBuffer[0].diffuse_color = kDiffuseColors[0];
+        constantBuffer[0].ambientColor = kAmbientColors[0];
+        constantBuffer[0].diffuseColor = kDiffuseColors[0];
     }
 }
 -(Mesh*)loadModel:(CPVRTModelPOD&)pod {
@@ -154,7 +154,7 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     mtlRenderPassPipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
     mtlRenderPassPipelineDescriptor.depthAttachmentPixelFormat = view.depthPixelFormat;
     
-    Effect* effect = [[Effect alloc]initWithLibrary:_mtlDefaultLibrary vertexName:@"lighting_vertex" fragmentName:@"lighting_fragment"];
+    Effect* effect = [[Effect alloc]initWithLibrary:_mtlDefaultLibrary vertexName:@"basicLightingVertex" fragmentName:@"basicLightingFragment"];
     _defaultPipeline = [[Pipeline alloc]initWithDescTemplate:_mtlDevice templatePipelineDesc:mtlRenderPassPipelineDescriptor effect:effect];
     return YES;
 }
@@ -228,19 +228,19 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
         = AAPL::translate(position.x, position.y, position.z) * AAPL::rotate(rotation.x, rotation.y, rotation.z, rotation.w);
         modelViewMatrix = baseModelViewMatrix * modelViewMatrix;
         
-        constantBuffer[0].normal_matrix = inverse(transpose(modelViewMatrix));
-        constantBuffer[0].modelview_projection_matrix = _projectionMatrix * modelViewMatrix;
+        constantBuffer[0].normalMatrix = inverse(transpose(modelViewMatrix));
+        constantBuffer[0].mvpMatrix = _projectionMatrix * modelViewMatrix;
         
         // change the color each frame
         // reverse direction if we've reached a boundary
-        if (constantBuffer[0].ambient_color.y >= 0.8) {
+        if (constantBuffer[0].ambientColor.y >= 0.8) {
             constantBuffer[0].multiplier = -1;
-            constantBuffer[0].ambient_color.y = 0.79;
-        } else if (constantBuffer[0].ambient_color.y <= 0.2) {
+            constantBuffer[0].ambientColor.y = 0.79;
+        } else if (constantBuffer[0].ambientColor.y <= 0.2) {
             constantBuffer[0].multiplier = 1;
-            constantBuffer[0].ambient_color.y = 0.21;
+            constantBuffer[0].ambientColor.y = 0.21;
         } else
-            constantBuffer[0].ambient_color.y += constantBuffer[0].multiplier * 0.01;
+            constantBuffer[0].ambientColor.y += constantBuffer[0].multiplier * 0.01;
 }
 
 // just use this to update app globals
