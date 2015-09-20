@@ -11,7 +11,7 @@
 
 #import <Metal/Metal.h>
 
-@interface AAPLRenderer : NSObject <AAPLViewControllerDelegate, AAPLViewDelegate>
+@interface BasicPODScene : NSObject <AAPLViewControllerDelegate, AAPLViewDelegate>
 
 // load all assets before triggering rendering
 - (void)configure:(AAPLView *)view;

@@ -1,12 +1,4 @@
-/*
- Copyright (C) 2015 Apple Inc. All Rights Reserved.
- See LICENSE.txt for this sample’s licensing information
- 
- Abstract:
- Metal Renderer for Metal Basic 3D. Acts as the update and render delegate for the view controller and performs rendering. In MetalBasic3D, the renderer draws 2 cubes, whos color values change every update.
- */
-
-#import "AAPLRenderer.h"
+#import "BasicPODScene.h"
 #import "AAPLViewController.h"
 #import "AAPLView.h"
 #import "AAPLTransforms.h"
@@ -42,7 +34,7 @@ static const float3 kEye    = {0.0f, 0.0f, 0.0f};
 static const float3 kCenter = {0.0f, 0.0f, 1.0f};
 static const float3 kUp     = {0.0f, 1.0f, 0.0f};
 
-@implementation AAPLRenderer
+@implementation BasicPODScene
 {
     // Semaphore for constant buffer synchronization
     dispatch_semaphore_t _inflightSemaphore;

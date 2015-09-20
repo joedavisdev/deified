@@ -1,11 +1,3 @@
-/*
- Copyright (C) 2015 Apple Inc. All Rights Reserved.
- See LICENSE.txt for this sample’s licensing information
- 
- Abstract:
- lighting shader for Basic Metal 3D
- */
-
 #include <metal_stdlib>
 #include <simd/simd.h>
 #include "UniformBlocks.h"

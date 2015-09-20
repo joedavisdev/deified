@@ -8,7 +8,7 @@
 
 #import "AAPLViewController.h"
 #import "AAPLView.h"
-#import "AAPLRenderer.h"
+#import "BasicPODScene.h"
 
 #import <QuartzCore/CAMetalLayer.h>
 
@@ -27,7 +27,7 @@
     BOOL _gameLoopPaused;
     
     // our renderer instance
-    AAPLRenderer *_renderer;
+    BasicPODScene *_renderer;
 }
 
 - (void)dealloc
@@ -48,7 +48,7 @@
 
 - (void)initCommon
 {
-    _renderer = [AAPLRenderer new];
+    _renderer = [BasicPODScene new];
     self.delegate = _renderer;
     
     //  Register notifications to start/stop drawing as this app moves into the background
