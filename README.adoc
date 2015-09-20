@@ -1,0 +1,11 @@
+= iOS Metal demos
+
+A few simple rendering demos I've written to get to grips with Apple's Metal API.
+
+== 01_Basic3D
+
+A tweaked version of Apple's Basic3D demo. The rendered image is the same as the original demo, but this version uses some helper classes/functions to setup various Metal buffers.
+
+== 02_BasicPODScene
+
+A simple mesh renderer. The PowerVR Object Data format (POD) is used to store the mesh data.
