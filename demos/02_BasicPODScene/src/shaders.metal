@@ -29,7 +29,7 @@ struct ColorInOut {
 
 // vertex shader function
 vertex ColorInOut lighting_vertex(device vertex_t* vertex_array [[ buffer(0) ]],
-                                  constant UB::CubeLighting& constants [[ buffer(1) ]],
+                                  constant UB::BasicLighting& constants [[ buffer(1) ]],
                                   unsigned int vid [[ vertex_id ]])
 {
     ColorInOut out;

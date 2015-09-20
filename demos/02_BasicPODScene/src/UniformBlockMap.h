@@ -7,10 +7,10 @@ namespace JMD {
     namespace UB { // Uniform block
        // Enums for the structs defined in UniformBlocks.h
         enum Index {
-            CUBE_LIGHTING
+            BASIC_LIGHTING
         };
         std::unordered_map<std::string,int> IndexNames {
-            {"CubeLighting",CUBE_LIGHTING}
+            {"BasicLighting",BASIC_LIGHTING}
         };
     }
 }

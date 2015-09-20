@@ -28,13 +28,11 @@ using namespace simd;
 
 static const long kInFlightCommandBuffers = 3;
 
-static const NSUInteger kNumberOfBoxes = 2;
-static const float4 kBoxAmbientColors[2] = {
+static const float4 kAmbientColors[2] = {
     {0.18, 0.24, 0.8, 1.0},
     {0.8, 0.24, 0.1, 1.0}
 };
-
-static const float4 kBoxDiffuseColors[2] = {
+static const float4 kDiffuseColors[2] = {
     {0.4, 0.4, 1.0, 1.0},
     {0.8, 0.4, 0.4, 1.0}
 };
@@ -44,107 +42,45 @@ static const float3 kEye    = {0.0f, 0.0f, 0.0f};
 static const float3 kCenter = {0.0f, 0.0f, 1.0f};
 static const float3 kUp     = {0.0f, 1.0f, 0.0f};
 
-static const float kWidth  = 0.75f;
-static const float kHeight = 0.75f;
-static const float kDepth  = 0.75f;
-
-static const unsigned int kCubeNumberOfVertices = 36;
-static const float kCubeVertexData[] =
-{
-    kWidth, -kHeight, kDepth,   0.0, -1.0,  0.0,
-    -kWidth, -kHeight, kDepth,   0.0, -1.0, 0.0,
-    -kWidth, -kHeight, -kDepth,   0.0, -1.0,  0.0,
-    kWidth, -kHeight, -kDepth,  0.0, -1.0,  0.0,
-    kWidth, -kHeight, kDepth,   0.0, -1.0,  0.0,
-    -kWidth, -kHeight, -kDepth,   0.0, -1.0,  0.0,
-    
-    kWidth, kHeight, kDepth,    1.0, 0.0,  0.0,
-    kWidth, -kHeight, kDepth,   1.0,  0.0,  0.0,
-    kWidth, -kHeight, -kDepth,  1.0,  0.0,  0.0,
-    kWidth, kHeight, -kDepth,   1.0, 0.0,  0.0,
-    kWidth, kHeight, kDepth,    1.0, 0.0,  0.0,
-    kWidth, -kHeight, -kDepth,  1.0,  0.0,  0.0,
-    
-    -kWidth, kHeight, kDepth,    0.0, 1.0,  0.0,
-    kWidth, kHeight, kDepth,    0.0, 1.0,  0.0,
-    kWidth, kHeight, -kDepth,   0.0, 1.0,  0.0,
-    -kWidth, kHeight, -kDepth,   0.0, 1.0,  0.0,
-    -kWidth, kHeight, kDepth,    0.0, 1.0,  0.0,
-    kWidth, kHeight, -kDepth,   0.0, 1.0,  0.0,
-    
-    -kWidth, -kHeight, kDepth,  -1.0,  0.0, 0.0,
-    -kWidth, kHeight, kDepth,   -1.0, 0.0,  0.0,
-    -kWidth, kHeight, -kDepth,  -1.0, 0.0,  0.0,
-    -kWidth, -kHeight, -kDepth,  -1.0,  0.0,  0.0,
-    -kWidth, -kHeight, kDepth,  -1.0,  0.0, 0.0,
-    -kWidth, kHeight, -kDepth,  -1.0, 0.0,  0.0,
-    
-    kWidth, kHeight,  kDepth,  0.0, 0.0,  1.0,
-    -kWidth, kHeight,  kDepth,  0.0, 0.0,  1.0,
-    -kWidth, -kHeight, kDepth,   0.0,  0.0, 1.0,
-    -kWidth, -kHeight, kDepth,   0.0,  0.0, 1.0,
-    kWidth, -kHeight, kDepth,   0.0,  0.0,  1.0,
-    kWidth, kHeight,  kDepth,  0.0, 0.0,  1.0,
-    
-    kWidth, -kHeight, -kDepth,  0.0,  0.0, -1.0,
-    -kWidth, -kHeight, -kDepth,   0.0,  0.0, -1.0,
-    -kWidth, kHeight, -kDepth,  0.0, 0.0, -1.0,
-    kWidth, kHeight, -kDepth,  0.0, 0.0, -1.0,
-    kWidth, -kHeight, -kDepth,  0.0,  0.0, -1.0,
-    -kWidth, kHeight, -kDepth,  0.0, 0.0, -1.0
-};
-
 @implementation AAPLRenderer
 {
-    // constant synchronization for buffering <kInFlightCommandBuffers> frames
-    dispatch_semaphore_t _inflight_semaphore;
+    // Semaphore for constant buffer synchronization
+    dispatch_semaphore_t _inflightSemaphore;
     
     // renderer global ivars
-    id <MTLDevice> _device;
-    id <MTLCommandQueue> _commandQueue;
-    id <MTLLibrary> _defaultLibrary;
-    id <MTLDepthStencilState> _depthState;
+    id <MTLDevice> _mtlDevice;
+    id <MTLCommandQueue> _mtlCommandQueue;
+    id <MTLLibrary> _mtlDefaultLibrary;
+    id <MTLDepthStencilState> _mtlDepthState;
     
     // globals used in update calculation
     float4x4 _projectionMatrix;
     float4x4 _viewMatrix;
     float _rotation;
     
-    // this value will cycle from 0 to g_max_inflight_buffers whenever a display completes ensuring renderer clients
-    // can synchronize between g_max_inflight_buffers count buffers, and thus avoiding a constant buffer from being overwritten between draws
     NSUInteger _constantDataBufferIndex;
     
-    Pipeline* _defaultPipeline;
-    Mesh* _cubeMesh;
-    JMD::Body _cubeBodies[kNumberOfBoxes];
-    ConstantBufferGroup* _constantBufferGroup;
-    
     // 3D Model
-    CPVRTModelPOD _model;
+    CPVRTModelPOD _podModel;
+    JMD::Body _body;
+    Pipeline* _defaultPipeline;
     Mesh* _mesh;
+    ConstantBufferGroup* _constantBufferGroup;
 }
 
-- (instancetype)init
-{
+- (instancetype)init {
     self = [super init];
     if (self) {
-        
         _constantDataBufferIndex = 0;
-        _inflight_semaphore = dispatch_semaphore_create(kInFlightCommandBuffers);
-        for(auto& body: _cubeBodies) {
-            body.rotation += simd::float4(1.0);
-        }
-        _cubeBodies[0].position.z = 1.5f;
-        _cubeBodies[1].position.z = -1.5f;
+        _inflightSemaphore = dispatch_semaphore_create(kInFlightCommandBuffers);
+        _body.rotation += simd::float4(1.0);
     }
     return self;
 }
 
 #pragma mark Configure
-- (void)configure:(AAPLView *)view
-{
-    // find a usable Device
-    _device = view.device;
+- (void)configure:(AAPLView *)view {
+    _mtlDevice = view.device;
     
     // setup view with drawable formats
     view.depthPixelFormat   = MTLPixelFormatDepth32Float;
@@ -152,70 +88,46 @@ static const float kCubeVertexData[] =
     view.sampleCount        = 1;
     
     // create a new command queue
-    _commandQueue = [_device newCommandQueue];
+    _mtlCommandQueue = [_mtlDevice newCommandQueue];
     
-    _defaultLibrary = [_device newDefaultLibrary];
-    if(!_defaultLibrary) {
+    _mtlDefaultLibrary = [_mtlDevice newDefaultLibrary];
+    if(!_mtlDefaultLibrary) {
         NSLog(@">> ERROR: Couldnt create a default shader library");
-        // assert here becuase if the shader libary isn't loading, nothing good will happen
         assert(0);
     }
     
-    if (![self preparePipelineState:view])
-    {
+    if (![self preparePipelineState:view]) {
         NSLog(@">> ERROR: Couldnt create a valid pipeline state");
-        
-        // cannot render anything without a valid compiled pipeline state object.
         assert(0);
     }
-    // Load meshes
-    _cubeMesh = [[Mesh alloc]initWithBytes:_device vertexBuffer:(char*)kCubeVertexData numberOfVertices:kCubeNumberOfVertices stride:sizeof(float)*6 indexBuffer:NULL numberOfIndices:0 sizeOfIndices:0];
+    
+    MTLDepthStencilDescriptor *mtlDepthStateDesc = [[MTLDepthStencilDescriptor alloc] init];
+    mtlDepthStateDesc.depthCompareFunction = MTLCompareFunctionLess;
+    mtlDepthStateDesc.depthWriteEnabled = YES;
+    _mtlDepthState = [_mtlDevice newDepthStencilStateWithDescriptor:mtlDepthStateDesc];
+    
+    [self pvrFrameworkSetup];
+    _mesh = [self loadModel:_podModel];
+    
     // Prepare constant buffer groups
     NSMutableArray* actorGroupArray = [[NSMutableArray alloc]init];
     NSMutableArray* bodies = [[NSMutableArray alloc]init];
-    for(unsigned int index = 0; index < kNumberOfBoxes; ++index) {
-        [bodies addObject:[NSValue valueWithPointer:&_cubeBodies[index]]];
+    [bodies addObject:[NSValue valueWithPointer:&_body]];
+    [actorGroupArray addObject: [[ActorGroup alloc]initWithMeshAndNSArray:_mesh bodyPtrs:bodies]];
+    _constantBufferGroup = [[ConstantBufferGroup alloc]initPipelineAndActorGroups:_mtlDevice pipeline:_defaultPipeline uniformBlockSize:sizeof(JMD::UB::BasicLighting) actorGroups:actorGroupArray];
+    
+    for (int i = 0; i < kInFlightCommandBuffers; i++) {
+        id<MTLBuffer> mtlConstantBuffer = [_constantBufferGroup getConstantBuffer:i];
+        mtlConstantBuffer.label = [NSString stringWithFormat:@"ConstantBuffer%i", i];
+        UB::BasicLighting *constantBuffer = (UB::BasicLighting*)[mtlConstantBuffer contents];
+        constantBuffer[0].multiplier = 1;
+        constantBuffer[0].ambient_color = kAmbientColors[0];
+        constantBuffer[0].diffuse_color = kDiffuseColors[0];
     }
-    [actorGroupArray addObject: [[ActorGroup alloc]initWithMeshAndNSArray:_cubeMesh bodyPtrs:bodies]];
-    
-    _constantBufferGroup = [[ConstantBufferGroup alloc]initPipelineAndActorGroups:_device pipeline:_defaultPipeline uniformBlockSize:sizeof(JMD::UB::CubeLighting) actorGroups:actorGroupArray];
-    
-    MTLDepthStencilDescriptor *depthStateDesc = [[MTLDepthStencilDescriptor alloc] init];
-    depthStateDesc.depthCompareFunction = MTLCompareFunctionLess;
-    depthStateDesc.depthWriteEnabled = YES;
-    _depthState = [_device newDepthStencilStateWithDescriptor:depthStateDesc];
-    
-    // allocate a number of buffers in memory that matches the sempahore count so that
-    // we always have one self contained memory buffer for each buffered frame.
-    // In this case triple buffering is the optimal way to go so we cycle through 3 memory buffers
-    for (int i = 0; i < kInFlightCommandBuffers; i++)
-    {
-        id<MTLBuffer> constantBuffer = [_constantBufferGroup getConstantBuffer:i];
-        constantBuffer.label = [NSString stringWithFormat:@"ConstantBuffer%i", i];
-        
-        // write initial color values for both cubes (at each offset).
-        // Note, these will get animated during update
-        UB::CubeLighting *constant_buffer = (UB::CubeLighting *)[constantBuffer contents];
-        for (int j = 0; j < kNumberOfBoxes; j++)
-        {
-            if (j%2==0) {
-                constant_buffer[j].multiplier = 1;
-                constant_buffer[j].ambient_color = kBoxAmbientColors[0];
-                constant_buffer[j].diffuse_color = kBoxDiffuseColors[0];
-            }
-            else {
-                constant_buffer[j].multiplier = -1;
-                constant_buffer[j].ambient_color = kBoxAmbientColors[1];
-                constant_buffer[j].diffuse_color = kBoxDiffuseColors[1];
-            }
-        }
-    }
-    [self pvrFrameworkSetup];
-    _mesh = [self loadModel:_model];
 }
 -(Mesh*)loadModel:(CPVRTModelPOD&)pod {
     SPODMesh& podMesh(pod.pMesh[0]); // TODO: Support more than one mesh
-    return [[Mesh alloc]initWithBytes:_device
+    return [[Mesh alloc]initWithBytes:_mtlDevice
                             vertexBuffer:(char*)podMesh.pInterleaved
                             numberOfVertices:podMesh.nNumVertex
                             stride:podMesh.sVertex.nStride
@@ -227,94 +139,72 @@ static const float kCubeVertexData[] =
     NSString* readPath = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] bundlePath], @"/"];
     CPVRTResourceFile::SetReadPath([readPath UTF8String]);
     CPVRTResourceFile::SetLoadReleaseFunctions(NULL, NULL);
-    // Load the scene
-    if (_model.ReadFromFile("test.pod") != PVR_SUCCESS) {
+    
+    if (_podModel.ReadFromFile("test.pod") != PVR_SUCCESS) {
         printf("ERROR: Couldn't load the .pod file\n");
         return;
     }
 }
 -(void)pvrFrameworkShutdown {
-    _model.Destroy();
+    _podModel.Destroy();
 }
-- (BOOL)preparePipelineState:(AAPLView *)view
-{
-    MTLRenderPipelineDescriptor *renderpassPipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
-    renderpassPipelineDescriptor.sampleCount = view.sampleCount;
-    renderpassPipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
-    renderpassPipelineDescriptor.depthAttachmentPixelFormat = view.depthPixelFormat;
+- (BOOL)preparePipelineState:(AAPLView *)view {
+    MTLRenderPipelineDescriptor *mtlRenderPassPipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
+    mtlRenderPassPipelineDescriptor.sampleCount = view.sampleCount;
+    mtlRenderPassPipelineDescriptor.colorAttachments[0].pixelFormat = MTLPixelFormatBGRA8Unorm;
+    mtlRenderPassPipelineDescriptor.depthAttachmentPixelFormat = view.depthPixelFormat;
     
-    Effect* effect = [[Effect alloc]initWithLibrary:_defaultLibrary vertexName:@"lighting_vertex" fragmentName:@"lighting_fragment"];
-    _defaultPipeline = [[Pipeline alloc]initWithDescTemplate:_device templatePipelineDesc:renderpassPipelineDescriptor effect:effect];
+    Effect* effect = [[Effect alloc]initWithLibrary:_mtlDefaultLibrary vertexName:@"lighting_vertex" fragmentName:@"lighting_fragment"];
+    _defaultPipeline = [[Pipeline alloc]initWithDescTemplate:_mtlDevice templatePipelineDesc:mtlRenderPassPipelineDescriptor effect:effect];
     return YES;
 }
 
 #pragma mark Render
 
-- (void)render:(AAPLView *)view
-{
-    // Allow the renderer to preflight 3 frames on the CPU (using a semapore as a guard) and commit them to the GPU.
-    // This semaphore will get signaled once the GPU completes a frame's work via addCompletedHandler callback below,
-    // signifying the CPU can go ahead and prepare another frame.
-    dispatch_semaphore_wait(_inflight_semaphore, DISPATCH_TIME_FOREVER);
-    
-    // Prior to sending any data to the GPU, constant buffers should be updated accordingly on the CPU.
+- (void)render:(AAPLView *)view {
+    dispatch_semaphore_wait(_inflightSemaphore, DISPATCH_TIME_FOREVER);
     [self updateConstantBuffer];
     
     // create a new command buffer for each renderpass to the current drawable
-    id <MTLCommandBuffer> commandBuffer = [_commandQueue commandBuffer];
+    id <MTLCommandBuffer> mtlCommandBuffer = [_mtlCommandQueue commandBuffer];
     
     // create a render command encoder so we can render into something
-    MTLRenderPassDescriptor *renderPassDescriptor = view.renderPassDescriptor;
-    if (renderPassDescriptor)
-    {
+    MTLRenderPassDescriptor *mtlRenderPassDescriptor = view.renderPassDescriptor;
+    if (mtlRenderPassDescriptor) {
         Mesh* mesh = _mesh;
-        id <MTLRenderCommandEncoder> renderEncoder = [commandBuffer renderCommandEncoderWithDescriptor:renderPassDescriptor];
+        id <MTLRenderCommandEncoder> mtlRenderEncoder = [mtlCommandBuffer renderCommandEncoderWithDescriptor:mtlRenderPassDescriptor];
         id<MTLBuffer> constantBuffer = [_constantBufferGroup getConstantBuffer:_constantDataBufferIndex];
-        [renderEncoder pushDebugGroup:@"Boxes"];
-        [renderEncoder setDepthStencilState:_depthState];
-        [renderEncoder setRenderPipelineState:[_constantBufferGroup pipeline].state];
-        [renderEncoder setVertexBuffer:mesh.vertexBuffer offset:0 atIndex:0];
+        [mtlRenderEncoder pushDebugGroup:@"Model"];
+        [mtlRenderEncoder setDepthStencilState:_mtlDepthState];
+        [mtlRenderEncoder setRenderPipelineState:[_constantBufferGroup pipeline].state];
+        [mtlRenderEncoder setVertexBuffer:mesh.vertexBuffer offset:0 atIndex:0];
+        [mtlRenderEncoder setVertexBuffer:constantBuffer offset:0 atIndex:1];
         
-        for (int i = 0; i < 1; i++) {
-            //  set constant buffer for each box
-            [renderEncoder setVertexBuffer:constantBuffer offset:i*sizeof(UB::CubeLighting) atIndex:1 ];
-            
-            // tell the render context we want to draw our primitives
-            if(mesh.indexBuffer == NULL) {
-                [renderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:mesh.numberOfVertices];
-            }else{
-                [renderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle indexCount:mesh.numberOfIndices indexType:MTLIndexTypeUInt16 indexBuffer:mesh.indexBuffer indexBufferOffset:0];
-            }
+        // tell the render context we want to draw our primitives
+        if(mesh.indexBuffer == NULL) {
+            [mtlRenderEncoder drawPrimitives:MTLPrimitiveTypeTriangle vertexStart:0 vertexCount:mesh.numberOfVertices];
+        }else{
+            [mtlRenderEncoder drawIndexedPrimitives:MTLPrimitiveTypeTriangle indexCount:mesh.numberOfIndices indexType:MTLIndexTypeUInt16 indexBuffer:mesh.indexBuffer indexBufferOffset:0];
         }
         
-        [renderEncoder endEncoding];
-        [renderEncoder popDebugGroup];
+        [mtlRenderEncoder endEncoding];
+        [mtlRenderEncoder popDebugGroup];
         
         // schedule a present once rendering to the framebuffer is complete
-        [commandBuffer presentDrawable:view.currentDrawable];
+        [mtlCommandBuffer presentDrawable:view.currentDrawable];
     }
     
     // call the view's completion handler which is required by the view since it will signal its semaphore and set up the next buffer
-    __block dispatch_semaphore_t block_sema = _inflight_semaphore;
-    [commandBuffer addCompletedHandler:^(id<MTLCommandBuffer> buffer) {
-        
-        // GPU has completed rendering the frame and is done using the contents of any buffers previously encoded on the CPU for that frame.
-        // Signal the semaphore and allow the CPU to proceed and construct the next frame.
-        dispatch_semaphore_signal(block_sema);
+    __block dispatch_semaphore_t blockSemaphore = _inflightSemaphore;
+    [mtlCommandBuffer addCompletedHandler:^(id<MTLCommandBuffer> buffer) {
+        dispatch_semaphore_signal(blockSemaphore);
     }];
     
-    // finalize rendering here. this will push the command buffer to the GPU
-    [commandBuffer commit];
-    
-    // This index represents the current portion of the ring buffer being used for a given frame's constant buffer updates.
-    // Once the CPU has completed updating a shared CPU/GPU memory buffer region for a frame, this index should be updated so the
-    // next portion of the ring buffer can be written by the CPU. Note, this should only be done *after* all writes to any
-    // buffers requiring synchronization for a given frame is done in order to avoid writing a region of the ring buffer that the GPU may be reading.
+    [mtlCommandBuffer commit];
     _constantDataBufferIndex = (_constantDataBufferIndex + 1) % kInFlightCommandBuffers;
 }
 
-- (void)reshape:(AAPLView *)view
-{
+- (void)reshape:(AAPLView *)view {
     // when reshape is called, update the view and projection matricies since this means the view orientation or size changed
     float aspect = fabsf((float)view.bounds.size.width / (float)view.bounds.size.height);
     _projectionMatrix = perspective_fov(kFOVY, aspect, 0.1f, 100.0f);
@@ -323,50 +213,43 @@ static const float kCubeVertexData[] =
 
 #pragma mark Update
 - (void)updateBodies:(NSTimeInterval)timeSinceLastDraw {
-    for(auto& body: _cubeBodies) {
-        body.rotation.x += timeSinceLastDraw * 50.0f;
-    }
+    _body.rotation.x += timeSinceLastDraw * 50.0f;
 }
 // called every frame
-- (void)updateConstantBuffer
-{
+- (void)updateConstantBuffer {
     float4x4 baseModelViewMatrix = translate(0.0f, 0.0f, 35.0f) * rotate(_rotation, 1.0f, 1.0f, 1.0f);
     baseModelViewMatrix = _viewMatrix * baseModelViewMatrix;
     
-    id<MTLBuffer> constantBuffer = [_constantBufferGroup getConstantBuffer:_constantDataBufferIndex];
-    UB::CubeLighting *constant_buffer = (UB::CubeLighting *)[constantBuffer contents];
-    for (int i = 0; i < kNumberOfBoxes; i++) {
-        const simd::float4 position = _cubeBodies[i].position;
-        const simd::float4 rotation = _cubeBodies[i].rotation;
+    id<MTLBuffer> mtlConstantBuffer = [_constantBufferGroup getConstantBuffer:_constantDataBufferIndex];
+    UB::BasicLighting *constantBuffer = (UB::BasicLighting*)[mtlConstantBuffer contents];
+        const simd::float4 position = _body.position;
+        const simd::float4 rotation = _body.rotation;
         simd::float4x4 modelViewMatrix
         = AAPL::translate(position.x, position.y, position.z) * AAPL::rotate(rotation.x, rotation.y, rotation.z, rotation.w);
         modelViewMatrix = baseModelViewMatrix * modelViewMatrix;
         
-        constant_buffer[i].normal_matrix = inverse(transpose(modelViewMatrix));
-        constant_buffer[i].modelview_projection_matrix = _projectionMatrix * modelViewMatrix;
+        constantBuffer[0].normal_matrix = inverse(transpose(modelViewMatrix));
+        constantBuffer[0].modelview_projection_matrix = _projectionMatrix * modelViewMatrix;
         
         // change the color each frame
         // reverse direction if we've reached a boundary
-        if (constant_buffer[i].ambient_color.y >= 0.8) {
-            constant_buffer[i].multiplier = -1;
-            constant_buffer[i].ambient_color.y = 0.79;
-        } else if (constant_buffer[i].ambient_color.y <= 0.2) {
-            constant_buffer[i].multiplier = 1;
-            constant_buffer[i].ambient_color.y = 0.21;
+        if (constantBuffer[0].ambient_color.y >= 0.8) {
+            constantBuffer[0].multiplier = -1;
+            constantBuffer[0].ambient_color.y = 0.79;
+        } else if (constantBuffer[0].ambient_color.y <= 0.2) {
+            constantBuffer[0].multiplier = 1;
+            constantBuffer[0].ambient_color.y = 0.21;
         } else
-            constant_buffer[i].ambient_color.y += constant_buffer[i].multiplier * 0.01*i;
-    }
+            constantBuffer[0].ambient_color.y += constantBuffer[0].multiplier * 0.01;
 }
 
 // just use this to update app globals
-- (void)update:(AAPLViewController *)controller
-{
+- (void)update:(AAPLViewController *)controller {
     [self updateBodies:controller.timeSinceLastDraw];
     _rotation += controller.timeSinceLastDraw * 50.0f;
 }
 
-- (void)viewController:(AAPLViewController *)controller willPause:(BOOL)pause
-{
+- (void)viewController:(AAPLViewController *)controller willPause:(BOOL)pause {
     // timer is suspended/resumed
     // Can do any non-rendering related background work here when suspended
 }
