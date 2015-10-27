@@ -2,7 +2,6 @@
 
 @implementation Effect {
 }
-
 - (id)initWithLibrary: (id<MTLLibrary>)library vertexName: (NSString*)vertexName fragmentName: (NSString*)fragmentName {
     if (self = [super init]) {
         _vertexProgram = [library newFunctionWithName:vertexName];
@@ -18,9 +17,10 @@
 
 @implementation Pipeline {
 }
-- (id)initWithDescTemplate: (id <MTLDevice>)device templatePipelineDesc: (MTLRenderPipelineDescriptor*)templatePipelineDesc effect: (Effect*)effect {
+- (id)initWithDescTemplate: (id <MTLDevice>)device templatePipelineDesc: (MTLRenderPipelineDescriptor*)templatePipelineDesc effect: (Effect*)effect  label:(NSString*)label {
     if (self = [super init]) {
         MTLRenderPipelineDescriptor *pipelineDescriptor = [[MTLRenderPipelineDescriptor alloc] init];
+        pipelineDescriptor.label                           = label;
         pipelineDescriptor.sampleCount                     = templatePipelineDesc.sampleCount;
         pipelineDescriptor.vertexFunction                  = effect.vertexProgram;
         pipelineDescriptor.fragmentFunction                = effect.fragmentProgram;

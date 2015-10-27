@@ -148,7 +148,7 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     mtlRenderPassPipelineDescriptor.depthAttachmentPixelFormat = view.depthPixelFormat;
     
     Effect* effect = [[Effect alloc]initWithLibrary:_mtlDefaultLibrary vertexName:@"basicLightingVertex" fragmentName:@"basicLightingFragment"];
-    _defaultPipeline = [[Pipeline alloc]initWithDescTemplate:_mtlDevice templatePipelineDesc:mtlRenderPassPipelineDescriptor effect:effect];
+    _defaultPipeline = [[Pipeline alloc]initWithDescTemplate:_mtlDevice templatePipelineDesc:mtlRenderPassPipelineDescriptor effect:effect label:@"basicLighting"];
     return YES;
 }
 
