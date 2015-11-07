@@ -190,7 +190,7 @@ static const float kCubeVertexData[] = {
     mtlRenderPassPipelineDescriptor.depthAttachmentPixelFormat = view.depthPixelFormat;
     
     Effect* effect = [[Effect alloc]initWithLibrary:_mtlDefaultLibrary vertexName:@"lighting_vertex" fragmentName:@"lighting_fragment"];
-    _defaultPipeline = [[Pipeline alloc]initWithDescTemplate:_mtlDevice templatePipelineDesc:mtlRenderPassPipelineDescriptor effect:effect];
+    _defaultPipeline = [[Pipeline alloc]initWithDescTemplate:_mtlDevice templatePipelineDesc:mtlRenderPassPipelineDescriptor effect:effect label:@"basic_lighting"];
     return YES;
 }
 
