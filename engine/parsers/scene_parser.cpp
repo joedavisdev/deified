@@ -32,7 +32,6 @@ namespace JMD {
             parsed_actor.name = value_object["name"].asString();
             parsed_actor.effect_name = value_object["effect"].asString();
             parsed_actor.model_name = value_object["model"].asString();
-            parsed_actor.model_name = value_object["model"].asString();
             auto world_position_string = StringSplit(value_object["world_position"].asString(),',');
             parsed_actor.world_position = glm::vec4(atof(world_position_string[0].c_str()),
                                                     atof(world_position_string[1].c_str()),
