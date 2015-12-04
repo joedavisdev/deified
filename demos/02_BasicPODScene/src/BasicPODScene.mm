@@ -14,6 +14,8 @@
 #include "PVRTModelPOD.h"
 #include "PVRTResourceFile.h"
 
+#include "scene_parser.hpp"
+
 using namespace AAPL;
 using namespace JMD;
 using namespace simd;
@@ -58,6 +60,8 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     Pipeline* _defaultPipeline;
     Mesh* _mesh;
     ConstantBufferGroup* _constantBufferGroup;
+    
+    JMD::SceneParser scene_parser;
 }
 
 - (instancetype)init {
@@ -74,6 +78,9 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
 #pragma mark Configure
 - (void)configure:(AAPLView *)view {
     _mtlDevice = view.device;
+    
+    [self pvrFrameworkSetup];
+    _mesh = [self loadModel:_podModel];
     
     // setup view with drawable formats
     view.depthPixelFormat   = MTLPixelFormatDepth32Float;
@@ -98,9 +105,6 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     mtlDepthStateDesc.depthCompareFunction = MTLCompareFunctionLess;
     mtlDepthStateDesc.depthWriteEnabled = YES;
     _mtlDepthState = [_mtlDevice newDepthStencilStateWithDescriptor:mtlDepthStateDesc];
-    
-    [self pvrFrameworkSetup];
-    _mesh = [self loadModel:_podModel];
     
     // Prepare constant buffer groups
     NSMutableArray* actorGroupArray = [[NSMutableArray alloc]init];
@@ -132,6 +136,9 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     NSString* readPath = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] bundlePath], @"/"];
     CPVRTResourceFile::SetReadPath([readPath UTF8String]);
     CPVRTResourceFile::SetLoadReleaseFunctions(NULL, NULL);
+    
+    CPVRTResourceFile scene_json("scene.json");
+    scene_parser.Parse(std::string((char *)scene_json.DataPtr()));
     
     if (_podModel.ReadFromFile("bunny.pod") != PVR_SUCCESS) {
         printf("ERROR: Couldn't load the .pod file\n");

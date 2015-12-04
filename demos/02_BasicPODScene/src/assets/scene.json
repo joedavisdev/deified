@@ -1,0 +1,17 @@
+{
+    "effects":[
+        {
+        "name":"BasicLightingEffect",
+        "vert_shader": "basicLightingVertex",
+        "frag_shader": "basicLightingFragment"
+        }
+    ],
+    "actors":[
+        {
+        "name":"Bunny",
+        "effect":"BasicLightingEffect",
+        "model":"bunny.pod",
+        "world_position":"15.0,2.0,123.456"
+        }
+    ]
+}
