@@ -2,10 +2,41 @@
 
 #include <cassert>
 #include <regex>
+#include <unordered_map>
+
+#include "scene_parser.hpp"
+#include "PVRTResourceFile.h"
+#include "PVRTModelPOD.h"
 
 namespace JMD {
 #pragma mark Public functions
-    void SceneMan::Load(std::string scene_json) {
+    void SceneMan::Load(const std::string& scene_json_name) {
+        std::unordered_map<std::string,CPVRTModelPOD> pod_map;
+        CPVRTResourceFile scene_json(scene_json_name.c_str());
+        SceneParser parser;parser.Parse(std::string((char *)scene_json.DataPtr()));
+        // Load Actors
+        for(const auto &parsed_actor: parser.actors) {
+            // Search the POD cache
+            CPVRTModelPOD* pod_ptr(nullptr);
+            for(auto &pod_key_value: pod_map) {
+                if(parsed_actor.model_name.find(pod_key_value.first) != std::string::npos) {
+                    pod_ptr = &pod_key_value.second;
+                    break;
+                }
+            }
+            // POD isn't cached, so load it!
+            if(pod_ptr == nullptr) {
+                pod_map.insert({parsed_actor.model_name,CPVRTModelPOD()});
+                // TODO: Opimize. There must be a more efficient way to do this!
+                for(auto &pod_key_value: pod_map) {
+                    if(parsed_actor.model_name.find(pod_key_value.first) != std::string::npos) {
+                        CPVRTModelPOD& pod(pod_key_value.second);
+                        pod.ReadFromFile(parsed_actor.model_name.c_str());
+                        break;
+                    }
+                }
+            }
+        }
         assert(0);
     }
     void SceneMan::Update() {

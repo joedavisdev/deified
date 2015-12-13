@@ -13,7 +13,7 @@ namespace JMD {
     };
 class SceneMan {
 public:
-    void Load(std::string scene_json);
+    void Load(const std::string& scene_json_name);
     std::vector<Actor*> GetActorPtrs(std::string regex_string);
     void Update();
     void Draw();
