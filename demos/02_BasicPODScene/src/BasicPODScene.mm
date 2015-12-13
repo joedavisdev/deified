@@ -14,8 +14,6 @@
 #include "PVRTModelPOD.h"
 #include "PVRTResourceFile.h"
 
-#include "scene_parser.hpp"
-
 #include "scene_man.hpp"
 
 using namespace AAPL;
@@ -64,7 +62,6 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     ConstantBufferGroup* _constantBufferGroup;
     
     JMD::SceneMan scene_manager;
-    JMD::SceneParser scene_parser;
 }
 
 - (instancetype)init {
@@ -140,8 +137,7 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     CPVRTResourceFile::SetReadPath([readPath UTF8String]);
     CPVRTResourceFile::SetLoadReleaseFunctions(NULL, NULL);
     
-    CPVRTResourceFile scene_json("scene.json");
-    scene_parser.Parse(std::string((char *)scene_json.DataPtr()));
+    scene_manager.Load("scene.json");
     
     if (_podModel.ReadFromFile("bunny.pod") != PVR_SUCCESS) {
         printf("ERROR: Couldn't load the .pod file\n");
