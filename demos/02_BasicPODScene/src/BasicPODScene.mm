@@ -16,6 +16,8 @@
 
 #include "scene_parser.hpp"
 
+#include "scene_man.hpp"
+
 using namespace AAPL;
 using namespace JMD;
 using namespace simd;
@@ -61,6 +63,7 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     Mesh* _mesh;
     ConstantBufferGroup* _constantBufferGroup;
     
+    JMD::SceneMan scene_manager;
     JMD::SceneParser scene_parser;
 }
 

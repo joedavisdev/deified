@@ -37,10 +37,12 @@
 		D8F137AB1C1DDF1F0013CAF4 /* actorGroup.mm in Sources */ = {isa = PBXBuildFile; fileRef = D8F137A51C1DDF1F0013CAF4 /* actorGroup.mm */; };
 		D8F137AC1C1DDF1F0013CAF4 /* mesh.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F137A61C1DDF1F0013CAF4 /* mesh.m */; };
 		D8F137AD1C1DDF1F0013CAF4 /* pipeline.m in Sources */ = {isa = PBXBuildFile; fileRef = D8F137A71C1DDF1F0013CAF4 /* pipeline.m */; };
-		D8F137BA1C1DDF430013CAF4 /* body.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D8F137B01C1DDF420013CAF4 /* body.hpp */; };
-		D8F137BC1C1DDF430013CAF4 /* body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F137B31C1DDF420013CAF4 /* body.cpp */; };
 		D8F137BE1C1DDF430013CAF4 /* scene_parser.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D8F137B71C1DDF430013CAF4 /* scene_parser.hpp */; };
 		D8F137BF1C1DDF430013CAF4 /* scene_parser.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F137B91C1DDF430013CAF4 /* scene_parser.cpp */; };
+		D8F137C71C1DDFB40013CAF4 /* body.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D8F137C21C1DDFB40013CAF4 /* body.hpp */; };
+		D8F137C81C1DDFB40013CAF4 /* scene_man.hpp in Headers */ = {isa = PBXBuildFile; fileRef = D8F137C31C1DDFB40013CAF4 /* scene_man.hpp */; };
+		D8F137C91C1DDFB40013CAF4 /* body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F137C51C1DDFB40013CAF4 /* body.cpp */; };
+		D8F137CA1C1DDFB40013CAF4 /* scene_man.cpp in Sources */ = {isa = PBXBuildFile; fileRef = D8F137C61C1DDFB40013CAF4 /* scene_man.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -86,10 +88,12 @@
 		D8F137A51C1DDF1F0013CAF4 /* actorGroup.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = actorGroup.mm; sourceTree = "<group>"; };
 		D8F137A61C1DDF1F0013CAF4 /* mesh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = mesh.m; sourceTree = "<group>"; };
 		D8F137A71C1DDF1F0013CAF4 /* pipeline.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = pipeline.m; sourceTree = "<group>"; };
-		D8F137B01C1DDF420013CAF4 /* body.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = body.hpp; sourceTree = "<group>"; };
-		D8F137B31C1DDF420013CAF4 /* body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = body.cpp; sourceTree = "<group>"; };
 		D8F137B71C1DDF430013CAF4 /* scene_parser.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scene_parser.hpp; sourceTree = "<group>"; };
 		D8F137B91C1DDF430013CAF4 /* scene_parser.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_parser.cpp; sourceTree = "<group>"; };
+		D8F137C21C1DDFB40013CAF4 /* body.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = body.hpp; sourceTree = "<group>"; };
+		D8F137C31C1DDFB40013CAF4 /* scene_man.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = scene_man.hpp; sourceTree = "<group>"; };
+		D8F137C51C1DDFB40013CAF4 /* body.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = body.cpp; sourceTree = "<group>"; };
+		D8F137C61C1DDFB40013CAF4 /* scene_man.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = scene_man.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -201,7 +205,7 @@
 		D854F14B1B93947400D02CB8 /* engine */ = {
 			isa = PBXGroup;
 			children = (
-				D8F137AE1C1DDF420013CAF4 /* core */,
+				D8F137C01C1DDFB40013CAF4 /* core */,
 				D8F137B51C1DDF430013CAF4 /* parsers */,
 				D8F1379F1C1DDF1F0013CAF4 /* renderer */,
 			);
@@ -286,31 +290,6 @@
 			path = src;
 			sourceTree = "<group>";
 		};
-		D8F137AE1C1DDF420013CAF4 /* core */ = {
-			isa = PBXGroup;
-			children = (
-				D8F137AF1C1DDF420013CAF4 /* inc */,
-				D8F137B21C1DDF420013CAF4 /* src */,
-			);
-			path = core;
-			sourceTree = "<group>";
-		};
-		D8F137AF1C1DDF420013CAF4 /* inc */ = {
-			isa = PBXGroup;
-			children = (
-				D8F137B01C1DDF420013CAF4 /* body.hpp */,
-			);
-			path = inc;
-			sourceTree = "<group>";
-		};
-		D8F137B21C1DDF420013CAF4 /* src */ = {
-			isa = PBXGroup;
-			children = (
-				D8F137B31C1DDF420013CAF4 /* body.cpp */,
-			);
-			path = src;
-			sourceTree = "<group>";
-		};
 		D8F137B51C1DDF430013CAF4 /* parsers */ = {
 			isa = PBXGroup;
 			children = (
@@ -336,6 +315,33 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		D8F137C01C1DDFB40013CAF4 /* core */ = {
+			isa = PBXGroup;
+			children = (
+				D8F137C11C1DDFB40013CAF4 /* inc */,
+				D8F137C41C1DDFB40013CAF4 /* src */,
+			);
+			path = core;
+			sourceTree = "<group>";
+		};
+		D8F137C11C1DDFB40013CAF4 /* inc */ = {
+			isa = PBXGroup;
+			children = (
+				D8F137C21C1DDFB40013CAF4 /* body.hpp */,
+				D8F137C31C1DDFB40013CAF4 /* scene_man.hpp */,
+			);
+			path = inc;
+			sourceTree = "<group>";
+		};
+		D8F137C41C1DDFB40013CAF4 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				D8F137C51C1DDFB40013CAF4 /* body.cpp */,
+				D8F137C61C1DDFB40013CAF4 /* scene_man.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -344,8 +350,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				D86FC4031B93846F006AD475 /* AAPLAppDelegate.h in Headers */,
-				D8F137BA1C1DDF430013CAF4 /* body.hpp in Headers */,
 				D86FC4051B93846F006AD475 /* AAPLView.h in Headers */,
+				D8F137C71C1DDFB40013CAF4 /* body.hpp in Headers */,
 				D842DA761C0F91D30078A255 /* json.h in Headers */,
 				D8F137BE1C1DDF430013CAF4 /* scene_parser.hpp in Headers */,
 				D86FC4071B93846F006AD475 /* AAPLViewController.h in Headers */,
@@ -354,6 +360,7 @@
 				D86FC40A1B93846F006AD475 /* AAPLTransforms.h in Headers */,
 				D87699B91B93794900A77979 /* UniformBlockMap.h in Headers */,
 				D8F137A91C1DDF1F0013CAF4 /* mesh.h in Headers */,
+				D8F137C81C1DDFB40013CAF4 /* scene_man.hpp in Headers */,
 				D8F137A81C1DDF1F0013CAF4 /* actorGroup.h in Headers */,
 				D8F137AA1C1DDF1F0013CAF4 /* pipeline.h in Headers */,
 				D842DA751C0F91D30078A255 /* json-forwards.h in Headers */,
@@ -453,9 +460,10 @@
 				D87699B81B93794900A77979 /* shaders.metal in Sources */,
 				D86FC4431B938EB9006AD475 /* main.m in Sources */,
 				D8B4795D1BAF0A39006094B8 /* BasicPODScene.mm in Sources */,
+				D8F137CA1C1DDFB40013CAF4 /* scene_man.cpp in Sources */,
 				D8F137BF1C1DDF430013CAF4 /* scene_parser.cpp in Sources */,
 				D842DA771C0F91D30078A255 /* jsoncpp.cpp in Sources */,
-				D8F137BC1C1DDF430013CAF4 /* body.cpp in Sources */,
+				D8F137C91C1DDFB40013CAF4 /* body.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
