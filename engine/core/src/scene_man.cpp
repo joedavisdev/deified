@@ -10,11 +10,15 @@
 
 namespace JMD {
 #pragma mark Public functions
+    SceneMan::~SceneMan(){
+        ReleaseData();
+    }
     void SceneMan::Load(const std::string& scene_json_name) {
+        ReleaseData();
         std::unordered_map<std::string,CPVRTModelPOD> pod_map;
         CPVRTResourceFile scene_json(scene_json_name.c_str());
         SceneParser parser;parser.Parse(std::string((char *)scene_json.DataPtr()));
-        // Load Actors
+        // Load PODs
         for(const auto &parsed_actor: parser.actors) {
             // Search the POD cache
             CPVRTModelPOD* pod_ptr(nullptr);
@@ -37,6 +41,25 @@ namespace JMD {
                 }
             }
         }
+        // Load models
+        for(const auto &pod_key_value: pod_map) {
+            Model model;
+            const CPVRTModelPOD& pod(pod_key_value.second);
+            model.number_of_meshes = pod.nNumMesh;
+            model.mesh_array = new SMMesh[model.number_of_meshes];
+            for(unsigned int index=0;index < pod.nNumMesh; index++){
+                SPODMesh &pod_mesh(pod.pMesh[index]);
+                SMMesh &mesh(model.mesh_array[index]);
+                mesh = SMMesh((char*)pod_mesh.pInterleaved,
+                              pod_mesh.nNumVertex,
+                              pod_mesh.sVertex.nStride,
+                              (char*)pod_mesh.sFaces.pData,
+                              PVRTModelPODCountIndices(pod_mesh),
+                              pod_mesh.sFaces.nStride);
+            }
+            models_.push_back(std::move(model));
+        }
+        
         assert(0);
     }
     void SceneMan::Update() {
@@ -57,7 +80,15 @@ namespace JMD {
         return actor_matches;
     }
 #pragma mark Private functions
-    void BakeRenderPass(unsigned int index) {
-        assert(0);
+void SceneMan::ReleaseData() {
+    for(auto &model: models_){
+        for(unsigned int index=0;index<models_.size();index++) {
+            SMMesh &mesh(model.mesh_array[index]);
+            mesh.ReleaseData();
+        }
     }
+}
+void SceneMan::BakeRenderPass(unsigned int index) {
+    assert(0);
+}
 }
