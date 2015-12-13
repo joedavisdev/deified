@@ -1,5 +1,6 @@
 #include "scene_man.hpp"
 
+#include <cassert>
 #include <regex>
 
 namespace JMD {
