@@ -570,6 +570,7 @@
 					../../engine/renderer/inc,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/src/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jdavis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = 02_BasicPODScene;
@@ -595,6 +596,7 @@
 					../../engine/renderer/inc,
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/src/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.jdavis.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = 02_BasicPODScene;

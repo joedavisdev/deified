@@ -77,15 +77,9 @@ void SceneMan::Load(const std::string& scene_json_name) {
         }
         // POD isn't cached, so load it!
         if(pod_ptr == nullptr) {
-            pod_map.insert({parsed_actor.model_name,CPVRTModelPOD()});
-            // TODO: Opimize. There must be a more efficient way to do this!
-            for(auto &pod_key_value: pod_map) {
-                if(parsed_actor.model_name.find(pod_key_value.first) != std::string::npos) {
-                    CPVRTModelPOD& pod(pod_key_value.second);
-                    pod.ReadFromFile(parsed_actor.model_name.c_str());
-                    break;
-                }
-            }
+            auto pod_iter(pod_map.insert({parsed_actor.model_name,CPVRTModelPOD()}));
+            CPVRTModelPOD &pod(pod_iter.first->second);
+            pod.ReadFromFile(parsed_actor.model_name.c_str());
         }
     }
     // Load models
