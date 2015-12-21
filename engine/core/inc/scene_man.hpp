@@ -55,7 +55,7 @@ private:
     std::vector<RenderPass> render_passes_;
     std::vector<SMPipeline> pipelines_;
     std::unordered_map<std::string,Model> models_;
-    std::vector<Actor> actors_;
+    std::unordered_map<std::string,Actor> actors_;
     
     void ReleaseData();
     void BakeRenderPass(unsigned int index);

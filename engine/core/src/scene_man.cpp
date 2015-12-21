@@ -77,7 +77,7 @@ void SceneMan::Load(const std::string& scene_json_name) {
         }
         // POD isn't cached, so load it!
         if(pod_ptr == nullptr) {
-            auto pod_iter(pod_map.insert({parsed_actor.model_name,CPVRTModelPOD()}));
+            auto pod_iter(pod_map.insert({parsed_actor.model_name,std::move(CPVRTModelPOD())}));
             CPVRTModelPOD &pod(pod_iter.first->second);
             pod.ReadFromFile(parsed_actor.model_name.c_str());
         }
@@ -102,7 +102,8 @@ void SceneMan::Load(const std::string& scene_json_name) {
     }
     // Load actors
     for(const auto &parsed_actor: parser.actors) {
-        Actor actor;
+        auto actor_iter(actors_.insert({parsed_actor.name,std::move(Actor())}));
+        Actor &actor(actor_iter.first->second);
         actor.name = parsed_actor.name;
         auto map_model(models_.find(parsed_actor.model_name));
         if(map_model == models_.end()) {
@@ -110,7 +111,6 @@ void SceneMan::Load(const std::string& scene_json_name) {
         }
         actor.model = &map_model->second;
         actor.body.position = parsed_actor.world_position;
-        actors_.push_back(std::move(actor));
     }
     assert(0);
 }
@@ -124,9 +124,9 @@ std::vector<Actor*> SceneMan::GetActorPtrs(std::string regex_string) {
     std::regex expression(regex_string);
     std::vector<Actor*> actor_matches;
     
-    for(auto &actor : actors_) {
-        if(std::regex_match(actor.name,expression)) {
-            actor_matches.push_back(&actor);
+    for(auto &actor_iter : actors_) {
+        if(std::regex_match(actor_iter.first,expression)) {
+            actor_matches.push_back(&actor_iter.second);
         }
     }
     return actor_matches;
