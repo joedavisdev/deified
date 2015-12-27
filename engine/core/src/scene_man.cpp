@@ -58,10 +58,10 @@ void Model::ReleaseData() {
 }
 #pragma mark SceneMan: Public functions
 SceneMan::~SceneMan(){
-    ReleaseData();
+    this->ReleaseData();
 }
 void SceneMan::Load(const std::string& scene_json_name) {
-    ReleaseData();
+    this->ReleaseData();
     std::unordered_map<std::string,CPVRTModelPOD> pod_map;
     CPVRTResourceFile scene_json(scene_json_name.c_str());
     SceneParser parser;parser.Parse(std::string((char *)scene_json.DataPtr()));
@@ -102,15 +102,14 @@ void SceneMan::Load(const std::string& scene_json_name) {
     }
     // Load actors
     for(const auto &parsed_actor: parser.actors) {
-        auto actor_iter(actors_.insert({parsed_actor.name,std::move(Actor())}));
-        Actor &actor(actor_iter.first->second);
-        actor.name = parsed_actor.name;
+        Actor actor;
         auto map_model(models_.find(parsed_actor.model_name));
         if(map_model == models_.end()) {
             assert(0); // Model should exist
         }
         actor.model = &map_model->second;
         actor.body.position = parsed_actor.world_position;
+        actors_.insert({parsed_actor.name,std::move(actor)});
     }
     assert(0);
 }
