@@ -13,5 +13,13 @@
         "model":"bunny.pod",
         "world_position":"15.0,2.0,123.456"
         }
+    ],
+    "render_passes":[
+        {
+        "name":"main",
+        "actor_regex":".*",
+        "colour_attachments":["BGRA8U"],
+        "depth_stencil_attachments":"D32F"
+        }
     ]
 }
