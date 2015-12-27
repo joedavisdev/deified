@@ -4,8 +4,12 @@ A few simple rendering demos I've written to get to grips with Apple's Metal API
 
 == 01_Basic3D
 
+image::http://joedavisdev.co.uk/images/posts/2015117/01_Basic3D.png[Basic3D]
+
 A tweaked version of Apple's Basic3D demo. The rendered image is the same as the original demo, but this version uses some helper classes/functions to setup various Metal buffers.
 
 == 02_BasicPODScene
+
+image::http://joedavisdev.co.uk/images/posts/2015117/02_BasicPODScene.png[BasicPODScene]
 
 A simple mesh renderer. The PowerVR Object Data format (POD) is used to store the mesh data.
