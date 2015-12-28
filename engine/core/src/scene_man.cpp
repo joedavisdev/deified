@@ -127,7 +127,7 @@ void SceneMan::Load(const std::string& scene_json_name) {
         }
         RenderAttachment depth_stencil_attachment;
         if(depth_stencil_attachment.set_pixel_format(parsed_render_pass.depth_stencil_formats)) {
-//            render_pass.depth_stencil_attachment_ = std::move(depth_stencil_attachment);
+            render_pass.depth_stencil_attachment_ = std::move(depth_stencil_attachment);
         }else{
             printf("TODO: Render pass %s:\n\tLoad depth+stencil attachment\n",parsed_render_pass.name.c_str());
 //            assert(0);
