@@ -4,9 +4,13 @@
 #include <unordered_map>
 #include <string>
 
+#include "metal_device.h"
 #include "glm/glm.hpp"
 
 namespace JMD {
+// Forward declarations
+class RenderAttachment;
+// Structs & classes
 struct SMPipeline {};   // TEMP: SM prefix to avoid name clashes
 class SMMesh {          // TEMP: SM prefix to avoid name clashes
 public:
@@ -41,10 +45,6 @@ struct PhysicsBody {
 struct Actor {
     PhysicsBody body;   // World space position etc.
     Model* model;       // A renderable collection of meshes
-};
-struct RenderAttachment {
-    bool Create(std::string attachment_type){return false;}
-    bool Destroy(){return false;}
 };
 struct RenderPass {
     std::string actor_regex_;
