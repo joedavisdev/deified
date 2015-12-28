@@ -18,8 +18,8 @@
         {
         "name":"main",
         "actor_regex":".*",
-        "colour_attachments":["BGRA8U"],
-        "depth_stencil_attachments":"D32F"
+        "colour_formats":["BGRA8U"],
+        "depth_stencil_formats":"D32F"
         }
     ]
 }

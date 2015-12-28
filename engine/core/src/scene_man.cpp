@@ -116,7 +116,7 @@ void SceneMan::Load(const std::string& scene_json_name) {
         RenderPass render_pass;
         render_pass.actor_regex_ = parsed_render_pass.actor_regex;
         render_pass.actor_ptrs_ = this->GetActorPtrs(render_pass.actor_regex_);
-        for(const auto &attachment_type: parsed_render_pass.colour_attachments) {
+        for(const auto &attachment_type: parsed_render_pass.colour_formats) {
             RenderAttachment colour_attachment;
             if(colour_attachment.set_pixel_format(attachment_type)) {
                 render_pass.colour_attachments_.push_back(std::move(colour_attachment));
@@ -126,7 +126,7 @@ void SceneMan::Load(const std::string& scene_json_name) {
             }
         }
         RenderAttachment depth_stencil_attachment;
-        if(depth_stencil_attachment.set_pixel_format(parsed_render_pass.depth_stencil_attachments)) {
+        if(depth_stencil_attachment.set_pixel_format(parsed_render_pass.depth_stencil_formats)) {
 //            render_pass.depth_stencil_attachment_ = std::move(depth_stencil_attachment);
         }else{
             printf("TODO: Render pass %s:\n\tLoad depth+stencil attachment\n",parsed_render_pass.name.c_str());

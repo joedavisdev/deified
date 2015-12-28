@@ -47,11 +47,11 @@ namespace JMD {
             ParsedRenderPass parsed_render_pass;
             parsed_render_pass.name = value_object["name"].asString();
             parsed_render_pass.actor_regex = value_object["actor_regex"].asString();
-            parsed_render_pass.depth_stencil_attachments = value_object["depth_stencil_attachments"].asString();
-            auto colour_attachments(value_object["colour_attachments"]);
-            if(colour_attachments.isArray()){
-                for(const auto &attachment_object: colour_attachments) {
-                    parsed_render_pass.colour_attachments.push_back(std::move(attachment_object.asString()));
+            parsed_render_pass.depth_stencil_formats = value_object["depth_stencil_formats"].asString();
+            auto colour_formats(value_object["colour_formats"]);
+            if(colour_formats.isArray()){
+                for(const auto &attachment_object: colour_formats) {
+                    parsed_render_pass.colour_formats.push_back(std::move(attachment_object.asString()));
                 }
             }
             render_passes.push_back(std::move(parsed_render_pass));

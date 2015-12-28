@@ -20,8 +20,8 @@ namespace JMD {
     struct ParsedRenderPass {
         std::string name;
         std::string actor_regex;
-        std::vector<std::string> colour_attachments;
-        std::string depth_stencil_attachments;
+        std::vector<std::string> colour_formats;
+        std::string depth_stencil_formats;
     };
 class SceneParser {
 public:
