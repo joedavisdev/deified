@@ -1,6 +1,7 @@
 #include <string>
 
 namespace JMD {
+namespace GFX {
 class RenderAttachment {
 public:
     unsigned int set_pixel_format(const std::string &pixel_format);
@@ -8,4 +9,4 @@ public:
 private:
     unsigned int pixel_format_;
 };
-}
+}}

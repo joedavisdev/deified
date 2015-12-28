@@ -48,8 +48,8 @@ struct Actor {
 struct RenderPass {
     std::string actor_regex_;
     std::vector<Actor*> actor_ptrs_;
-    std::vector<RenderAttachment> colour_attachments_;
-    RenderAttachment depth_stencil_attachment_;
+    std::vector<GFX::RenderAttachment> colour_attachments_;
+    GFX::RenderAttachment depth_stencil_attachment_;
 };
 class SceneMan {
 public:

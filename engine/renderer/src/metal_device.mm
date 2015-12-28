@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 namespace JMD {
+namespace GFX {
 unsigned int RenderAttachment::set_pixel_format(const std::string &pixel_format){
     // Find the requested format
     std::unordered_map<std::string,MTLPixelFormat> pixel_format_map{
@@ -19,4 +20,4 @@ unsigned int RenderAttachment::set_pixel_format(const std::string &pixel_format)
     pixel_format_ = (unsigned int)mtl_pixel_format;
     return pixel_format_;
 }
-}
+}}
