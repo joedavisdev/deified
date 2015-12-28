@@ -120,17 +120,11 @@ void SceneMan::Load(const std::string& scene_json_name) {
             RenderAttachment colour_attachment;
             if(colour_attachment.set_pixel_format(attachment_type)) {
                 render_pass.colour_attachments_.push_back(std::move(colour_attachment));
-            }else{
-                printf("TODO: Render pass %s:\n\tLoad colour attachment\n",parsed_render_pass.name.c_str());
-//                assert(0);
             }
         }
         RenderAttachment depth_stencil_attachment;
         if(depth_stencil_attachment.set_pixel_format(parsed_render_pass.depth_stencil_formats)) {
             render_pass.depth_stencil_attachment_ = std::move(depth_stencil_attachment);
-        }else{
-            printf("TODO: Render pass %s:\n\tLoad depth+stencil attachment\n",parsed_render_pass.name.c_str());
-//            assert(0);
         }
         render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});
     }
