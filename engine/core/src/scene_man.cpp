@@ -9,8 +9,9 @@
 #include "PVRTModelPOD.h"
 
 namespace JMD {
-#pragma mark SMMesh: Public functions
-SMMesh::SMMesh()
+namespace Core {
+#pragma mark Mesh: Public functions
+Mesh::Mesh()
 :
 num_vertices_(0),
 stride_(0),
@@ -19,7 +20,7 @@ num_indices_bytes_(0),
 vertices_(nullptr),
 indices_(nullptr)
 {}
-SMMesh::SMMesh(char* vertices,
+Mesh::Mesh(char* vertices,
    unsigned int num_vertices,
    unsigned int stride,
    char* indices,
@@ -36,9 +37,9 @@ num_indices_bytes_(num_indices_bytes)
     indices_ = new char[num_indices];
     memcpy(indices_,indices,num_indices);
 }
-SMMesh::~SMMesh() {
+Mesh::~Mesh() {
 }
-void SMMesh::ReleaseData() {
+void Mesh::ReleaseData() {
     delete[] vertices_;vertices_=nullptr;
     delete[] indices_;indices_=nullptr;
 }
@@ -87,11 +88,11 @@ void SceneMan::Load(const std::string& scene_json_name) {
         Model model;
         const CPVRTModelPOD& pod(pod_key_value.second);
         model.number_of_meshes = pod.nNumMesh;
-        model.mesh_array = new SMMesh[model.number_of_meshes];
+        model.mesh_array = new Mesh[model.number_of_meshes];
         for(unsigned int index=0;index < pod.nNumMesh; index++){
             SPODMesh &pod_mesh(pod.pMesh[index]);
-            SMMesh &mesh(model.mesh_array[index]);
-            mesh = SMMesh((char*)pod_mesh.pInterleaved,
+            Mesh &mesh(model.mesh_array[index]);
+            mesh = Mesh((char*)pod_mesh.pInterleaved,
                           pod_mesh.nNumVertex,
                           pod_mesh.sVertex.nStride,
                           (char*)pod_mesh.sFaces.pData,
@@ -128,6 +129,9 @@ void SceneMan::Load(const std::string& scene_json_name) {
         }
         render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});
     }
+    for (const auto &render_pass: render_passes_) {
+        this->BakeRenderPass(render_pass.first,render_pass.second);
+    }
     assert(0);
 }
 void SceneMan::Update() {
@@ -153,7 +157,7 @@ void SceneMan::ReleaseData() {
         model.second.ReleaseData();
     }
 }
-void SceneMan::BakeRenderPass(unsigned int index) {
+void SceneMan::BakeRenderPass(const std::string &name, const RenderPass &render_pass) {
     assert(0);
 }
-}
+}}

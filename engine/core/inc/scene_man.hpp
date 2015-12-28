@@ -8,11 +8,10 @@
 #include "glm/glm.hpp"
 
 namespace JMD {
-// Forward declarations
-class RenderAttachment;
+namespace Core {
 // Structs & classes
-struct SMPipeline {};   // TEMP: SM prefix to avoid name clashes
-class SMMesh {          // TEMP: SM prefix to avoid name clashes
+struct Pipeline {};
+class Mesh {
 public:
     unsigned int    num_vertices_;
     unsigned int    stride_;
@@ -21,20 +20,20 @@ public:
     char*           vertices_;
     char*           indices_;
     
-    SMMesh();
-    SMMesh(char* vertices,
+    Mesh();
+    Mesh(char* vertices,
            unsigned int num_vertices,
            unsigned int stride,
            char* indices,
            unsigned int num_indices,
            unsigned int num_indices_bytes);
-    ~SMMesh();
+    ~Mesh();
     void ReleaseData();
 };
 class Model {
 public:
     unsigned int number_of_meshes;
-    SMMesh* mesh_array;
+    Mesh* mesh_array;
     Model();
     ~Model();
     void ReleaseData();
@@ -61,11 +60,11 @@ public:
     void Draw();
 private:
     std::unordered_map<std::string,RenderPass> render_passes_;
-    std::vector<SMPipeline> pipelines_;
+    std::vector<Pipeline> pipelines_;
     std::unordered_map<std::string,Model> models_;
     std::unordered_map<std::string,Actor> actors_;
     
     void ReleaseData();
-    void BakeRenderPass(unsigned int index);
+    void BakeRenderPass(const std::string &name, const RenderPass &render_pass);
 };
-}
+}}
