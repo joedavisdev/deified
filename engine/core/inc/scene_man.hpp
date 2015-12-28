@@ -10,7 +10,6 @@
 namespace JMD {
 namespace Core {
 // Structs & classes
-struct Pipeline {};
 class Mesh {
 public:
     unsigned int    num_vertices_;
@@ -45,11 +44,20 @@ struct Actor {
     PhysicsBody body;   // World space position etc.
     Model* model;       // A renderable collection of meshes
 };
+struct Draw {
+    Actor* actor_;
+    GFX::Pipeline* pipeline_;
+};
+struct CommandBuffer {
+    GFX::CommandBuffer cb_;
+    std::vector<Draw> draws_;
+};
 struct RenderPass {
     std::string actor_regex_;
     std::vector<Actor*> actor_ptrs_;
     std::vector<GFX::RenderAttachment> colour_attachments_;
     GFX::RenderAttachment depth_stencil_attachment_;
+    std::vector<CommandBuffer> command_buffers_;
 };
 class SceneMan {
 public:
@@ -60,11 +68,11 @@ public:
     void Draw();
 private:
     std::unordered_map<std::string,RenderPass> render_passes_;
-    std::vector<Pipeline> pipelines_;
+    std::vector<GFX::Pipeline> pipelines_;
     std::unordered_map<std::string,Model> models_;
     std::unordered_map<std::string,Actor> actors_;
     
     void ReleaseData();
-    void BakeRenderPass(const std::string &name, const RenderPass &render_pass);
+    void BakeRenderPass(const std::string &name, RenderPass &render_pass);
 };
 }}

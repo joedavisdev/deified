@@ -129,7 +129,7 @@ void SceneMan::Load(const std::string& scene_json_name) {
         }
         render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});
     }
-    for (const auto &render_pass: render_passes_) {
+    for (auto &render_pass: render_passes_) {
         this->BakeRenderPass(render_pass.first,render_pass.second);
     }
     assert(0);
@@ -157,7 +157,10 @@ void SceneMan::ReleaseData() {
         model.second.ReleaseData();
     }
 }
-void SceneMan::BakeRenderPass(const std::string &name, const RenderPass &render_pass) {
+void SceneMan::BakeRenderPass(const std::string &name, RenderPass &render_pass) {
+    // NOTE: Currently limited to one command buffer per render pass
+    render_pass.command_buffers_.push_back(CommandBuffer());
+    CommandBuffer &command_buffer(render_pass.command_buffers_.at(0));
     assert(0);
 }
 }}

@@ -9,4 +9,8 @@ public:
 private:
     unsigned int pixel_format_;
 };
+class CommandBuffer {
+};
+class Pipeline {
+};
 }}
