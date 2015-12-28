@@ -15,8 +15,7 @@ namespace JMD {
     }
     void SceneParser::ProcessEffects(const Json::Value &effects_node) {
         if(!effects_node.isArray()) return;
-        for(unsigned int index=0; index < effects_node.size(); ++index) {
-            const Json::Value value_object(effects_node[index]);
+        for(const auto &value_object: effects_node) {
             if(!value_object.isObject()) continue;
             ParsedEffect parsed_effect;
             parsed_effect.name = value_object["name"].asString();
@@ -27,8 +26,7 @@ namespace JMD {
     }
     void SceneParser::ProcessActors(const Json::Value &actors_node) {
         if(!actors_node.isArray()) return;
-        for(unsigned int index=0; index < actors_node.size(); ++index) {
-            const Json::Value value_object(actors_node[index]);
+        for(const auto &value_object:actors_node) {
             if(!value_object.isObject()) continue;
             ParsedActor parsed_actor;
             parsed_actor.name = value_object["name"].asString();
@@ -44,18 +42,16 @@ namespace JMD {
     }
     void SceneParser::ProcessRenderPasses(const Json::Value &render_pass_node) {
         if(!render_pass_node.isArray()) return;
-        for(unsigned int index=0; index < render_pass_node.size(); ++index) {
-            const Json::Value value_object(render_pass_node[index]);
+        for(const auto &value_object: render_pass_node) {
             if(!value_object.isObject()) continue;
             ParsedRenderPass parsed_render_pass;
             parsed_render_pass.name = value_object["name"].asString();
             parsed_render_pass.actor_regex = value_object["actor_regex"].asString();
-            parsed_render_pass.depth_stencil_attachments = value_object["depth_stencil_attachments"].asString();
-            auto colour_attachments(value_object["colour_attachments"]);
-            if(colour_attachments.isArray()){
-                for(unsigned int attachment_index=0; attachment_index < colour_attachments.size(); ++attachment_index) {
-                    const Json::Value attachment_object(colour_attachments[attachment_index]);
-                    parsed_render_pass.colour_attachments.push_back(std::move(attachment_object.asString()));
+            parsed_render_pass.depth_stencil_formats = value_object["depth_stencil_formats"].asString();
+            auto colour_formats(value_object["colour_formats"]);
+            if(colour_formats.isArray()){
+                for(const auto &attachment_object: colour_formats) {
+                    parsed_render_pass.colour_formats.push_back(std::move(attachment_object.asString()));
                 }
             }
             render_passes.push_back(std::move(parsed_render_pass));

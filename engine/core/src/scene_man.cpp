@@ -58,10 +58,10 @@ void Model::ReleaseData() {
 }
 #pragma mark SceneMan: Public functions
 SceneMan::~SceneMan(){
-    ReleaseData();
+    this->ReleaseData();
 }
 void SceneMan::Load(const std::string& scene_json_name) {
-    ReleaseData();
+    this->ReleaseData();
     std::unordered_map<std::string,CPVRTModelPOD> pod_map;
     CPVRTResourceFile scene_json(scene_json_name.c_str());
     SceneParser parser;parser.Parse(std::string((char *)scene_json.DataPtr()));
@@ -102,15 +102,37 @@ void SceneMan::Load(const std::string& scene_json_name) {
     }
     // Load actors
     for(const auto &parsed_actor: parser.actors) {
-        auto actor_iter(actors_.insert({parsed_actor.name,std::move(Actor())}));
-        Actor &actor(actor_iter.first->second);
-        actor.name = parsed_actor.name;
+        Actor actor;
         auto map_model(models_.find(parsed_actor.model_name));
         if(map_model == models_.end()) {
             assert(0); // Model should exist
         }
         actor.model = &map_model->second;
         actor.body.position = parsed_actor.world_position;
+        actors_.insert({parsed_actor.name,std::move(actor)});
+    }
+    // Load render passes
+    for(const auto &parsed_render_pass: parser.render_passes) {
+        RenderPass render_pass;
+        render_pass.actor_regex_ = parsed_render_pass.actor_regex;
+        render_pass.actor_ptrs_ = this->GetActorPtrs(render_pass.actor_regex_);
+        for(const auto &attachment_type: parsed_render_pass.colour_formats) {
+            RenderAttachment colour_attachment;
+            if(colour_attachment.set_pixel_format(attachment_type)) {
+                render_pass.colour_attachments_.push_back(std::move(colour_attachment));
+            }else{
+                printf("TODO: Render pass %s:\n\tLoad colour attachment\n",parsed_render_pass.name.c_str());
+//                assert(0);
+            }
+        }
+        RenderAttachment depth_stencil_attachment;
+        if(depth_stencil_attachment.set_pixel_format(parsed_render_pass.depth_stencil_formats)) {
+//            render_pass.depth_stencil_attachment_ = std::move(depth_stencil_attachment);
+        }else{
+            printf("TODO: Render pass %s:\n\tLoad depth+stencil attachment\n",parsed_render_pass.name.c_str());
+//            assert(0);
+        }
+        render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});
     }
     assert(0);
 }

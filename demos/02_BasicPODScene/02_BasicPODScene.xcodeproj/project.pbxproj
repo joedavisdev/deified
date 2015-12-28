@@ -30,6 +30,8 @@
 		D87699CC1B937A1A00A77979 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D87699CA1B937A1A00A77979 /* LaunchScreen.xib */; };
 		D8B4795C1BAF0A39006094B8 /* BasicPODScene.h in Headers */ = {isa = PBXBuildFile; fileRef = D8B4795A1BAF0A39006094B8 /* BasicPODScene.h */; };
 		D8B4795D1BAF0A39006094B8 /* BasicPODScene.mm in Sources */ = {isa = PBXBuildFile; fileRef = D8B4795B1BAF0A39006094B8 /* BasicPODScene.mm */; };
+		D8B8CD051C31632100A56A0A /* metal_device.h in Headers */ = {isa = PBXBuildFile; fileRef = D8B8CD041C31632100A56A0A /* metal_device.h */; };
+		D8B8CD0A1C31633000A56A0A /* metal_device.mm in Sources */ = {isa = PBXBuildFile; fileRef = D8B8CD091C31633000A56A0A /* metal_device.mm */; };
 		D8D2EF601BADCE5200704B14 /* libPVRFramework.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D8D2EF5F1BADCDA600704B14 /* libPVRFramework.a */; };
 		D8F137A81C1DDF1F0013CAF4 /* actorGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F137A11C1DDF1F0013CAF4 /* actorGroup.h */; };
 		D8F137A91C1DDF1F0013CAF4 /* mesh.h in Headers */ = {isa = PBXBuildFile; fileRef = D8F137A21C1DDF1F0013CAF4 /* mesh.h */; };
@@ -81,6 +83,8 @@
 		D87699CA1B937A1A00A77979 /* LaunchScreen.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LaunchScreen.xib; path = src/LaunchScreen.xib; sourceTree = SOURCE_ROOT; };
 		D8B4795A1BAF0A39006094B8 /* BasicPODScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BasicPODScene.h; path = demos/02_BasicPODScene/src/BasicPODScene.h; sourceTree = "<group>"; };
 		D8B4795B1BAF0A39006094B8 /* BasicPODScene.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = BasicPODScene.mm; path = demos/02_BasicPODScene/src/BasicPODScene.mm; sourceTree = "<group>"; };
+		D8B8CD041C31632100A56A0A /* metal_device.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = metal_device.h; sourceTree = "<group>"; };
+		D8B8CD091C31633000A56A0A /* metal_device.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = metal_device.mm; sourceTree = "<group>"; };
 		D8D2EF581BADCDA600704B14 /* PVRFramework.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = PVRFramework.xcodeproj; path = ../../thirdParty/pvrSdk/framework/build/ios/PVRFramework.xcodeproj; sourceTree = "<group>"; };
 		D8F137A11C1DDF1F0013CAF4 /* actorGroup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = actorGroup.h; sourceTree = "<group>"; };
 		D8F137A21C1DDF1F0013CAF4 /* mesh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = mesh.h; sourceTree = "<group>"; };
@@ -273,6 +277,7 @@
 		D8F137A01C1DDF1F0013CAF4 /* inc */ = {
 			isa = PBXGroup;
 			children = (
+				D8B8CD041C31632100A56A0A /* metal_device.h */,
 				D8F137A11C1DDF1F0013CAF4 /* actorGroup.h */,
 				D8F137A21C1DDF1F0013CAF4 /* mesh.h */,
 				D8F137A31C1DDF1F0013CAF4 /* pipeline.h */,
@@ -283,6 +288,7 @@
 		D8F137A41C1DDF1F0013CAF4 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				D8B8CD091C31633000A56A0A /* metal_device.mm */,
 				D8F137A51C1DDF1F0013CAF4 /* actorGroup.mm */,
 				D8F137A61C1DDF1F0013CAF4 /* mesh.m */,
 				D8F137A71C1DDF1F0013CAF4 /* pipeline.m */,
@@ -357,6 +363,7 @@
 				D86FC4071B93846F006AD475 /* AAPLViewController.h in Headers */,
 				D8B4795C1BAF0A39006094B8 /* BasicPODScene.h in Headers */,
 				D87699BA1B93794900A77979 /* UniformBlocks.h in Headers */,
+				D8B8CD051C31632100A56A0A /* metal_device.h in Headers */,
 				D86FC40A1B93846F006AD475 /* AAPLTransforms.h in Headers */,
 				D87699B91B93794900A77979 /* UniformBlockMap.h in Headers */,
 				D8F137A91C1DDF1F0013CAF4 /* mesh.h in Headers */,
@@ -460,6 +467,7 @@
 				D87699B81B93794900A77979 /* shaders.metal in Sources */,
 				D86FC4431B938EB9006AD475 /* main.m in Sources */,
 				D8B4795D1BAF0A39006094B8 /* BasicPODScene.mm in Sources */,
+				D8B8CD0A1C31633000A56A0A /* metal_device.mm in Sources */,
 				D8F137CA1C1DDFB40013CAF4 /* scene_man.cpp in Sources */,
 				D8F137BF1C1DDF430013CAF4 /* scene_parser.cpp in Sources */,
 				D842DA771C0F91D30078A255 /* jsoncpp.cpp in Sources */,
