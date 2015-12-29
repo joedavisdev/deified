@@ -157,7 +157,14 @@ void SceneMan::Load(const std::string& scene_json_name) {
     
     this->BuildPipelines();
     for (auto &render_pass: render_passes_) {
-        this->BuildCommandBuffers(render_pass.first,render_pass.second);
+        this->BuildCommandBuffers(render_pass.second);
+    }
+    gfx_default_library_.Load("");
+}
+void SceneMan::Bake(){
+    for(auto& effect_iter:effects_) {
+        Effect& effect(effect_iter.second);
+        effect.gfx_effect.Load(gfx_default_library_, effect.frag_shader_name,effect.vert_shader_name);
     }
     assert(0);
 }
@@ -184,10 +191,14 @@ void SceneMan::ReleaseData() {
         model.second.ReleaseData();
     }
     render_passes_.clear();
+    for(auto& effect_iter: effects_) {
+        effect_iter.second.gfx_effect.Release();
+    }
     effects_.clear();
     models_.clear();
     actors_.clear();
     pipelines_.clear();
+    gfx_default_library_.Release();
     loaded_bitflags_ = 0;
 }
 void SceneMan::BuildPipelines() {
@@ -218,7 +229,7 @@ Pipeline* SceneMan::FindPipeline(const Effect &effect, const RenderPass &render_
     }
     return pipeline_ptr;
 }
-void SceneMan::BuildCommandBuffers(const std::string &name, RenderPass &render_pass) {
+void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
     assert(loaded_bitflags_ == Loaded::EVERYTHING);
     CommandBuffer command_buffer; // NOTE: Currently limited to one command buffer per render pass
     // Create draws

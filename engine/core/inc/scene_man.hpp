@@ -19,6 +19,7 @@ class RenderPass;
 struct Effect {
     std::string frag_shader_name;
     std::string vert_shader_name;
+    GFX::Effect gfx_effect;
 };
 class Mesh {
 public:
@@ -88,6 +89,7 @@ public:
     ~SceneMan();
     void Load(const std::string& scene_json_name);
     std::vector<Actor*> GetActorPtrs(std::string regex_string);
+    void Bake();
     void Update();
     void Draw();
 private:
@@ -98,7 +100,7 @@ private:
     void BuildPipelines();
     void BuildPipeline(Effect &effect, RenderPass &render_pass);
     Pipeline* FindPipeline(const Effect &effect, const RenderPass &render_pass);
-    void BuildCommandBuffers(const std::string &name, RenderPass &render_pass);
+    void BuildCommandBuffers(RenderPass &render_pass);
     
     enum Loaded {
         EFFECTS         = 1<<0,
@@ -114,5 +116,6 @@ private:
     std::unordered_map<std::string,Model> models_;
     std::unordered_map<std::string,Actor> actors_;
     std::vector<Pipeline> pipelines_;
+    GFX::Library gfx_default_library_;
 };
 }}
