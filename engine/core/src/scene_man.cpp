@@ -157,9 +157,9 @@ void SceneMan::Load(const std::string& scene_json_name) {
     
     this->BuildPipelines();
     for (auto &render_pass: render_passes_) {
-        this->BuildCommandBuffers(render_pass.first,render_pass.second);
+        this->BuildCommandBuffers(render_pass.second);
     }
-    assert(0);
+    gfx_default_library_.Load("");
 }
 void SceneMan::Update() {
     assert(0);
@@ -218,7 +218,7 @@ Pipeline* SceneMan::FindPipeline(const Effect &effect, const RenderPass &render_
     }
     return pipeline_ptr;
 }
-void SceneMan::BuildCommandBuffers(const std::string &name, RenderPass &render_pass) {
+void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
     assert(loaded_bitflags_ == Loaded::EVERYTHING);
     CommandBuffer command_buffer; // NOTE: Currently limited to one command buffer per render pass
     // Create draws

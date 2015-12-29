@@ -98,7 +98,7 @@ private:
     void BuildPipelines();
     void BuildPipeline(Effect &effect, RenderPass &render_pass);
     Pipeline* FindPipeline(const Effect &effect, const RenderPass &render_pass);
-    void BuildCommandBuffers(const std::string &name, RenderPass &render_pass);
+    void BuildCommandBuffers(RenderPass &render_pass);
     
     enum Loaded {
         EFFECTS         = 1<<0,
@@ -114,5 +114,6 @@ private:
     std::unordered_map<std::string,Model> models_;
     std::unordered_map<std::string,Actor> actors_;
     std::vector<Pipeline> pipelines_;
+    GFX::Library gfx_default_library_;
 };
 }}

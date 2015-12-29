@@ -2,6 +2,7 @@
 
 namespace JMD {
 namespace GFX {
+void LoadDevice();
 class RenderAttachmentDesc {
 public:
     bool SetPixelFormat(const std::string &pixel_format);
@@ -10,6 +11,15 @@ private:
     unsigned int pixel_format_;
 };
 class CommandBuffer {
+};
+struct LibraryImpl;
+class Library {
+public:
+    Library();
+    ~Library();
+    void Load(const std::string& name);
+    void Release();
+    LibraryImpl* impl;
 };
 class PipelineDesc {
 };

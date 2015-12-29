@@ -137,6 +137,7 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     CPVRTResourceFile::SetReadPath([readPath UTF8String]);
     CPVRTResourceFile::SetLoadReleaseFunctions(NULL, NULL);
     
+    GFX::LoadDevice();
     scene_manager.Load("scene.json");
     
     if (_podModel.ReadFromFile("bunny.pod") != PVR_SUCCESS) {
