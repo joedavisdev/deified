@@ -61,20 +61,20 @@ void Model::ReleaseData() {
 SceneMan::~SceneMan(){
     this->ReleaseData();
 }
-void SceneMan::Load(const std::string& scene_json_name) {
-    this->ReleaseData();
-    CPVRTResourceFile scene_json(scene_json_name.c_str());
-    SceneParser parser;parser.Parse(std::string((char *)scene_json.DataPtr()));
+void SceneMan::LoadEffects(const std::vector<ParsedEffect>& parsed_effects) {
     // Load effects
-    for(const auto &parsed_effect: parser.effects) {
+    for(const auto &parsed_effect: parsed_effects) {
         Effect effect;
         effect.frag_shader_name = parsed_effect.frag_shader_name;
         effect.vert_shader_name = parsed_effect.vert_shader_name;
         effects_.insert({parsed_effect.name,std::move(effect)});
     }
+    loaded_bitflags_ |= Loaded::EFFECTS;
+}
+void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
     std::unordered_map<std::string,CPVRTModelPOD> pod_map;
     // Load PODs
-    for(const auto &parsed_actor: parser.actors) {
+    for(const auto &parsed_actor: parsed_actors) {
         // Search the POD map
         CPVRTModelPOD* pod_ptr(nullptr);
         for(auto &pod_key_value: pod_map) {
@@ -100,16 +100,17 @@ void SceneMan::Load(const std::string& scene_json_name) {
             SPODMesh &pod_mesh(pod.pMesh[index]);
             Mesh &mesh(model.mesh_array()[index]);
             mesh = Mesh((char*)pod_mesh.pInterleaved,
-                          pod_mesh.nNumVertex,
-                          pod_mesh.sVertex.nStride,
-                          (char*)pod_mesh.sFaces.pData,
-                          PVRTModelPODCountIndices(pod_mesh),
-                          pod_mesh.sFaces.nStride);
+                        pod_mesh.nNumVertex,
+                        pod_mesh.sVertex.nStride,
+                        (char*)pod_mesh.sFaces.pData,
+                        PVRTModelPODCountIndices(pod_mesh),
+                        pod_mesh.sFaces.nStride);
         }
         models_.insert({pod_key_value.first,std::move(model)});
     }
+    loaded_bitflags_ |= Loaded::MODELS;
     // Load actors
-    for(const auto &parsed_actor: parser.actors) {
+    for(const auto &parsed_actor: parsed_actors) {
         Actor actor;
         auto map_model(models_.find(parsed_actor.model_name));
         if(map_model == models_.end()) {
@@ -124,10 +125,13 @@ void SceneMan::Load(const std::string& scene_json_name) {
         actor.body.position = parsed_actor.world_position;
         actors_.insert({parsed_actor.name,std::move(actor)});
     }
+    loaded_bitflags_ |= Loaded::ACTORS;
+}
+void SceneMan::LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_render_passes) {
     // Load render passes
-    for(const auto &parsed_render_pass: parser.render_passes) {
+    for(const auto &parsed_render_pass: parsed_render_passes) {
         RenderPass render_pass;
-        render_pass.actor_regex = parsed_render_pass.actor_regex;	
+        render_pass.actor_regex = parsed_render_pass.actor_regex;
         render_pass.actor_ptrs = this->GetActorPtrs(render_pass.actor_regex);
         for(const auto &attachment_type: parsed_render_pass.colour_formats) {
             GFX::RenderAttachmentDesc colour_attachment;
@@ -141,6 +145,16 @@ void SceneMan::Load(const std::string& scene_json_name) {
         }
         render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});
     }
+    loaded_bitflags_ |= Loaded::RENDER_PASSES;
+}
+void SceneMan::Load(const std::string& scene_json_name) {
+    this->ReleaseData();
+    CPVRTResourceFile scene_json(scene_json_name.c_str());
+    SceneParser parser;parser.Parse(std::string((char *)scene_json.DataPtr()));
+    this->LoadEffects(parser.effects);
+    this->LoadActors(parser.actors);
+    this->LoadRenderPasses(parser.render_passes);
+    
     this->BuildPipelines();
     for (auto &render_pass: render_passes_) {
         this->BuildCommandBuffers(render_pass.first,render_pass.second);
@@ -169,6 +183,12 @@ void SceneMan::ReleaseData() {
     for(auto &model: models_){
         model.second.ReleaseData();
     }
+    render_passes_.clear();
+    effects_.clear();
+    models_.clear();
+    actors_.clear();
+    pipelines_.clear();
+    loaded_bitflags_ = 0;
 }
 void SceneMan::BuildPipelines() {
     for(auto& render_pass_iter:render_passes_) {
@@ -177,6 +197,7 @@ void SceneMan::BuildPipelines() {
             this->BuildPipeline(*actor_ptr->effect_ptr,render_pass);
         }
     }
+    loaded_bitflags_ |= Loaded::PIPELINES;
 }
 void SceneMan::BuildPipeline(Effect &effect, RenderPass &render_pass) {
     Pipeline* pipeline_ptr(this->FindPipeline(effect,render_pass));
@@ -185,7 +206,6 @@ void SceneMan::BuildPipeline(Effect &effect, RenderPass &render_pass) {
         pipeline.effect_ptr = &effect;
         pipeline.render_pass_ptr = &render_pass;
         pipelines_.push_back(std::move(pipeline));
-        pipeline_ptr = &pipelines_.at(pipelines_.size()-1);
     }
 }
 Pipeline* SceneMan::FindPipeline(const Effect &effect, const RenderPass &render_pass) {
@@ -199,6 +219,7 @@ Pipeline* SceneMan::FindPipeline(const Effect &effect, const RenderPass &render_
     return pipeline_ptr;
 }
 void SceneMan::BuildCommandBuffers(const std::string &name, RenderPass &render_pass) {
+    assert(loaded_bitflags_ == Loaded::EVERYTHING);
     CommandBuffer command_buffer; // NOTE: Currently limited to one command buffer per render pass
     // Create draws
     for(auto actor_ptr:render_pass.actor_ptrs) {
@@ -214,6 +235,5 @@ void SceneMan::BuildCommandBuffers(const std::string &name, RenderPass &render_p
     }
     // TODO: Sort draws by pipeline
     render_pass.command_buffers.push_back(std::move(command_buffer));
-    assert(0);
 }
 }}

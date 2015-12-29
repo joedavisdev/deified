@@ -8,6 +8,9 @@
 #include "glm/glm.hpp"
 
 namespace JMD {
+class ParsedEffect;
+class ParsedActor;
+class ParsedRenderPass;
 namespace Core {
 // Forward declarations
 class CommandBuffer;
@@ -81,18 +84,31 @@ struct RenderPass {
 };
 class SceneMan {
 public:
+    SceneMan():loaded_bitflags_(0){}
     ~SceneMan();
     void Load(const std::string& scene_json_name);
     std::vector<Actor*> GetActorPtrs(std::string regex_string);
     void Update();
     void Draw();
 private:
+    void LoadEffects(const std::vector<ParsedEffect>& parsed_effects);
+    void LoadActors(const std::vector<ParsedActor>& parsed_actors);
+    void LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_render_passes);
     void ReleaseData();
     void BuildPipelines();
     void BuildPipeline(Effect &effect, RenderPass &render_pass);
     Pipeline* FindPipeline(const Effect &effect, const RenderPass &render_pass);
     void BuildCommandBuffers(const std::string &name, RenderPass &render_pass);
     
+    enum Loaded {
+        EFFECTS         = 1<<0,
+        ACTORS          = 1<<1,
+        MODELS          = 1<<2,
+        RENDER_PASSES   = 1<<3,
+        PIPELINES       = 1<<4,
+        EVERYTHING      = EFFECTS|ACTORS|MODELS|RENDER_PASSES|PIPELINES
+    };
+    int loaded_bitflags_;
     std::unordered_map<std::string,RenderPass> render_passes_;
     std::unordered_map<std::string,Effect> effects_;
     std::unordered_map<std::string,Model> models_;
