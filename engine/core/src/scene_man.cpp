@@ -126,12 +126,12 @@ void SceneMan::Load(const std::string& scene_json_name) {
         render_pass.actor_ptrs = this->GetActorPtrs(render_pass.actor_regex);
         for(const auto &attachment_type: parsed_render_pass.colour_formats) {
             GFX::RenderAttachmentDesc colour_attachment;
-            if(colour_attachment.set_pixel_format(attachment_type)) {
+            if(colour_attachment.SetPixelFormat(attachment_type)) {
                 render_pass.colour_attachments.push_back(std::move(colour_attachment));
             }
         }
         GFX::RenderAttachmentDesc depth_stencil_attachment;
-        if(depth_stencil_attachment.set_pixel_format(parsed_render_pass.depth_stencil_formats)) {
+        if(depth_stencil_attachment.SetPixelFormat(parsed_render_pass.depth_stencil_formats)) {
             render_pass.depth_stencil_attachment = std::move(depth_stencil_attachment);
         }
         render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});

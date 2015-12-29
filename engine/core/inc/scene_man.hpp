@@ -54,9 +54,14 @@ struct Actor {
     Model* model_ptr;
     Actor():model_ptr(nullptr){}
 };
+struct Pipeline {
+    std::string effect_name;
+    std::string render_pass_name;
+    GFX::PipelineDesc pipeline_desc;
+};
 struct Draw {
     Actor* actor_ptr;
-    GFX::Pipeline* pipeline_ptr;
+    Pipeline* pipeline_ptr;
     Draw():actor_ptr(nullptr),pipeline_ptr(nullptr){}
 };
 struct CommandBuffer {
