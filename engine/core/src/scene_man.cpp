@@ -46,16 +46,16 @@ void Mesh::ReleaseData() {
 #pragma mark Model: Public functions
 Model::Model()
 :
-number_of_meshes(0),
-mesh_array(nullptr)
+number_of_meshes_(0),
+mesh_array_(nullptr)
 {}
 Model::~Model(){
 }
 void Model::ReleaseData() {
-    for(unsigned int index=0;index<number_of_meshes;index++) {
-        mesh_array[index].ReleaseData();
+    for(unsigned int index=0;index<number_of_meshes_;index++) {
+        mesh_array_[index].ReleaseData();
     }
-    delete []mesh_array;
+    delete []mesh_array_;
 }
 #pragma mark SceneMan: Public functions
 SceneMan::~SceneMan(){
@@ -94,11 +94,11 @@ void SceneMan::Load(const std::string& scene_json_name) {
     for(const auto &pod_key_value: pod_map) {
         Model model;
         const CPVRTModelPOD& pod(pod_key_value.second);
-        model.number_of_meshes = pod.nNumMesh;
-        model.mesh_array = new Mesh[model.number_of_meshes];
+        model.set_number_of_meshes(pod.nNumMesh);
+        model.set_mesh_array(new Mesh[model.number_of_meshes()]);
         for(unsigned int index=0;index < pod.nNumMesh; index++){
             SPODMesh &pod_mesh(pod.pMesh[index]);
-            Mesh &mesh(model.mesh_array[index]);
+            Mesh &mesh(model.mesh_array()[index]);
             mesh = Mesh((char*)pod_mesh.pInterleaved,
                           pod_mesh.nNumVertex,
                           pod_mesh.sVertex.nStride,
@@ -122,17 +122,17 @@ void SceneMan::Load(const std::string& scene_json_name) {
     // Load render passes
     for(const auto &parsed_render_pass: parser.render_passes) {
         RenderPass render_pass;
-        render_pass.actor_regex_ = parsed_render_pass.actor_regex;	
-        render_pass.actor_ptrs_ = this->GetActorPtrs(render_pass.actor_regex_);
+        render_pass.actor_regex = parsed_render_pass.actor_regex;	
+        render_pass.actor_ptrs = this->GetActorPtrs(render_pass.actor_regex);
         for(const auto &attachment_type: parsed_render_pass.colour_formats) {
             GFX::RenderAttachmentDesc colour_attachment;
             if(colour_attachment.set_pixel_format(attachment_type)) {
-                render_pass.colour_attachments_.push_back(std::move(colour_attachment));
+                render_pass.colour_attachments.push_back(std::move(colour_attachment));
             }
         }
         GFX::RenderAttachmentDesc depth_stencil_attachment;
         if(depth_stencil_attachment.set_pixel_format(parsed_render_pass.depth_stencil_formats)) {
-            render_pass.depth_stencil_attachment_ = std::move(depth_stencil_attachment);
+            render_pass.depth_stencil_attachment = std::move(depth_stencil_attachment);
         }
         render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});
     }
@@ -166,8 +166,8 @@ void SceneMan::ReleaseData() {
 }
 void SceneMan::BakeRenderPass(const std::string &name, RenderPass &render_pass) {
     // NOTE: Currently limited to one command buffer per render pass
-    render_pass.command_buffers_.push_back(CommandBuffer());
-    CommandBuffer &command_buffer(render_pass.command_buffers_.at(0));
+    render_pass.command_buffers.push_back(CommandBuffer());
+    CommandBuffer &command_buffer(render_pass.command_buffers.at(0));
     assert(0);
 }
 }}

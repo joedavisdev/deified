@@ -16,13 +16,6 @@ struct Effect {
 };
 class Mesh {
 public:
-    unsigned int    num_vertices_;
-    unsigned int    stride_;
-    unsigned int    num_indices_;
-    unsigned int    num_indices_bytes_;
-    char*           vertices_;
-    char*           indices_;
-    
     Mesh();
     Mesh(char* vertices,
            unsigned int num_vertices,
@@ -32,21 +25,33 @@ public:
            unsigned int num_indices_bytes);
     ~Mesh();
     void ReleaseData();
+private:
+    unsigned int    num_vertices_;
+    unsigned int    stride_;
+    unsigned int    num_indices_;
+    unsigned int    num_indices_bytes_;
+    char*           vertices_;
+    char*           indices_;
 };
-class Model {
+struct Model {
 public:
-    unsigned int number_of_meshes;
-    Mesh* mesh_array;
     Model();
     ~Model();
     void ReleaseData();
+    void set_number_of_meshes(unsigned int number_of_meshes){number_of_meshes_=number_of_meshes;}
+    unsigned int number_of_meshes(){return number_of_meshes_;}
+    void set_mesh_array(Mesh* mesh_array){delete[] mesh_array_;mesh_array_=mesh_array;}
+    Mesh* mesh_array(){return mesh_array_;}
+private:
+    unsigned int number_of_meshes_;
+    Mesh* mesh_array_;
 };
 struct PhysicsBody {
     glm::vec4 position;
 };
 struct Actor {
-    PhysicsBody body;   // World space position etc.
-    Model* model;       // A renderable collection of meshes
+    PhysicsBody body;
+    Model* model;
     Actor():model(nullptr){}
 };
 struct Draw {
@@ -59,11 +64,11 @@ struct CommandBuffer {
     std::vector<Draw> draws;
 };
 struct RenderPass {
-    std::string actor_regex_;
-    std::vector<Actor*> actor_ptrs_;
-    std::vector<GFX::RenderAttachmentDesc> colour_attachments_;
-    GFX::RenderAttachmentDesc depth_stencil_attachment_;
-    std::vector<CommandBuffer> command_buffers_;
+    std::string actor_regex;
+    std::vector<Actor*> actor_ptrs;
+    std::vector<GFX::RenderAttachmentDesc> colour_attachments;
+    GFX::RenderAttachmentDesc depth_stencil_attachment;
+    std::vector<CommandBuffer> command_buffers;
 };
 class SceneMan {
 public:
