@@ -10,6 +10,10 @@
 namespace JMD {
 namespace Core {
 // Structs & classes
+struct Effect {
+    std::string frag_shader_name;
+    std::string vert_shader_name;
+};
 class Mesh {
 public:
     unsigned int    num_vertices_;
@@ -68,7 +72,7 @@ public:
     void Draw();
 private:
     std::unordered_map<std::string,RenderPass> render_passes_;
-    std::vector<GFX::Pipeline> pipelines_;
+    std::unordered_map<std::string,Effect> effects_;
     std::unordered_map<std::string,Model> models_;
     std::unordered_map<std::string,Actor> actors_;
     

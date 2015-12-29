@@ -63,9 +63,16 @@ SceneMan::~SceneMan(){
 }
 void SceneMan::Load(const std::string& scene_json_name) {
     this->ReleaseData();
-    std::unordered_map<std::string,CPVRTModelPOD> pod_map;
     CPVRTResourceFile scene_json(scene_json_name.c_str());
     SceneParser parser;parser.Parse(std::string((char *)scene_json.DataPtr()));
+    // Load effects
+    for(const auto &parsed_effect: parser.effects) {
+        Effect effect;
+        effect.frag_shader_name = parsed_effect.frag_shader_name;
+        effect.vert_shader_name = parsed_effect.vert_shader_name;
+        effects_.insert({parsed_effect.name,std::move(effect)});
+    }
+    std::unordered_map<std::string,CPVRTModelPOD> pod_map;
     // Load PODs
     for(const auto &parsed_actor: parser.actors) {
         // Search the POD map
