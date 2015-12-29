@@ -13,14 +13,37 @@ private:
 class CommandBuffer {
 };
 struct LibraryImpl;
-class Library {
-public:
-    Library();
-    ~Library();
-    void Load(const std::string& name);
+struct Library {
+    Library():impl(nullptr){}
     void Release();
+    void Load(const std::string& name);
     LibraryImpl* impl;
+private:
+    void Create();
 };
-class PipelineDesc {
+struct EffectImpl;
+struct Effect {
+    Effect():impl(nullptr){}
+    void Release();
+    void Load(Library& library, const std::string& vert_name, const std::string& frag_name);
+    EffectImpl* impl;
+private:
+    void Create();
+};
+struct PipelineDescImpl;
+struct PipelineDesc {
+    PipelineDesc():impl(nullptr){}
+    void Release();
+    PipelineDescImpl* impl;
+private:
+    void Create();
+};
+struct PipelineStateImpl;
+struct PipelineState {
+    PipelineState():impl(nullptr){}
+    void Release();
+    PipelineStateImpl* impl;
+private:
+    void Create();
 };
 }}

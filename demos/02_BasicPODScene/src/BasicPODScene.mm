@@ -139,6 +139,7 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     
     GFX::LoadDevice();
     scene_manager.Load("scene.json");
+    scene_manager.Bake();
     
     if (_podModel.ReadFromFile("bunny.pod") != PVR_SUCCESS) {
         printf("ERROR: Couldn't load the .pod file\n");

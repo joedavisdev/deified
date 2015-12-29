@@ -19,6 +19,7 @@ class RenderPass;
 struct Effect {
     std::string frag_shader_name;
     std::string vert_shader_name;
+    GFX::Effect gfx_effect;
 };
 class Mesh {
 public:
@@ -88,6 +89,7 @@ public:
     ~SceneMan();
     void Load(const std::string& scene_json_name);
     std::vector<Actor*> GetActorPtrs(std::string regex_string);
+    void Bake();
     void Update();
     void Draw();
 private:
