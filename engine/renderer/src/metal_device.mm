@@ -6,7 +6,7 @@
 
 namespace JMD {
 namespace GFX {
-unsigned int RenderAttachment::set_pixel_format(const std::string &pixel_format){
+unsigned int RenderAttachmentDesc::set_pixel_format(const std::string &pixel_format){
     // Find the requested format
     std::unordered_map<std::string,MTLPixelFormat> pixel_format_map{
         {"BGRA8U",MTLPixelFormatBGRA8Unorm}
