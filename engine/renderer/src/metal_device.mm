@@ -36,5 +36,9 @@ void Library::Load(const std::string &name) {
     }else{
         assert(0);
     }
+    if(!library) {
+        NSLog(@">> ERROR: Couldnt create a shader library %s",name.c_str());
+        assert(0);
+    }
 }
 }}
