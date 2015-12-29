@@ -141,8 +141,9 @@ void SceneMan::Load(const std::string& scene_json_name) {
         }
         render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});
     }
+    this->BuildPipelines();
     for (auto &render_pass: render_passes_) {
-        this->BakeRenderPass(render_pass.first,render_pass.second);
+        this->BuildCommandBuffers(render_pass.first,render_pass.second);
     }
     assert(0);
 }
@@ -169,10 +170,50 @@ void SceneMan::ReleaseData() {
         model.second.ReleaseData();
     }
 }
-void SceneMan::BakeRenderPass(const std::string &name, RenderPass &render_pass) {
-    // NOTE: Currently limited to one command buffer per render pass
-    render_pass.command_buffers.push_back(CommandBuffer());
-    CommandBuffer &command_buffer(render_pass.command_buffers.at(0));
+void SceneMan::BuildPipelines() {
+    for(auto& render_pass_iter:render_passes_) {
+        RenderPass& render_pass(render_pass_iter.second);
+        for(auto actor_ptr:render_pass.actor_ptrs) {
+            this->BuildPipeline(*actor_ptr->effect_ptr,render_pass);
+        }
+    }
+}
+void SceneMan::BuildPipeline(Effect &effect, RenderPass &render_pass) {
+    Pipeline* pipeline_ptr(this->FindPipeline(effect,render_pass));
+    if(pipeline_ptr == nullptr) {
+        Pipeline pipeline;
+        pipeline.effect_ptr = &effect;
+        pipeline.render_pass_ptr = &render_pass;
+        pipelines_.push_back(std::move(pipeline));
+        pipeline_ptr = &pipelines_.at(pipelines_.size()-1);
+    }
+}
+Pipeline* SceneMan::FindPipeline(const Effect &effect, const RenderPass &render_pass) {
+    Pipeline* pipeline_ptr(nullptr);
+    for(auto &pipeline:pipelines_) {
+        if(pipeline.effect_ptr == &effect && pipeline.render_pass_ptr == &render_pass) {
+            pipeline_ptr = &pipeline;
+            break;
+        }
+    }
+    return pipeline_ptr;
+}
+void SceneMan::BuildCommandBuffers(const std::string &name, RenderPass &render_pass) {
+    CommandBuffer command_buffer; // NOTE: Currently limited to one command buffer per render pass
+    // Create draws
+    for(auto actor_ptr:render_pass.actor_ptrs) {
+        assert(actor_ptr != nullptr);
+        struct Draw draw;
+        draw.actor_ptr = actor_ptr;
+        // Find pipeline
+        Effect& effect(*draw.actor_ptr->effect_ptr);
+        Pipeline* pipeline_ptr(this->FindPipeline(effect, render_pass));
+        assert(pipeline_ptr != nullptr);
+        draw.pipeline_ptr = pipeline_ptr;
+        command_buffer.draws.push_back(std::move(draw));
+    }
+    // TODO: Sort draws by pipeline
+    render_pass.command_buffers.push_back(std::move(command_buffer));
     assert(0);
 }
 }}

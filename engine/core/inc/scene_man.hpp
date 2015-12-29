@@ -88,7 +88,10 @@ public:
     void Draw();
 private:
     void ReleaseData();
-    void BakeRenderPass(const std::string &name, RenderPass &render_pass);
+    void BuildPipelines();
+    void BuildPipeline(Effect &effect, RenderPass &render_pass);
+    Pipeline* FindPipeline(const Effect &effect, const RenderPass &render_pass);
+    void BuildCommandBuffers(const std::string &name, RenderPass &render_pass);
     
     std::unordered_map<std::string,RenderPass> render_passes_;
     std::unordered_map<std::string,Effect> effects_;
