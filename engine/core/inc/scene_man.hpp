@@ -47,14 +47,16 @@ struct PhysicsBody {
 struct Actor {
     PhysicsBody body;   // World space position etc.
     Model* model;       // A renderable collection of meshes
+    Actor():model(nullptr){}
 };
 struct Draw {
-    Actor* actor_;
-    GFX::Pipeline* pipeline_;
+    Actor* actor;
+    GFX::Pipeline* pipeline;
+    Draw():actor(nullptr),pipeline(nullptr){}
 };
 struct CommandBuffer {
-    GFX::CommandBuffer cb_;
-    std::vector<Draw> draws_;
+    GFX::CommandBuffer cb;
+    std::vector<Draw> draws;
 };
 struct RenderPass {
     std::string actor_regex_;
