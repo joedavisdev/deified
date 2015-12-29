@@ -115,7 +115,7 @@ void SceneMan::Load(const std::string& scene_json_name) {
         if(map_model == models_.end()) {
             assert(0); // Model should exist
         }
-        actor.model = &map_model->second;
+        actor.model_ptr = &map_model->second;
         actor.body.position = parsed_actor.world_position;
         actors_.insert({parsed_actor.name,std::move(actor)});
     }

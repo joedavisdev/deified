@@ -51,13 +51,13 @@ struct PhysicsBody {
 };
 struct Actor {
     PhysicsBody body;
-    Model* model;
-    Actor():model(nullptr){}
+    Model* model_ptr;
+    Actor():model_ptr(nullptr){}
 };
 struct Draw {
-    Actor* actor;
-    GFX::Pipeline* pipeline;
-    Draw():actor(nullptr),pipeline(nullptr){}
+    Actor* actor_ptr;
+    GFX::Pipeline* pipeline_ptr;
+    Draw():actor_ptr(nullptr),pipeline_ptr(nullptr){}
 };
 struct CommandBuffer {
     GFX::CommandBuffer cb;
