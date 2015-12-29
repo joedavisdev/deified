@@ -116,6 +116,11 @@ void SceneMan::Load(const std::string& scene_json_name) {
             assert(0); // Model should exist
         }
         actor.model_ptr = &map_model->second;
+        auto map_effect(effects_.find(parsed_actor.effect_name));
+        if(map_effect == effects_.end()) {
+            assert(0); // Model should exist
+        }
+        actor.effect_ptr = &map_effect->second;
         actor.body.position = parsed_actor.world_position;
         actors_.insert({parsed_actor.name,std::move(actor)});
     }

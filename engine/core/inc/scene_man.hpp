@@ -9,6 +9,9 @@
 
 namespace JMD {
 namespace Core {
+// Forward declarations
+class CommandBuffer;
+class RenderPass;
 // Structs & classes
 struct Effect {
     std::string frag_shader_name;
@@ -52,11 +55,12 @@ struct PhysicsBody {
 struct Actor {
     PhysicsBody body;
     Model* model_ptr;
-    Actor():model_ptr(nullptr){}
+    Effect* effect_ptr;
+    Actor():model_ptr(nullptr),effect_ptr(nullptr){}
 };
 struct Pipeline {
-    std::string effect_name;
-    std::string render_pass_name;
+    Effect* effect_ptr;
+    RenderPass* render_pass_ptr;
     GFX::PipelineDesc pipeline_desc;
 };
 struct Draw {
@@ -83,12 +87,13 @@ public:
     void Update();
     void Draw();
 private:
+    void ReleaseData();
+    void BakeRenderPass(const std::string &name, RenderPass &render_pass);
+    
     std::unordered_map<std::string,RenderPass> render_passes_;
     std::unordered_map<std::string,Effect> effects_;
     std::unordered_map<std::string,Model> models_;
     std::unordered_map<std::string,Actor> actors_;
-    
-    void ReleaseData();
-    void BakeRenderPass(const std::string &name, RenderPass &render_pass);
+    std::vector<Pipeline> pipelines_;
 };
 }}
