@@ -26,8 +26,8 @@ void Buffer::Create() {
 void Buffer::Release() {delete impl;}
     
 struct PixelFormatImpl {
-    PixelFormatImpl():data(MTLPixelFormatInvalid){}
-    MTLPixelFormat data;
+    PixelFormatImpl():format(MTLPixelFormatInvalid){}
+    MTLPixelFormat format;
 };
 void PixelFormat::Create() {
     if(impl == nullptr) impl = new PixelFormatImpl();
@@ -35,7 +35,7 @@ void PixelFormat::Create() {
 void PixelFormat::Release() {delete impl;}
     
 struct LibraryImpl {
-    id<MTLLibrary> data;
+    id<MTLLibrary> library;
 };
 void Library::Create() {
     if(impl == nullptr) impl = new LibraryImpl();
@@ -52,12 +52,12 @@ void Effect::Create() {
 void Effect::Release() {delete impl;}
     
 struct PipelineDescImpl {
-    MTLRenderPipelineDescriptor* data;
+    MTLRenderPipelineDescriptor* descriptor;
 };
 void PipelineDesc::Create() {
     if(impl == nullptr) {
         impl = new PipelineDescImpl();
-        impl->data = [[MTLRenderPipelineDescriptor alloc] init];
+        impl->descriptor = [[MTLRenderPipelineDescriptor alloc] init];
     }
 }
 void PipelineDesc::Release() {delete impl;}
@@ -73,7 +73,7 @@ void PipelineState::Release() {delete impl;}
 #pragma mark Member functions
 bool PixelFormat::Load(const std::string &pixel_format){
     this->Create();
-    MTLPixelFormat& mtl_pixel_format(impl->data);
+    MTLPixelFormat& mtl_pixel_format(impl->format);
     // Find the requested format
     std::unordered_map<std::string,MTLPixelFormat> pixel_format_map{
         {"BGRA8U",MTLPixelFormatBGRA8Unorm},
@@ -90,19 +90,19 @@ bool PixelFormat::Load(const std::string &pixel_format){
 void Library::Load(const std::string &name) {
     this->Create();
     if(name == ""){
-        impl->data = [mtl_device newDefaultLibrary];
+        impl->library = [mtl_device newDefaultLibrary];
     }else{
         assert(0);
     }
-    if(!impl->data) {
+    if(!impl->library) {
         NSLog(@">> ERROR: Couldnt create a shader library %s",name.c_str());
         assert(0);
     }
-    impl->data.label = [[NSString alloc]initWithCString:name.c_str() encoding:NSASCIIStringEncoding];
+    impl->library.label = [[NSString alloc]initWithCString:name.c_str() encoding:NSASCIIStringEncoding];
 }
 void Effect::Load(Library& library, const std::string &vert_name, const std::string &frag_name){
     this->Create();
-    id<MTLLibrary> mtl_library(library.impl->data);
+    id<MTLLibrary> mtl_library(library.impl->library);
     NSString* vert_nsstring = [[NSString alloc]initWithCString:vert_name.c_str() encoding:NSASCIIStringEncoding];
     impl->vertex_fn = [mtl_library newFunctionWithName:vert_nsstring];
     if(!impl->vertex_fn)
@@ -120,24 +120,24 @@ void PipelineDesc::Load(Effect& effect,
                         const PixelFormat& depth_format,
                         const PixelFormat& stencil_format) {
     this->Create();
-    MTLRenderPipelineDescriptor* mtl_pipeline_descriptor(impl->data);
+    MTLRenderPipelineDescriptor* mtl_pipeline_descriptor(impl->descriptor);
     mtl_pipeline_descriptor.sampleCount = sample_count;
     assert(effect.impl != nullptr);
     mtl_pipeline_descriptor.fragmentFunction = effect.impl->fragment_fn;
     mtl_pipeline_descriptor.vertexFunction = effect.impl->vertex_fn;
     for (unsigned int index=0; index < colour_formats.size(); ++index) {
         const PixelFormat& pixel_format(colour_formats.at(index));
-        if(pixel_format.impl != nullptr && pixel_format.impl->data != MTLPixelFormatInvalid)
-            mtl_pipeline_descriptor.colorAttachments[index].pixelFormat = pixel_format.impl->data;
+        if(pixel_format.impl != nullptr && pixel_format.impl->format != MTLPixelFormatInvalid)
+            mtl_pipeline_descriptor.colorAttachments[index].pixelFormat = pixel_format.impl->format;
     }
-    if(depth_format.impl != nullptr && depth_format.impl->data != MTLPixelFormatInvalid)
-        mtl_pipeline_descriptor.depthAttachmentPixelFormat = depth_format.impl->data;
-    if(stencil_format.impl != nullptr && stencil_format.impl->data != MTLPixelFormatInvalid)
-        mtl_pipeline_descriptor.stencilAttachmentPixelFormat = stencil_format.impl->data;
+    if(depth_format.impl != nullptr && depth_format.impl->format != MTLPixelFormatInvalid)
+        mtl_pipeline_descriptor.depthAttachmentPixelFormat = depth_format.impl->format;
+    if(stencil_format.impl != nullptr && stencil_format.impl->format != MTLPixelFormatInvalid)
+        mtl_pipeline_descriptor.stencilAttachmentPixelFormat = stencil_format.impl->format;
 }
 void PipelineState::Load(const JMD::GFX::PipelineDesc &pipeline_descriptor) {
     this->Create();
-    MTLRenderPipelineDescriptor* mtl_pipeline_desc(pipeline_descriptor.impl->data);
+    MTLRenderPipelineDescriptor* mtl_pipeline_desc(pipeline_descriptor.impl->descriptor);
     assert(mtl_pipeline_desc != nullptr);
     NSError *error = nil;
     impl->data = [mtl_device newRenderPipelineStateWithDescriptor:mtl_pipeline_desc error:&error];
