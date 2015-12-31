@@ -65,7 +65,7 @@ struct Actor {
 struct Pipeline {
     Effect* effect_ptr;
     RenderPass* render_pass_ptr;
-    GFX::PipelineDesc gfx_pipeline_desc;
+    GFX::PipelineState gfx_pipeline;
 };
 struct Draw {
     Actor* actor_ptr;
@@ -77,7 +77,7 @@ struct CommandBuffer {
     std::vector<Draw> draws;
 };
 struct RenderPass {
-    RenderPass():sample_count(0){}
+    RenderPass():sample_count(1){}
     std::string actor_regex;
     std::vector<Actor*> actor_ptrs;
     unsigned int sample_count;

@@ -52,6 +52,7 @@ struct PipelineStateImpl;
 struct PipelineState {
     PipelineState():impl(nullptr){}
     void Release();
+    void Load(const PipelineDesc& pipeline_descriptor);
     PipelineStateImpl* impl;
 private:
     void Create();

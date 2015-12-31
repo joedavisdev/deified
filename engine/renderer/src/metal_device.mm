@@ -48,7 +48,9 @@ void PipelineDesc::Create() {
 }
 void PipelineDesc::Release() {delete impl;}
     
-struct PipelineStateImpl {id<MTLRenderPipelineState> data;};
+struct PipelineStateImpl {
+    id<MTLRenderPipelineState> data;
+};
 void PipelineState::Create() {
     if(impl == nullptr) impl = new PipelineStateImpl();
 }
@@ -118,5 +120,15 @@ void PipelineDesc::Load(Effect& effect,
         mtl_pipeline_descriptor.depthAttachmentPixelFormat = depth_format.impl->data;
     if(stencil_format.impl != nullptr && stencil_format.impl->data != MTLPixelFormatInvalid)
         mtl_pipeline_descriptor.stencilAttachmentPixelFormat = stencil_format.impl->data;
+}
+void PipelineState::Load(const JMD::GFX::PipelineDesc &pipeline_descriptor) {
+    this->Create();
+    MTLRenderPipelineDescriptor* mtl_pipeline_desc(pipeline_descriptor.impl->data);
+    assert(mtl_pipeline_desc != nullptr);
+    NSError *error = nil;
+    impl->data = [mtl_device newRenderPipelineStateWithDescriptor:mtl_pipeline_desc error:&error];
+    if(!impl->data) {
+        NSLog(@">> ERROR: Failed Aquiring pipeline state: %@", error);
+    }
 }
 }}

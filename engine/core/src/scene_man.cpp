@@ -178,7 +178,6 @@ void SceneMan::BakeEffects(){
 void SceneMan::BakePipelines(){
     assert((loaded_bitflags_ & Stage::PIPELINES) != 0);
     assert((baked_bitflags_ & Stage::EFFECTS) != 0);
-    // Create pipeline descriptors
     for(auto& pipeline:pipelines_) {
         GFX::PipelineDesc gfx_pipeline_desc;
         Effect& effect(*pipeline.effect_ptr);
@@ -188,9 +187,8 @@ void SceneMan::BakePipelines(){
                                render_pass.colour_formats,
                                render_pass.depth_stencil_formats,
                                GFX::PixelFormat());
-        pipeline.gfx_pipeline_desc = std::move(gfx_pipeline_desc);
+        pipeline.gfx_pipeline.Load(gfx_pipeline_desc);
     }
-    assert(0);
     baked_bitflags_ |= Stage::PIPELINES;
 }
 void SceneMan::Bake(){
