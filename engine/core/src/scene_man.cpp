@@ -129,13 +129,13 @@ void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
 }
 void SceneMan::LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_render_passes) {
     // Load render passes
-    for(const auto &parsed_render_pass: parsed_render_passes) {
+    for(const auto &parsed_render_pass: parsed_render_passes) { 
         RenderPass render_pass;
         render_pass.actor_regex = parsed_render_pass.actor_regex;
         render_pass.actor_ptrs = this->GetActorPtrs(render_pass.actor_regex);
         for(const auto &attachment_format: parsed_render_pass.colour_formats) {
             GFX::PixelFormat colour_attachment;
-            if(colour_attachment.Load(attachment_format)) {
+            if(colour_attachment.Initialize(attachment_format)) {
                 render_pass.colour_formats.push_back(std::move(colour_attachment));
             }else{
                 printf("ERROR: Failed to load colour_formats = %s\n", attachment_format.c_str());
@@ -143,7 +143,7 @@ void SceneMan::LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_rend
             }
         }
         GFX::PixelFormat depth_stencil_formats;
-        if(depth_stencil_formats.Load(parsed_render_pass.depth_stencil_formats)) {
+        if(depth_stencil_formats.Initialize(parsed_render_pass.depth_stencil_formats)) {
             render_pass.depth_stencil_formats = std::move(depth_stencil_formats);
         }else{
             printf("ERROR: Failed to load depth_stencil_formats = %s\n", parsed_render_pass.depth_stencil_formats.c_str());
@@ -165,13 +165,13 @@ void SceneMan::Load(const std::string& scene_json_name) {
     for (auto &render_pass: render_passes_) {
         this->BuildCommandBuffers(render_pass.second);
     }
-    gfx_default_library_.Load("");
+    gfx_default_library_.Initialize("");
 }
 void SceneMan::BakeEffects(){
     assert((loaded_bitflags_ & Stage::EFFECTS) != 0);
     for(auto& effect_iter:effects_) {
         Effect& effect(effect_iter.second);
-        effect.gfx_effect.Load(gfx_default_library_, effect.vert_shader_name, effect.frag_shader_name);
+        effect.gfx_effect.Initialize(gfx_default_library_, effect.vert_shader_name, effect.frag_shader_name);
     }
     baked_bitflags_ |= Stage::EFFECTS;
 }
@@ -182,12 +182,12 @@ void SceneMan::BakePipelines(){
         GFX::PipelineDesc gfx_pipeline_desc;
         Effect& effect(*pipeline.effect_ptr);
         const RenderPass& render_pass(*pipeline.render_pass_ptr);
-        gfx_pipeline_desc.Load(effect.gfx_effect,
+        gfx_pipeline_desc.Initialize(effect.gfx_effect,
                                render_pass.sample_count,
                                render_pass.colour_formats,
                                render_pass.depth_stencil_formats,
                                GFX::PixelFormat());
-        pipeline.gfx_pipeline.Load(gfx_pipeline_desc);
+        pipeline.gfx_pipeline.Initialize(gfx_pipeline_desc);
     }
     baked_bitflags_ |= Stage::PIPELINES;
 }

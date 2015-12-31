@@ -71,7 +71,7 @@ void PipelineState::Create() {
 void PipelineState::Release() {delete impl;}
     
 #pragma mark Member functions
-bool PixelFormat::Load(const std::string &pixel_format){
+bool PixelFormat::Initialize(const std::string &pixel_format){
     this->Create();
     MTLPixelFormat& mtl_pixel_format(impl->format);
     // Find the requested format
@@ -87,7 +87,7 @@ bool PixelFormat::Load(const std::string &pixel_format){
     }
     return true;
 }
-void Library::Load(const std::string &name) {
+void Library::Initialize(const std::string &name) {
     this->Create();
     if(name == ""){
         impl->library = [mtl_device newDefaultLibrary];
@@ -100,7 +100,7 @@ void Library::Load(const std::string &name) {
     }
     impl->library.label = [[NSString alloc]initWithCString:name.c_str() encoding:NSASCIIStringEncoding];
 }
-void Effect::Load(Library& library, const std::string &vert_name, const std::string &frag_name){
+void Effect::Initialize(Library& library, const std::string &vert_name, const std::string &frag_name){
     this->Create();
     id<MTLLibrary> mtl_library(library.impl->library);
     NSString* vert_nsstring = [[NSString alloc]initWithCString:vert_name.c_str() encoding:NSASCIIStringEncoding];
@@ -114,7 +114,7 @@ void Effect::Load(Library& library, const std::string &vert_name, const std::str
         NSLog(@">> ERROR: Couldn't load %@ fragment program from supplied library (%@)", frag_nsstring, mtl_library.label);
     assert(impl->fragment_fn.functionType == MTLFunctionType::MTLFunctionTypeFragment);
 }
-void PipelineDesc::Load(Effect& effect,
+void PipelineDesc::Initialize(Effect& effect,
                         const unsigned int sample_count,
                         const std::vector<PixelFormat>& colour_formats,
                         const PixelFormat& depth_format,
@@ -135,7 +135,7 @@ void PipelineDesc::Load(Effect& effect,
     if(stencil_format.impl != nullptr && stencil_format.impl->format != MTLPixelFormatInvalid)
         mtl_pipeline_descriptor.stencilAttachmentPixelFormat = stencil_format.impl->format;
 }
-void PipelineState::Load(const JMD::GFX::PipelineDesc &pipeline_descriptor) {
+void PipelineState::Initialize(const JMD::GFX::PipelineDesc &pipeline_descriptor) {
     this->Create();
     MTLRenderPipelineDescriptor* mtl_pipeline_desc(pipeline_descriptor.impl->descriptor);
     assert(mtl_pipeline_desc != nullptr);
