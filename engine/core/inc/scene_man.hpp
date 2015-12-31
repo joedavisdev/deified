@@ -65,7 +65,7 @@ struct Actor {
 struct Pipeline {
     Effect* effect_ptr;
     RenderPass* render_pass_ptr;
-    GFX::PipelineDesc pipeline_desc;
+    GFX::PipelineDesc gfx_pipeline_desc;
 };
 struct Draw {
     Actor* actor_ptr;
@@ -77,10 +77,12 @@ struct CommandBuffer {
     std::vector<Draw> draws;
 };
 struct RenderPass {
+    RenderPass():sample_count(0){}
     std::string actor_regex;
     std::vector<Actor*> actor_ptrs;
-    std::vector<GFX::RenderAttachmentDesc> colour_attachments;
-    GFX::RenderAttachmentDesc depth_stencil_attachment;
+    unsigned int sample_count;
+    std::vector<GFX::PixelFormat> colour_formats;
+    GFX::PixelFormat depth_stencil_formats;
     std::vector<CommandBuffer> command_buffers;
 };
 class SceneMan {
@@ -101,6 +103,8 @@ private:
     void BuildPipeline(Effect &effect, RenderPass &render_pass);
     Pipeline* FindPipeline(const Effect &effect, const RenderPass &render_pass);
     void BuildCommandBuffers(RenderPass &render_pass);
+    void BakeEffects();
+    void BakePipelines();
     
     enum Loaded {
         EFFECTS         = 1<<0,

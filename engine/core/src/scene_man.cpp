@@ -134,14 +134,14 @@ void SceneMan::LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_rend
         render_pass.actor_regex = parsed_render_pass.actor_regex;
         render_pass.actor_ptrs = this->GetActorPtrs(render_pass.actor_regex);
         for(const auto &attachment_type: parsed_render_pass.colour_formats) {
-            GFX::RenderAttachmentDesc colour_attachment;
-            if(colour_attachment.SetPixelFormat(attachment_type)) {
-                render_pass.colour_attachments.push_back(std::move(colour_attachment));
+            GFX::PixelFormat colour_attachment;
+            if(colour_attachment.Load(attachment_type)) {
+                render_pass.colour_formats.push_back(std::move(colour_attachment));
             }
         }
-        GFX::RenderAttachmentDesc depth_stencil_attachment;
-        if(depth_stencil_attachment.SetPixelFormat(parsed_render_pass.depth_stencil_formats)) {
-            render_pass.depth_stencil_attachment = std::move(depth_stencil_attachment);
+        GFX::PixelFormat depth_stencil_formats;
+        if(depth_stencil_formats.Load(parsed_render_pass.depth_stencil_formats)) {
+            render_pass.depth_stencil_formats = std::move(depth_stencil_formats);
         }
         render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});
     }
@@ -161,11 +161,22 @@ void SceneMan::Load(const std::string& scene_json_name) {
     }
     gfx_default_library_.Load("");
 }
-void SceneMan::Bake(){
+void SceneMan::BakeEffects(){
+    assert((loaded_bitflags_ & Loaded::EFFECTS) != 0);;
     for(auto& effect_iter:effects_) {
         Effect& effect(effect_iter.second);
         effect.gfx_effect.Load(gfx_default_library_, effect.frag_shader_name,effect.vert_shader_name);
     }
+}
+void SceneMan::BakePipelines(){
+    assert((loaded_bitflags_ & Loaded::PIPELINES) != 0);;
+    for(auto& pipeline:pipelines_) {
+    }
+}
+void SceneMan::Bake(){
+    assert(loaded_bitflags_ == Loaded::EVERYTHING);
+    this->BakeEffects();
+    this->BakePipelines();
     assert(0);
 }
 void SceneMan::Update() {

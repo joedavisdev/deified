@@ -3,12 +3,14 @@
 namespace JMD {
 namespace GFX {
 void LoadDevice();
-class RenderAttachmentDesc {
-public:
-    bool SetPixelFormat(const std::string &pixel_format);
-    unsigned int pixel_format() const {return pixel_format_;}
+struct PixelFormatImpl;
+struct PixelFormat {
+    PixelFormat():impl(nullptr){}
+    bool Load(const std::string &pixel_format);
+    void Release();
+    PixelFormatImpl* impl;
 private:
-    unsigned int pixel_format_;
+    void Create();
 };
 class CommandBuffer {
 };
