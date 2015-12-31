@@ -87,7 +87,7 @@ struct RenderPass {
 };
 class SceneMan {
 public:
-    SceneMan():loaded_bitflags_(0){}
+    SceneMan():loaded_bitflags_(0),baked_bitflags_(0){}
     ~SceneMan();
     void Load(const std::string& scene_json_name);
     std::vector<Actor*> GetActorPtrs(std::string regex_string);
@@ -106,7 +106,7 @@ private:
     void BakeEffects();
     void BakePipelines();
     
-    enum Loaded {
+    enum Stage {
         EFFECTS         = 1<<0,
         ACTORS          = 1<<1,
         MODELS          = 1<<2,
@@ -115,6 +115,7 @@ private:
         EVERYTHING      = EFFECTS|ACTORS|MODELS|RENDER_PASSES|PIPELINES
     };
     int loaded_bitflags_;
+    int baked_bitflags_;
     std::unordered_map<std::string,RenderPass> render_passes_;
     std::unordered_map<std::string,Effect> effects_;
     std::unordered_map<std::string,Model> models_;
