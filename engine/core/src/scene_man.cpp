@@ -133,15 +133,21 @@ void SceneMan::LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_rend
         RenderPass render_pass;
         render_pass.actor_regex = parsed_render_pass.actor_regex;
         render_pass.actor_ptrs = this->GetActorPtrs(render_pass.actor_regex);
-        for(const auto &attachment_type: parsed_render_pass.colour_formats) {
+        for(const auto &attachment_format: parsed_render_pass.colour_formats) {
             GFX::PixelFormat colour_attachment;
-            if(colour_attachment.Load(attachment_type)) {
+            if(colour_attachment.Load(attachment_format)) {
                 render_pass.colour_formats.push_back(std::move(colour_attachment));
+            }else{
+                printf("ERROR: Failed to load colour_formats = %s\n", attachment_format.c_str());
+                assert(0);
             }
         }
         GFX::PixelFormat depth_stencil_formats;
         if(depth_stencil_formats.Load(parsed_render_pass.depth_stencil_formats)) {
             render_pass.depth_stencil_formats = std::move(depth_stencil_formats);
+        }else{
+            printf("ERROR: Failed to load depth_stencil_formats = %s\n", parsed_render_pass.depth_stencil_formats.c_str());
+            assert(0);
         }
         render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});
     }
@@ -162,21 +168,29 @@ void SceneMan::Load(const std::string& scene_json_name) {
     gfx_default_library_.Load("");
 }
 void SceneMan::BakeEffects(){
-    assert((loaded_bitflags_ & Stage::EFFECTS) != 0);;
+    assert((loaded_bitflags_ & Stage::EFFECTS) != 0);
     for(auto& effect_iter:effects_) {
         Effect& effect(effect_iter.second);
-        effect.gfx_effect.Load(gfx_default_library_, effect.frag_shader_name,effect.vert_shader_name);
+        effect.gfx_effect.Load(gfx_default_library_, effect.vert_shader_name, effect.frag_shader_name);
     }
     baked_bitflags_ |= Stage::EFFECTS;
 }
 void SceneMan::BakePipelines(){
-    assert((loaded_bitflags_ & Stage::PIPELINES) != 0);;
-    assert((baked_bitflags_ & Stage::EFFECTS) != 0);;
+    assert((loaded_bitflags_ & Stage::PIPELINES) != 0);
+    assert((baked_bitflags_ & Stage::EFFECTS) != 0);
+    // Create pipeline descriptors
     for(auto& pipeline:pipelines_) {
         GFX::PipelineDesc gfx_pipeline_desc;
-//        gfx_pipeline_desc.Load();
-//        gfx_pipeline_desc.
+        Effect& effect(*pipeline.effect_ptr);
+        const RenderPass& render_pass(*pipeline.render_pass_ptr);
+        gfx_pipeline_desc.Load(effect.gfx_effect,
+                               render_pass.sample_count,
+                               render_pass.colour_formats,
+                               render_pass.depth_stencil_formats,
+                               GFX::PixelFormat());
+        pipeline.gfx_pipeline_desc = std::move(gfx_pipeline_desc);
     }
+    assert(0);
     baked_bitflags_ |= Stage::PIPELINES;
 }
 void SceneMan::Bake(){
