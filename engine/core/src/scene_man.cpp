@@ -36,12 +36,28 @@ num_indices_bytes_(num_indices_bytes)
     memcpy(vertices_,vertices,num_vertices);
     indices_ = new char[num_indices];
     memcpy(indices_,indices,num_indices);
+    local_data_active_ = true;
+}
+bool Mesh::InitializeGFX() {
+    if(!local_data_active_) return false;
+    vertex_buffer_.Initialise(vertices_, num_vertices_);
+    index_buffer_.Initialise(indices_, num_indices_);
+    return true;
 }
 Mesh::~Mesh() {
 }
-void Mesh::ReleaseData() {
+void Mesh::ReleaseGFXData() {
+    vertex_buffer_.Release();
+    index_buffer_.Release();
+}
+void Mesh::ReleaseLocalData() {
     delete[] vertices_;vertices_=nullptr;
     delete[] indices_;indices_=nullptr;
+    local_data_active_ = false;
+}
+void Mesh::ReleaseData() {
+    this->ReleaseGFXData();
+    this->ReleaseLocalData();
 }
 #pragma mark Model: Public functions
 Model::Model()
@@ -105,6 +121,7 @@ void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
                         (char*)pod_mesh.sFaces.pData,
                         PVRTModelPODCountIndices(pod_mesh),
                         pod_mesh.sFaces.nStride);
+            mesh.InitializeGFX();
         }
         models_.insert({pod_key_value.first,std::move(model)});
     }

@@ -31,14 +31,20 @@ public:
            unsigned int num_indices,
            unsigned int num_indices_bytes);
     ~Mesh();
+    bool InitializeGFX();
+    void ReleaseLocalData();
     void ReleaseData();
 private:
+    void ReleaseGFXData();
     unsigned int    num_vertices_;
     unsigned int    stride_;
     unsigned int    num_indices_;
     unsigned int    num_indices_bytes_;
     char*           vertices_;
     char*           indices_;
+    GFX::Buffer     vertex_buffer_;
+    GFX::Buffer     index_buffer_;
+    bool            local_data_active_;
 };
 struct Model {
 public:
