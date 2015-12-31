@@ -191,11 +191,23 @@ void SceneMan::BakePipelines(){
     }
     baked_bitflags_ |= Stage::PIPELINES;
 }
+void SceneMan::BakeCommandBuffers() {
+    for(auto& render_pass_iter:render_passes_){
+        for(auto& comand_buffer:render_pass_iter.second.command_buffers) {
+            GFX::CommandBuffer& cb(comand_buffer.cb);
+            for(auto& draw:comand_buffer.draws){
+            }
+        }
+    }
+    assert(0);
+    baked_bitflags_ |= Stage::COMMAND_BUFFERS;
+}
 void SceneMan::Bake(){
-    assert(loaded_bitflags_ == Stage::EVERYTHING);
+    assert(loaded_bitflags_ == Stage::ALL_LOADED);
     this->BakeEffects();
     this->BakePipelines();
-    assert(0);
+    this->BakeCommandBuffers();
+    assert(baked_bitflags_ == Stage::ALL_BAKED);
 }
 void SceneMan::Update() {
     assert(0);
@@ -259,7 +271,7 @@ Pipeline* SceneMan::FindPipeline(const Effect &effect, const RenderPass &render_
     return pipeline_ptr;
 }
 void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
-    assert(loaded_bitflags_ == Stage::EVERYTHING);
+    assert(loaded_bitflags_ == Stage::ALL_LOADED);
     CommandBuffer command_buffer; // NOTE: Currently limited to one command buffer per render pass
     // Create draws
     for(auto actor_ptr:render_pass.actor_ptrs) {

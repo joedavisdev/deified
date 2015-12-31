@@ -105,6 +105,7 @@ private:
     void BuildCommandBuffers(RenderPass &render_pass);
     void BakeEffects();
     void BakePipelines();
+    void BakeCommandBuffers();
     
     enum Stage {
         EFFECTS         = 1<<0,
@@ -112,7 +113,9 @@ private:
         MODELS          = 1<<2,
         RENDER_PASSES   = 1<<3,
         PIPELINES       = 1<<4,
-        EVERYTHING      = EFFECTS|ACTORS|MODELS|RENDER_PASSES|PIPELINES
+        COMMAND_BUFFERS = 1<<5,
+        ALL_LOADED      = EFFECTS|ACTORS|MODELS|RENDER_PASSES|PIPELINES,
+        ALL_BAKED       = EFFECTS|PIPELINES|COMMAND_BUFFERS
     };
     int loaded_bitflags_;
     int baked_bitflags_;
