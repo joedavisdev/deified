@@ -69,7 +69,7 @@ void SceneMan::LoadEffects(const std::vector<ParsedEffect>& parsed_effects) {
         effect.vert_shader_name = parsed_effect.vert_shader_name;
         effects_.insert({parsed_effect.name,std::move(effect)});
     }
-    loaded_bitflags_ |= Loaded::EFFECTS;
+    loaded_bitflags_ |= Stage::EFFECTS;
 }
 void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
     std::unordered_map<std::string,CPVRTModelPOD> pod_map;
@@ -108,7 +108,7 @@ void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
         }
         models_.insert({pod_key_value.first,std::move(model)});
     }
-    loaded_bitflags_ |= Loaded::MODELS;
+    loaded_bitflags_ |= Stage::MODELS;
     // Load actors
     for(const auto &parsed_actor: parsed_actors) {
         Actor actor;
@@ -125,7 +125,7 @@ void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
         actor.body.position = parsed_actor.world_position;
         actors_.insert({parsed_actor.name,std::move(actor)});
     }
-    loaded_bitflags_ |= Loaded::ACTORS;
+    loaded_bitflags_ |= Stage::ACTORS;
 }
 void SceneMan::LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_render_passes) {
     // Load render passes
@@ -133,19 +133,25 @@ void SceneMan::LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_rend
         RenderPass render_pass;
         render_pass.actor_regex = parsed_render_pass.actor_regex;
         render_pass.actor_ptrs = this->GetActorPtrs(render_pass.actor_regex);
-        for(const auto &attachment_type: parsed_render_pass.colour_formats) {
+        for(const auto &attachment_format: parsed_render_pass.colour_formats) {
             GFX::PixelFormat colour_attachment;
-            if(colour_attachment.Load(attachment_type)) {
+            if(colour_attachment.Load(attachment_format)) {
                 render_pass.colour_formats.push_back(std::move(colour_attachment));
+            }else{
+                printf("ERROR: Failed to load colour_formats = %s\n", attachment_format.c_str());
+                assert(0);
             }
         }
         GFX::PixelFormat depth_stencil_formats;
         if(depth_stencil_formats.Load(parsed_render_pass.depth_stencil_formats)) {
             render_pass.depth_stencil_formats = std::move(depth_stencil_formats);
+        }else{
+            printf("ERROR: Failed to load depth_stencil_formats = %s\n", parsed_render_pass.depth_stencil_formats.c_str());
+            assert(0);
         }
         render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});
     }
-    loaded_bitflags_ |= Loaded::RENDER_PASSES;
+    loaded_bitflags_ |= Stage::RENDER_PASSES;
 }
 void SceneMan::Load(const std::string& scene_json_name) {
     this->ReleaseData();
@@ -162,19 +168,31 @@ void SceneMan::Load(const std::string& scene_json_name) {
     gfx_default_library_.Load("");
 }
 void SceneMan::BakeEffects(){
-    assert((loaded_bitflags_ & Loaded::EFFECTS) != 0);;
+    assert((loaded_bitflags_ & Stage::EFFECTS) != 0);
     for(auto& effect_iter:effects_) {
         Effect& effect(effect_iter.second);
-        effect.gfx_effect.Load(gfx_default_library_, effect.frag_shader_name,effect.vert_shader_name);
+        effect.gfx_effect.Load(gfx_default_library_, effect.vert_shader_name, effect.frag_shader_name);
     }
+    baked_bitflags_ |= Stage::EFFECTS;
 }
 void SceneMan::BakePipelines(){
-    assert((loaded_bitflags_ & Loaded::PIPELINES) != 0);;
+    assert((loaded_bitflags_ & Stage::PIPELINES) != 0);
+    assert((baked_bitflags_ & Stage::EFFECTS) != 0);
     for(auto& pipeline:pipelines_) {
+        GFX::PipelineDesc gfx_pipeline_desc;
+        Effect& effect(*pipeline.effect_ptr);
+        const RenderPass& render_pass(*pipeline.render_pass_ptr);
+        gfx_pipeline_desc.Load(effect.gfx_effect,
+                               render_pass.sample_count,
+                               render_pass.colour_formats,
+                               render_pass.depth_stencil_formats,
+                               GFX::PixelFormat());
+        pipeline.gfx_pipeline.Load(gfx_pipeline_desc);
     }
+    baked_bitflags_ |= Stage::PIPELINES;
 }
 void SceneMan::Bake(){
-    assert(loaded_bitflags_ == Loaded::EVERYTHING);
+    assert(loaded_bitflags_ == Stage::EVERYTHING);
     this->BakeEffects();
     this->BakePipelines();
     assert(0);
@@ -210,7 +228,7 @@ void SceneMan::ReleaseData() {
     actors_.clear();
     pipelines_.clear();
     gfx_default_library_.Release();
-    loaded_bitflags_ = 0;
+    baked_bitflags_ = loaded_bitflags_ = 0;
 }
 void SceneMan::BuildPipelines() {
     for(auto& render_pass_iter:render_passes_) {
@@ -219,7 +237,7 @@ void SceneMan::BuildPipelines() {
             this->BuildPipeline(*actor_ptr->effect_ptr,render_pass);
         }
     }
-    loaded_bitflags_ |= Loaded::PIPELINES;
+    loaded_bitflags_ |= Stage::PIPELINES;
 }
 void SceneMan::BuildPipeline(Effect &effect, RenderPass &render_pass) {
     Pipeline* pipeline_ptr(this->FindPipeline(effect,render_pass));
@@ -241,7 +259,7 @@ Pipeline* SceneMan::FindPipeline(const Effect &effect, const RenderPass &render_
     return pipeline_ptr;
 }
 void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
-    assert(loaded_bitflags_ == Loaded::EVERYTHING);
+    assert(loaded_bitflags_ == Stage::EVERYTHING);
     CommandBuffer command_buffer; // NOTE: Currently limited to one command buffer per render pass
     // Create draws
     for(auto actor_ptr:render_pass.actor_ptrs) {
