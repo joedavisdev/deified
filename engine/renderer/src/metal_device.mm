@@ -11,6 +11,20 @@ void LoadDevice() {
     mtl_device = MTLCreateSystemDefaultDevice();
 }
 #pragma mark Impls
+struct BufferImpl {
+    BufferImpl(){}
+    id<MTLBuffer> buffer;
+};
+bool Buffer::Initialise(const char* const data, const unsigned int length) {
+    this->Create();
+    impl->buffer = [mtl_device newBufferWithBytes:data length:length options:MTLResourceOptionCPUCacheModeDefault];
+    return true;
+}
+void Buffer::Create() {
+    if(impl == nullptr) impl = new BufferImpl();
+}
+void Buffer::Release() {delete impl;}
+    
 struct PixelFormatImpl {
     PixelFormatImpl():data(MTLPixelFormatInvalid){}
     MTLPixelFormat data;

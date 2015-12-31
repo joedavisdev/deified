@@ -6,6 +6,15 @@
 namespace JMD {
 namespace GFX {
 void LoadDevice();
+struct BufferImpl;
+struct Buffer {
+    Buffer():impl(nullptr){}
+    bool Initialise(const char* const data, const unsigned int length);
+    void Release();
+    BufferImpl* impl;
+private:
+    void Create();
+};
 struct PixelFormatImpl;
 struct PixelFormat {
     PixelFormat():impl(nullptr){}
