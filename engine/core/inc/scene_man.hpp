@@ -4,7 +4,7 @@
 #include <unordered_map>
 #include <string>
 
-#include "metal_device.h"
+#include "gfx_device.h"
 #include "glm/glm.hpp"
 
 namespace JMD {

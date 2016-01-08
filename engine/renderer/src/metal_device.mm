@@ -1,4 +1,4 @@
-#include "metal_device.h"
+#include "gfx_device.h"
 
 #import <Metal/Metal.h>
 
