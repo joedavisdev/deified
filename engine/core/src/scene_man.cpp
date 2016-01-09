@@ -84,12 +84,7 @@ void SceneMan::LoadEffects(const std::vector<ParsedEffect>& parsed_effects) {
         Effect effect;
         effect.frag_shader_name = parsed_effect.frag_shader_name;
         effect.vert_shader_name = parsed_effect.vert_shader_name;
-        for(const auto& block_name:parsed_effect.uniform_block_names) {
-            const unsigned int uniform_block_size(uniform_block_sizes.find(block_name)->second);
-            GFX::Buffer buffer;
-            buffer.Initialise(nullptr, uniform_block_size);
-            effect.uniform_buffers.push_back(std::move(buffer));
-        }
+        effect.uniform_block_names = parsed_effect.uniform_block_names;
         effects_.insert({parsed_effect.name,std::move(effect)});
     }
     loaded_bitflags_ |= Stage::EFFECTS;
@@ -307,6 +302,12 @@ void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
         Pipeline* pipeline_ptr(this->FindPipeline(effect, render_pass));
         assert(pipeline_ptr != nullptr);
         draw.pipeline_ptr = pipeline_ptr;
+        for(const auto& block_name:effect.uniform_block_names) {
+            const unsigned int uniform_block_size(uniform_block_sizes.find(block_name)->second);
+            GFX::Buffer buffer;
+            buffer.Initialise(nullptr, uniform_block_size);
+            draw.uniform_buffers.push_back(std::move(buffer));
+        }
         command_buffer.draws.push_back(std::move(draw));
     }
     // TODO: Sort draws by pipeline

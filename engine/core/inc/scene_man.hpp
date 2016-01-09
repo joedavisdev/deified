@@ -20,7 +20,7 @@ struct Effect {
     std::string frag_shader_name;
     std::string vert_shader_name;
     GFX::Effect gfx_effect;
-    std::vector<GFX::Buffer> uniform_buffers;
+    std::vector<std::string> uniform_block_names;
 };
 class Mesh {
 public:
@@ -77,6 +77,7 @@ struct Pipeline {
 struct Draw {
     Actor* actor_ptr;
     Pipeline* pipeline_ptr;
+    std::vector<GFX::Buffer> uniform_buffers;
     Draw():actor_ptr(nullptr),pipeline_ptr(nullptr){}
 };
 struct CommandBuffer {
