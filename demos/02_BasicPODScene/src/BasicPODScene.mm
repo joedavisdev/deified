@@ -2,7 +2,6 @@
 #import "AAPLViewController.h"
 #import "AAPLView.h"
 #import "AAPLTransforms.h"
-#import "UniformBlocks.h"
 
 #import "pipeline.h"
 #import "mesh.h"
@@ -11,10 +10,11 @@
 #include <vector>
 #include "body.hpp"
 
+#import "shader_blocks.hpp"
+#include "scene_man.hpp"
+
 #include "PVRTModelPOD.h"
 #include "PVRTResourceFile.h"
-
-#include "scene_man.hpp"
 
 using namespace AAPL;
 using namespace JMD;

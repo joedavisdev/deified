@@ -1,6 +1,6 @@
 #include <metal_stdlib>
 #include <simd/simd.h>
-#include "UniformBlocks.h"
+#include "shader_blocks.hpp"
 
 using namespace metal;
 using namespace JMD;
