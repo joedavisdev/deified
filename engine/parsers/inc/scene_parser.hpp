@@ -8,11 +8,13 @@
 namespace JMD {
     struct ParsedEffect {
         std::string name;
+        std::vector<std::string> uniform_block_names;
         std::string vert_shader_name;
         std::string frag_shader_name;
     };
     struct ParsedActor {
         std::string name;
+        std::vector<std::string> attribute_block_names;
         std::string effect_name;
         std::string model_name;
         glm::vec4   world_position;
