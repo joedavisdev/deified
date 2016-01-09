@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "scene_parser.hpp"
+#include "shader_blocks_map.hpp"
 #include "PVRTResourceFile.h"
 #include "PVRTModelPOD.h"
 
@@ -83,6 +84,12 @@ void SceneMan::LoadEffects(const std::vector<ParsedEffect>& parsed_effects) {
         Effect effect;
         effect.frag_shader_name = parsed_effect.frag_shader_name;
         effect.vert_shader_name = parsed_effect.vert_shader_name;
+        for(const auto& block_name:parsed_effect.uniform_block_names) {
+            const unsigned int uniform_block_size(uniform_block_sizes.find(block_name)->second);
+            GFX::Buffer buffer;
+            buffer.Initialise(nullptr, uniform_block_size);
+            effect.uniform_buffers.push_back(std::move(buffer));
+        }
         effects_.insert({parsed_effect.name,std::move(effect)});
     }
     loaded_bitflags_ |= Stage::EFFECTS;

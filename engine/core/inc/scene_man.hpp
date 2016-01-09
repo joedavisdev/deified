@@ -20,6 +20,7 @@ struct Effect {
     std::string frag_shader_name;
     std::string vert_shader_name;
     GFX::Effect gfx_effect;
+    std::vector<GFX::Buffer> uniform_buffers;
 };
 class Mesh {
 public:
