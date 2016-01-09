@@ -11,66 +11,50 @@ void LoadDevice() {
     mtl_device = MTLCreateSystemDefaultDevice();
 }
 #pragma mark Impls
-struct BufferImpl {
-    BufferImpl(){}
+#define PIMPL_DEF(_name,_setup,_shutdown) \
+    _name::_name():impl(nullptr){} \
+    _name::~_name(){} \
+    void _name::Create(){if (impl == nullptr){impl = new Impl();_setup;}} \
+    void _name::Release(){_shutdown;delete impl;} \
+    
+struct Buffer::Impl {
     id<MTLBuffer> buffer;
 };
+PIMPL_DEF(Buffer,NULL,NULL)
+    
+struct PixelFormat::Impl {
+    Impl():format(MTLPixelFormatInvalid){}
+    MTLPixelFormat format;
+};
+PIMPL_DEF(PixelFormat,NULL,NULL)
+
+struct Library::Impl {
+    id<MTLLibrary> library;
+};
+PIMPL_DEF(Library,NULL,NULL)
+    
+struct Effect::Impl {
+    id<MTLFunction> vertex_fn;
+    id<MTLFunction> fragment_fn;
+};
+PIMPL_DEF(Effect,NULL,NULL)
+    
+struct PipelineDesc::Impl {
+    MTLRenderPipelineDescriptor* descriptor;
+};
+PIMPL_DEF(PipelineDesc,impl->descriptor=[[MTLRenderPipelineDescriptor alloc]init],NULL)
+    
+struct PipelineState::Impl {
+    id<MTLRenderPipelineState> data;
+};
+PIMPL_DEF(PipelineState,NULL,NULL)
+    
+#pragma mark Member functions
 bool Buffer::Initialise(const char* const data, const unsigned int length) {
     this->Create();
     impl->buffer = [mtl_device newBufferWithBytes:data length:length options:MTLResourceOptionCPUCacheModeDefault];
     return true;
 }
-void Buffer::Create() {
-    if(impl == nullptr) impl = new BufferImpl();
-}
-void Buffer::Release() {delete impl;}
-    
-struct PixelFormatImpl {
-    PixelFormatImpl():format(MTLPixelFormatInvalid){}
-    MTLPixelFormat format;
-};
-void PixelFormat::Create() {
-    if(impl == nullptr) impl = new PixelFormatImpl();
-}
-void PixelFormat::Release() {delete impl;}
-    
-struct LibraryImpl {
-    id<MTLLibrary> library;
-};
-void Library::Create() {
-    if(impl == nullptr) impl = new LibraryImpl();
-}
-void Library::Release() {delete impl;}
-    
-struct EffectImpl {
-    id<MTLFunction> vertex_fn;
-    id<MTLFunction> fragment_fn;
-};
-void Effect::Create() {
-    if(impl == nullptr) impl = new EffectImpl();
-}
-void Effect::Release() {delete impl;}
-    
-struct PipelineDescImpl {
-    MTLRenderPipelineDescriptor* descriptor;
-};
-void PipelineDesc::Create() {
-    if(impl == nullptr) {
-        impl = new PipelineDescImpl();
-        impl->descriptor = [[MTLRenderPipelineDescriptor alloc] init];
-    }
-}
-void PipelineDesc::Release() {delete impl;}
-    
-struct PipelineStateImpl {
-    id<MTLRenderPipelineState> data;
-};
-void PipelineState::Create() {
-    if(impl == nullptr) impl = new PipelineStateImpl();
-}
-void PipelineState::Release() {delete impl;}
-    
-#pragma mark Member functions
 bool PixelFormat::Initialize(const std::string &pixel_format){
     this->Create();
     MTLPixelFormat& mtl_pixel_format(impl->format);
