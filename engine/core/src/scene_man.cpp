@@ -238,7 +238,24 @@ void SceneMan::Bake(){
     this->BakeCommandBuffers();
     assert(baked_bitflags_ == Stage::ALL_BAKED);
 }
-void SceneMan::Update() {
+void SceneMan::Update(const unsigned int circular_buffer_index) {
+    assert(circular_buffer_index < g_circular_buffer_size);
+    // Update uniform buffers
+    for(auto& render_pass_iter:render_passes_) {
+        RenderPass& render_pass(render_pass_iter.second);
+        for(auto& command_buffer:render_pass.command_buffers) {
+            for(auto& draw:command_buffer.draws) {
+                const Actor& actor(*draw.actor_ptr);
+                const Effect& effect(*actor.effect_ptr);
+                for(unsigned int index=0;index < draw.uniform_buffers.size();index++){
+                    const std::string& block_name(effect.uniform_block_names[index]);
+                    GFX::Buffer& buffer(draw.uniform_buffers[index].buffer[circular_buffer_index]);
+                    
+                    UniformUpdateFn(block_name, render_pass.camera, actor.body, buffer);
+                }
+            }
+        }
+    }
     assert(0);
 }
 void SceneMan::Draw() {
@@ -315,7 +332,7 @@ void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
         for(const auto& block_name:effect.uniform_block_names) {
             const unsigned int uniform_block_size(uniform_block_sizes.find(block_name)->second);
             Draw::CircularGFXBuffer circular;
-            for (unsigned int index = 0;index < g_num_uniform_buffers;index++){
+            for (unsigned int index = 0;index < g_circular_buffer_size;index++){
                 circular.buffer[index].Initialise(nullptr, uniform_block_size);
             }
             draw.uniform_buffers.push_back(std::move(circular));

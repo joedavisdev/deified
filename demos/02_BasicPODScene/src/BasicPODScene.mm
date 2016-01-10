@@ -192,6 +192,7 @@ void UpdateUniform(const std::string& block_name,
 - (void)render:(AAPLView *)view {
     dispatch_semaphore_wait(_inflightSemaphore, DISPATCH_TIME_FOREVER);
     [self updateConstantBuffer];
+    scene_manager.Update((unsigned int)_constantDataBufferIndex);
     
     // create a new command buffer for each renderpass to the current drawable
     id <MTLCommandBuffer> mtlCommandBuffer = [_mtlCommandQueue commandBuffer];

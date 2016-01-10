@@ -13,7 +13,7 @@ class ParsedEffect;
 class ParsedActor;
 class ParsedRenderPass;
 namespace Core {
-static const unsigned int g_num_uniform_buffers = 2;
+static const unsigned int g_circular_buffer_size = 2;
 // Forward declarations
 class CommandBuffer;
 class RenderPass;
@@ -79,7 +79,7 @@ struct Pipeline {
 };
 struct Draw {
     struct CircularGFXBuffer{
-        GFX::Buffer buffer[g_num_uniform_buffers];
+        GFX::Buffer buffer[g_circular_buffer_size];
     };
     Actor* actor_ptr;
     Pipeline* pipeline_ptr;
@@ -90,18 +90,19 @@ struct CommandBuffer {
     GFX::CommandBuffer cb;
     std::vector<Draw> draws;
 };
+struct Camera {
+    glm::mat4x4 view;
+    glm::mat4x4 projection;
+};
 struct RenderPass {
     RenderPass():sample_count(1){}
     std::string actor_regex;
     std::vector<Actor*> actor_ptrs;
+    Camera camera; // TODO: Add a mechanism for the app to update these matrices
     unsigned int sample_count;
     std::vector<GFX::PixelFormat> colour_formats;
     GFX::PixelFormat depth_stencil_formats;
     std::vector<CommandBuffer> command_buffers;
-};
-struct Camera {
-    glm::mat4x4 view;
-    glm::mat4x4 projection;
 };
 // std::function declarations
 typedef std::function<void(
@@ -119,7 +120,7 @@ public:
     std::vector<Actor*> GetActorPtrs(std::string regex_string);
     void SetUniformUpdateFn(UniformUpdateCallback callback);
     void Bake();
-    void Update();
+    void Update(const unsigned int circular_buffer_index);
     void Draw();
 private:
     void LoadEffects(const std::vector<ParsedEffect>& parsed_effects);
