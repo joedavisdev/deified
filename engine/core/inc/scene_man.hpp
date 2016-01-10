@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
+#include <functional>
 
 #include "gfx_device.h"
 #include "glm/glm.hpp"
@@ -62,6 +63,7 @@ private:
 };
 struct PhysicsBody {
     glm::vec4 position;
+    glm::vec4 rotation;
 };
 struct Actor {
     PhysicsBody body;
@@ -93,12 +95,25 @@ struct RenderPass {
     GFX::PixelFormat depth_stencil_formats;
     std::vector<CommandBuffer> command_buffers;
 };
+struct Camera {
+    glm::mat4x4 view;
+    glm::mat4x4 projection;
+};
+// std::function declarations
+typedef std::function<void(
+    const std::string& block_name,
+    const Camera& camera,
+    const PhysicsBody& body,
+    GFX::Buffer& gfx_buffer)>
+UniformUpdateCallback;
+    
 class SceneMan {
 public:
-    SceneMan():loaded_bitflags_(0),baked_bitflags_(0){}
+    SceneMan();
     ~SceneMan();
     void Load(const std::string& scene_json_name);
     std::vector<Actor*> GetActorPtrs(std::string regex_string);
+    void SetUniformUpdateFn(UniformUpdateCallback callback);
     void Bake();
     void Update();
     void Draw();
@@ -133,5 +148,6 @@ private:
     std::unordered_map<std::string,Actor> actors_;
     std::vector<Pipeline> pipelines_;
     GFX::Library gfx_default_library_;
+    UniformUpdateCallback UniformUpdateFn;
 };
 }}

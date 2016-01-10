@@ -75,8 +75,18 @@ void Model::ReleaseData() {
     delete []mesh_array_;
 }
 #pragma mark SceneMan: Public functions
+SceneMan::SceneMan():
+loaded_bitflags_(0),
+baked_bitflags_(0){
+    UniformUpdateFn = [](const std::string&, const Camera&, const PhysicsBody&, GFX::Buffer&){
+        printf("ERROR: Please provide a custom function to update uniform blocks\n");assert(0);
+    };
+}
 SceneMan::~SceneMan(){
     this->ReleaseData();
+}
+void SceneMan::SetUniformUpdateFn(UniformUpdateCallback callback) {
+    this->UniformUpdateFn = callback;
 }
 void SceneMan::LoadEffects(const std::vector<ParsedEffect>& parsed_effects) {
     // Load effects
