@@ -314,9 +314,11 @@ void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
         draw.pipeline_ptr = pipeline_ptr;
         for(const auto& block_name:effect.uniform_block_names) {
             const unsigned int uniform_block_size(uniform_block_sizes.find(block_name)->second);
-            GFX::Buffer buffer;
-            buffer.Initialise(nullptr, uniform_block_size);
-            draw.uniform_buffers.push_back(std::move(buffer));
+            Draw::CircularGFXBuffer circular;
+            for (unsigned int index = 0;index < g_num_uniform_buffers;index++){
+                circular.buffer[index].Initialise(nullptr, uniform_block_size);
+            }
+            draw.uniform_buffers.push_back(std::move(circular));
         }
         command_buffer.draws.push_back(std::move(draw));
     }

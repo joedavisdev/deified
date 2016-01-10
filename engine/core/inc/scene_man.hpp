@@ -13,6 +13,7 @@ class ParsedEffect;
 class ParsedActor;
 class ParsedRenderPass;
 namespace Core {
+static const unsigned int g_num_uniform_buffers = 2;
 // Forward declarations
 class CommandBuffer;
 class RenderPass;
@@ -77,9 +78,12 @@ struct Pipeline {
     GFX::PipelineState gfx_pipeline;
 };
 struct Draw {
+    struct CircularGFXBuffer{
+        GFX::Buffer buffer[g_num_uniform_buffers];
+    };
     Actor* actor_ptr;
     Pipeline* pipeline_ptr;
-    std::vector<GFX::Buffer> uniform_buffers;
+    std::vector<CircularGFXBuffer> uniform_buffers;
     Draw():actor_ptr(nullptr),pipeline_ptr(nullptr){}
 };
 struct CommandBuffer {
