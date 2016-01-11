@@ -52,7 +52,11 @@ PIMPL_DEF(PipelineState,NULL,NULL)
 #pragma mark Member functions
 bool Buffer::Initialise(const char* const data, const unsigned int length) {
     this->Create();
-    impl->buffer = [mtl_device newBufferWithBytes:data length:length options:MTLResourceOptionCPUCacheModeDefault];
+    if(data == nullptr){
+        impl->buffer = [mtl_device newBufferWithLength:length options:MTLResourceOptionCPUCacheModeDefault];
+    }else{
+        impl->buffer = [mtl_device newBufferWithBytes:data length:length options:MTLResourceOptionCPUCacheModeDefault];
+    }
     return true;
 }
 bool PixelFormat::Initialize(const std::string &pixel_format){
