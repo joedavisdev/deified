@@ -17,6 +17,7 @@ void LoadDevice();
 struct Buffer {
     PIMPL_DECL(Buffer)
     bool Initialise(const char* const data, const unsigned int length);
+    void Update(const char* const data, const unsigned int length);
 };
 struct PixelFormat {
     PIMPL_DECL(PixelFormat)

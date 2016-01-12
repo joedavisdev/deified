@@ -19,6 +19,7 @@ void LoadDevice() {
     
 struct Buffer::Impl {
     id<MTLBuffer> buffer;
+    unsigned int length;
 };
 PIMPL_DEF(Buffer,NULL,NULL)
     
@@ -57,7 +58,12 @@ bool Buffer::Initialise(const char* const data, const unsigned int length) {
     }else{
         impl->buffer = [mtl_device newBufferWithBytes:data length:length options:MTLResourceOptionCPUCacheModeDefault];
     }
+    impl->length = length;
     return true;
+}
+void Buffer::Update(const char* const data, const unsigned int length) {
+    assert(length <= impl->length);
+    memcpy(impl->buffer.contents, data, length);
 }
 bool PixelFormat::Initialize(const std::string &pixel_format){
     this->Create();

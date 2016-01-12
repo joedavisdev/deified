@@ -153,6 +153,7 @@ void UpdateUniform(const std::string& block_name,
          block.normalMatrix
          block.mvpMatrix
         */
+        gfx_buffer.Update((const char*)&block, sizeof(block));
     }else{
         printf("ERROR: Unknown uniform block - %s\n",block_name.c_str());
         assert(0);
