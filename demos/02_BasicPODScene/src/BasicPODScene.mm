@@ -2,7 +2,6 @@
 #import "AAPLViewController.h"
 #import "AAPLView.h"
 #import "AAPLTransforms.h"
-#import "UniformBlocks.h"
 
 #import "pipeline.h"
 #import "mesh.h"
@@ -11,14 +10,17 @@
 #include <vector>
 #include "body.hpp"
 
+#import "shader_blocks.hpp"
+#include "scene_man.hpp"
+
 #include "PVRTModelPOD.h"
 #include "PVRTResourceFile.h"
-
-#include "scene_man.hpp"
 
 using namespace AAPL;
 using namespace JMD;
 using namespace simd;
+
+static std::hash<std::string> StringHashFn;
 
 static const long kInFlightCommandBuffers = 3;
 
@@ -30,6 +32,9 @@ static const float4 kDiffuseColors[2] = {
     {0.4, 0.4, 1.0, 1.0},
     {0.8, 0.4, 0.4, 1.0}
 };
+
+static const std::unordered_map<std::string, size_t> kUniformBlockMap =
+{{"BasicLighting",StringHashFn("BasicLighting")}};
 
 static const float kFOVY    = 65.0f;
 static const float3 kEye    = {0.0f, 0.0f, 0.0f};
@@ -132,6 +137,28 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
                             numberOfIndices:PVRTModelPODCountIndices(podMesh)
                             sizeOfIndices:podMesh.sFaces.nStride];
 }
+void UpdateUniform(const std::string& block_name,
+                   const JMD::Core::Camera& camera,
+                   const JMD::Core::PhysicsBody& body,
+                   JMD::GFX::Buffer& gfx_buffer) {
+    #define BLOCK_VALUE(_string) kUniformBlockMap.find(_string)->second
+    size_t block_name_hash(StringHashFn(block_name));
+    
+    if(BLOCK_VALUE("BasicLighting") == block_name_hash){
+        JMD::UB::BasicLighting block;
+        block.multiplier = 1;
+        block.ambientColor = kAmbientColors[0];
+        block.diffuseColor = kDiffuseColors[0];
+        /* TODO: Set 
+         block.normalMatrix
+         block.mvpMatrix
+        */
+        gfx_buffer.Update((const char*)&block, sizeof(block));
+    }else{
+        printf("ERROR: Unknown uniform block - %s\n",block_name.c_str());
+        assert(0);
+    }
+}
 -(void)pvrFrameworkSetup {
     NSString* readPath = [NSString stringWithFormat:@"%@%@", [[NSBundle mainBundle] bundlePath], @"/"];
     CPVRTResourceFile::SetReadPath([readPath UTF8String]);
@@ -140,6 +167,7 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
     GFX::LoadDevice();
     scene_manager.Load("scene.json");
     scene_manager.Bake();
+    scene_manager.SetUniformUpdateFn(UpdateUniform);
     
     if (_podModel.ReadFromFile("bunny.pod") != PVR_SUCCESS) {
         printf("ERROR: Couldn't load the .pod file\n");
@@ -165,6 +193,7 @@ static const float3 kUp     = {0.0f, 1.0f, 0.0f};
 - (void)render:(AAPLView *)view {
     dispatch_semaphore_wait(_inflightSemaphore, DISPATCH_TIME_FOREVER);
     [self updateConstantBuffer];
+    scene_manager.Update((unsigned int)_constantDataBufferIndex);
     
     // create a new command buffer for each renderpass to the current drawable
     id <MTLCommandBuffer> mtlCommandBuffer = [_mtlCommandQueue commandBuffer];

@@ -21,6 +21,12 @@ namespace JMD {
             parsed_effect.name = value_object["name"].asString();
             parsed_effect.vert_shader_name = value_object["vert_shader"].asString();
             parsed_effect.frag_shader_name = value_object["frag_shader"].asString();
+            auto uniform_block_names(value_object["uniform_blocks"]);
+            if (uniform_block_names.isArray()) {
+                for(const auto& block_name:uniform_block_names) {
+                    parsed_effect.uniform_block_names.push_back(std::move(block_name.asString()));
+                }
+            }
             effects.push_back(std::move(parsed_effect));
         }
     }
@@ -37,6 +43,12 @@ namespace JMD {
                                                     atof(world_position_string[1].c_str()),
                                                     atof(world_position_string[2].c_str()),
                                                     1.0);
+            auto attribute_block_names(value_object["attribute_blocks"]);
+            if (attribute_block_names.isArray()) {
+                for(const auto& block_name:attribute_block_names) {
+                    parsed_actor.attribute_block_names.push_back(std::move(block_name.asString()));
+                }
+            }
             actors.push_back(std::move(parsed_actor));
         }
     }
@@ -50,7 +62,7 @@ namespace JMD {
             parsed_render_pass.depth_stencil_formats = value_object["depth_stencil_formats"].asString();
             auto colour_formats(value_object["colour_formats"]);
             if(colour_formats.isArray()){
-                for(const auto &attachment_object: colour_formats) {
+                for(const auto& attachment_object: colour_formats) {
                     parsed_render_pass.colour_formats.push_back(std::move(attachment_object.asString()));
                 }
             }

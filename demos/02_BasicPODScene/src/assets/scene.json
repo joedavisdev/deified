@@ -2,6 +2,7 @@
     "effects":[
         {
         "name":"BasicLightingEffect",
+        "uniform_blocks":["BasicLighting"],
         "vert_shader": "basicLightingVertex",
         "frag_shader": "basicLightingFragment"
         }
@@ -10,6 +11,7 @@
         {
         "name":"Bunny",
         "effect":"BasicLightingEffect",
+        "attribute_blocks":["PositionNormal"],
         "model":"bunny.pod",
         "world_position":"15.0,2.0,123.456"
         }

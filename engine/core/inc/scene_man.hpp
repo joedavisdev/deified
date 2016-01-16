@@ -3,6 +3,7 @@
 #include <vector>
 #include <unordered_map>
 #include <string>
+#include <functional>
 
 #include "gfx_device.h"
 #include "glm/glm.hpp"
@@ -12,6 +13,7 @@ class ParsedEffect;
 class ParsedActor;
 class ParsedRenderPass;
 namespace Core {
+static const unsigned int g_circular_buffer_size = 2;
 // Forward declarations
 class CommandBuffer;
 class RenderPass;
@@ -20,6 +22,7 @@ struct Effect {
     std::string frag_shader_name;
     std::string vert_shader_name;
     GFX::Effect gfx_effect;
+    std::vector<std::string> uniform_block_names;
 };
 class Mesh {
 public:
@@ -61,6 +64,7 @@ private:
 };
 struct PhysicsBody {
     glm::vec4 position;
+    glm::vec4 rotation;
 };
 struct Actor {
     PhysicsBody body;
@@ -74,31 +78,49 @@ struct Pipeline {
     GFX::PipelineState gfx_pipeline;
 };
 struct Draw {
+    struct CircularGFXBuffer{
+        GFX::Buffer buffer[g_circular_buffer_size];
+    };
     Actor* actor_ptr;
     Pipeline* pipeline_ptr;
+    std::vector<CircularGFXBuffer> uniform_buffers;
     Draw():actor_ptr(nullptr),pipeline_ptr(nullptr){}
 };
 struct CommandBuffer {
     GFX::CommandBuffer cb;
     std::vector<Draw> draws;
 };
+struct Camera {
+    glm::mat4x4 view;
+    glm::mat4x4 projection;
+};
 struct RenderPass {
     RenderPass():sample_count(1){}
     std::string actor_regex;
     std::vector<Actor*> actor_ptrs;
+    Camera camera; // TODO: Add a mechanism for the app to update these matrices
     unsigned int sample_count;
     std::vector<GFX::PixelFormat> colour_formats;
     GFX::PixelFormat depth_stencil_formats;
     std::vector<CommandBuffer> command_buffers;
 };
+// std::function declarations
+typedef std::function<void(
+    const std::string& block_name,
+    const Camera& camera,
+    const PhysicsBody& body,
+    GFX::Buffer& gfx_buffer)>
+UniformUpdateCallback;
+    
 class SceneMan {
 public:
-    SceneMan():loaded_bitflags_(0),baked_bitflags_(0){}
+    SceneMan();
     ~SceneMan();
     void Load(const std::string& scene_json_name);
     std::vector<Actor*> GetActorPtrs(std::string regex_string);
+    void SetUniformUpdateFn(UniformUpdateCallback callback);
     void Bake();
-    void Update();
+    void Update(const unsigned int circular_buffer_index);
     void Draw();
 private:
     void LoadEffects(const std::vector<ParsedEffect>& parsed_effects);
@@ -131,5 +153,6 @@ private:
     std::unordered_map<std::string,Actor> actors_;
     std::vector<Pipeline> pipelines_;
     GFX::Library gfx_default_library_;
+    UniformUpdateCallback UniformUpdateFn;
 };
 }}

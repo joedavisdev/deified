@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "scene_parser.hpp"
+#include "shader_blocks_map.hpp"
 #include "PVRTResourceFile.h"
 #include "PVRTModelPOD.h"
 
@@ -74,8 +75,18 @@ void Model::ReleaseData() {
     delete []mesh_array_;
 }
 #pragma mark SceneMan: Public functions
+SceneMan::SceneMan():
+loaded_bitflags_(0),
+baked_bitflags_(0){
+    UniformUpdateFn = [](const std::string&, const Camera&, const PhysicsBody&, GFX::Buffer&){
+        printf("ERROR: Please provide a custom function to update uniform blocks\n");assert(0);
+    };
+}
 SceneMan::~SceneMan(){
     this->ReleaseData();
+}
+void SceneMan::SetUniformUpdateFn(UniformUpdateCallback callback) {
+    this->UniformUpdateFn = callback;
 }
 void SceneMan::LoadEffects(const std::vector<ParsedEffect>& parsed_effects) {
     // Load effects
@@ -83,6 +94,7 @@ void SceneMan::LoadEffects(const std::vector<ParsedEffect>& parsed_effects) {
         Effect effect;
         effect.frag_shader_name = parsed_effect.frag_shader_name;
         effect.vert_shader_name = parsed_effect.vert_shader_name;
+        effect.uniform_block_names = parsed_effect.uniform_block_names;
         effects_.insert({parsed_effect.name,std::move(effect)});
     }
     loaded_bitflags_ |= Stage::EFFECTS;
@@ -226,7 +238,24 @@ void SceneMan::Bake(){
     this->BakeCommandBuffers();
     assert(baked_bitflags_ == Stage::ALL_BAKED);
 }
-void SceneMan::Update() {
+void SceneMan::Update(const unsigned int circular_buffer_index) {
+    assert(circular_buffer_index < g_circular_buffer_size);
+    // Update uniform buffers
+    for(auto& render_pass_iter:render_passes_) {
+        RenderPass& render_pass(render_pass_iter.second);
+        for(auto& command_buffer:render_pass.command_buffers) {
+            for(auto& draw:command_buffer.draws) {
+                const Actor& actor(*draw.actor_ptr);
+                const Effect& effect(*actor.effect_ptr);
+                for(unsigned int index=0;index < draw.uniform_buffers.size();index++){
+                    const std::string& block_name(effect.uniform_block_names[index]);
+                    GFX::Buffer& buffer(draw.uniform_buffers[index].buffer[circular_buffer_index]);
+                    
+                    UniformUpdateFn(block_name, render_pass.camera, actor.body, buffer);
+                }
+            }
+        }
+    }
     assert(0);
 }
 void SceneMan::Draw() {
@@ -300,6 +329,14 @@ void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
         Pipeline* pipeline_ptr(this->FindPipeline(effect, render_pass));
         assert(pipeline_ptr != nullptr);
         draw.pipeline_ptr = pipeline_ptr;
+        for(const auto& block_name:effect.uniform_block_names) {
+            const unsigned int uniform_block_size(uniform_block_sizes.find(block_name)->second);
+            Draw::CircularGFXBuffer circular;
+            for (unsigned int index = 0;index < g_circular_buffer_size;index++){
+                circular.buffer[index].Initialise(nullptr, uniform_block_size);
+            }
+            draw.uniform_buffers.push_back(std::move(circular));
+        }
         command_buffer.draws.push_back(std::move(draw));
     }
     // TODO: Sort draws by pipeline

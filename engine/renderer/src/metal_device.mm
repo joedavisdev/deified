@@ -19,6 +19,7 @@ void LoadDevice() {
     
 struct Buffer::Impl {
     id<MTLBuffer> buffer;
+    unsigned int length;
 };
 PIMPL_DEF(Buffer,NULL,NULL)
     
@@ -52,8 +53,17 @@ PIMPL_DEF(PipelineState,NULL,NULL)
 #pragma mark Member functions
 bool Buffer::Initialise(const char* const data, const unsigned int length) {
     this->Create();
-    impl->buffer = [mtl_device newBufferWithBytes:data length:length options:MTLResourceOptionCPUCacheModeDefault];
+    if(data == nullptr){
+        impl->buffer = [mtl_device newBufferWithLength:length options:MTLResourceOptionCPUCacheModeDefault];
+    }else{
+        impl->buffer = [mtl_device newBufferWithBytes:data length:length options:MTLResourceOptionCPUCacheModeDefault];
+    }
+    impl->length = length;
     return true;
+}
+void Buffer::Update(const char* const data, const unsigned int length) {
+    assert(length <= impl->length);
+    memcpy(impl->buffer.contents, data, length);
 }
 bool PixelFormat::Initialize(const std::string &pixel_format){
     this->Create();
