@@ -1,14 +1,26 @@
-= iOS Metal demos
+= Deified
 
-A few simple rendering demos I've written to get to grips with Apple's Metal API.
+A simple rendering engine and a few demos I've written to get to grips with Apple's Metal API.
 
-== 01_Basic3D
+== Why name it Deified?
+
+[quote , Wiktionary, Deify]
+____________________________________________________________________
+* (transitive) To make a god of (something or someone).
+* (transitive) To treat as worthy of worship; to regard as a deity.
+____________________________________________________________________
+. I needed something more memorable than "metal-demos"
+. All good rendering frameworks/engines should have ostentatious names
+. Palindromes are awesome
+
+== Demos
+=== 01_Basic3D
 
 image::http://joedavisdev.co.uk/images/posts/2015117/01_Basic3D.png[Basic3D]
 
 A tweaked version of Apple's Basic3D demo. The rendered image is the same as the original demo, but this version uses some helper classes/functions to setup various Metal buffers.
 
-== 02_BasicPODScene
+=== 02_BasicPODScene
 
 image::http://joedavisdev.co.uk/images/posts/2015117/02_BasicPODScene.png[BasicPODScene]
 
