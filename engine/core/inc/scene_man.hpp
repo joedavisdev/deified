@@ -35,10 +35,8 @@ public:
            unsigned int num_indices_bytes);
     ~Mesh();
     bool InitializeGFX();
-    void ReleaseLocalData();
     void ReleaseData();
 private:
-    void ReleaseGFXData();
     unsigned int    num_vertices_;
     unsigned int    stride_;
     unsigned int    num_indices_;

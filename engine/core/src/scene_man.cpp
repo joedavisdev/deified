@@ -47,18 +47,10 @@ bool Mesh::InitializeGFX() {
 }
 Mesh::~Mesh() {
 }
-void Mesh::ReleaseGFXData() {
-    vertex_buffer_.Release();
-    index_buffer_.Release();
-}
-void Mesh::ReleaseLocalData() {
+void Mesh::ReleaseData() {
     delete[] vertices_;vertices_=nullptr;
     delete[] indices_;indices_=nullptr;
     local_data_active_ = false;
-}
-void Mesh::ReleaseData() {
-    this->ReleaseGFXData();
-    this->ReleaseLocalData();
 }
 #pragma mark Model: Public functions
 Model::Model()
@@ -278,14 +270,10 @@ void SceneMan::ReleaseData() {
         model.second.ReleaseData();
     }
     render_passes_.clear();
-    for(auto& effect_iter: effects_) {
-        effect_iter.second.gfx_effect.Release();
-    }
     effects_.clear();
     models_.clear();
     actors_.clear();
     pipelines_.clear();
-    gfx_default_library_.Release();
     baked_bitflags_ = loaded_bitflags_ = 0;
 }
 void SceneMan::BuildPipelines() {

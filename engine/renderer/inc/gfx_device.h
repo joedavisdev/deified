@@ -9,10 +9,7 @@ void LoadDevice();
     
 #define PIMPL_DECL(_name) \
     _name();~_name(); \
-    struct Impl;Impl* impl; \
-    void Release(); \
-    private:void Create(); \
-    public:
+    struct Impl;std::shared_ptr<Impl> impl; \
     
 struct Buffer {
     PIMPL_DECL(Buffer)

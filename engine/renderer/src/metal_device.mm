@@ -11,48 +11,45 @@ void LoadDevice() {
     mtl_device = MTLCreateSystemDefaultDevice();
 }
 #pragma mark Impls
-#define PIMPL_DEF(_name,_setup,_shutdown) \
-    _name::_name():impl(nullptr){} \
-    _name::~_name(){} \
-    void _name::Create(){if (impl == nullptr){impl = new Impl();_setup;}} \
-    void _name::Release(){_shutdown;delete impl;} \
+#define PIMPL_DEF(_name,_setup) \
+    _name::_name():impl(nullptr){if (impl == nullptr){impl = std::make_shared<Impl>();_setup;}} \
+    _name::~_name(){}
     
 struct Buffer::Impl {
     id<MTLBuffer> buffer;
     unsigned int length;
 };
-PIMPL_DEF(Buffer,NULL,NULL)
-    
+PIMPL_DEF(Buffer,NULL)
+
 struct PixelFormat::Impl {
     Impl():format(MTLPixelFormatInvalid){}
     MTLPixelFormat format;
 };
-PIMPL_DEF(PixelFormat,NULL,NULL)
+PIMPL_DEF(PixelFormat,NULL)
 
 struct Library::Impl {
     id<MTLLibrary> library;
 };
-PIMPL_DEF(Library,NULL,NULL)
+PIMPL_DEF(Library,NULL)
     
 struct Effect::Impl {
     id<MTLFunction> vertex_fn;
     id<MTLFunction> fragment_fn;
 };
-PIMPL_DEF(Effect,NULL,NULL)
+PIMPL_DEF(Effect,NULL)
     
 struct PipelineDesc::Impl {
     MTLRenderPipelineDescriptor* descriptor;
 };
-PIMPL_DEF(PipelineDesc,impl->descriptor=[[MTLRenderPipelineDescriptor alloc]init],NULL)
+PIMPL_DEF(PipelineDesc,impl->descriptor=[[MTLRenderPipelineDescriptor alloc]init])
     
 struct PipelineState::Impl {
     id<MTLRenderPipelineState> data;
 };
-PIMPL_DEF(PipelineState,NULL,NULL)
+PIMPL_DEF(PipelineState,NULL)
     
 #pragma mark Member functions
 bool Buffer::Initialise(const char* const data, const unsigned int length) {
-    this->Create();
     if(data == nullptr){
         impl->buffer = [mtl_device newBufferWithLength:length options:MTLResourceOptionCPUCacheModeDefault];
     }else{
@@ -66,7 +63,6 @@ void Buffer::Update(const char* const data, const unsigned int length) {
     memcpy(impl->buffer.contents, data, length);
 }
 bool PixelFormat::Initialize(const std::string &pixel_format){
-    this->Create();
     MTLPixelFormat& mtl_pixel_format(impl->format);
     // Find the requested format
     std::unordered_map<std::string,MTLPixelFormat> pixel_format_map{
@@ -82,7 +78,6 @@ bool PixelFormat::Initialize(const std::string &pixel_format){
     return true;
 }
 void Library::Initialize(const std::string &name) {
-    this->Create();
     if(name == ""){
         impl->library = [mtl_device newDefaultLibrary];
     }else{
@@ -95,7 +90,6 @@ void Library::Initialize(const std::string &name) {
     impl->library.label = [[NSString alloc]initWithCString:name.c_str() encoding:NSASCIIStringEncoding];
 }
 void Effect::Initialize(Library& library, const std::string &vert_name, const std::string &frag_name){
-    this->Create();
     id<MTLLibrary> mtl_library(library.impl->library);
     NSString* vert_nsstring = [[NSString alloc]initWithCString:vert_name.c_str() encoding:NSASCIIStringEncoding];
     impl->vertex_fn = [mtl_library newFunctionWithName:vert_nsstring];
@@ -113,7 +107,6 @@ void PipelineDesc::Initialize(Effect& effect,
                         const std::vector<PixelFormat>& colour_formats,
                         const PixelFormat& depth_format,
                         const PixelFormat& stencil_format) {
-    this->Create();
     MTLRenderPipelineDescriptor* mtl_pipeline_descriptor(impl->descriptor);
     mtl_pipeline_descriptor.sampleCount = sample_count;
     assert(effect.impl != nullptr);
@@ -130,7 +123,6 @@ void PipelineDesc::Initialize(Effect& effect,
         mtl_pipeline_descriptor.stencilAttachmentPixelFormat = stencil_format.impl->format;
 }
 void PipelineState::Initialize(const JMD::GFX::PipelineDesc &pipeline_descriptor) {
-    this->Create();
     MTLRenderPipelineDescriptor* mtl_pipeline_desc(pipeline_descriptor.impl->descriptor);
     assert(mtl_pipeline_desc != nullptr);
     NSError *error = nil;
