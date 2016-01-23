@@ -144,7 +144,7 @@ void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
         }
         actor.effect_ptr = &map_effect->second;
         actor.body.position = parsed_actor.world_position;
-        actors_.insert({parsed_actor.name,std::move(actor)});
+        actors_.insert({parsed_actor.name,std::move(std::make_shared<Actor>(actor))});
     }
     loaded_bitflags_ |= Stage::ACTORS;
 }
@@ -153,7 +153,10 @@ void SceneMan::LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_rend
     for(const auto &parsed_render_pass: parsed_render_passes) { 
         RenderPass render_pass;
         render_pass.actor_regex = parsed_render_pass.actor_regex;
-        render_pass.actor_ptrs = this->GetActorPtrs(render_pass.actor_regex);
+        auto actor_wp_array(this->GetActorPtrs(render_pass.actor_regex));
+        for(auto actor_wp:actor_wp_array) {
+            render_pass.actor_ptrs.push_back(actor_wp.lock());
+        }
         for(const auto &attachment_format: parsed_render_pass.colour_formats) {
             GFX::PixelFormat colour_attachment;
             if(colour_attachment.Initialize(attachment_format)) {
@@ -237,13 +240,12 @@ void SceneMan::Update(const unsigned int circular_buffer_index) {
         RenderPass& render_pass(render_pass_iter.second);
         for(auto& command_buffer:render_pass.command_buffers) {
             for(auto& draw:command_buffer.draws) {
-                const Actor& actor(*draw.actor_ptr);
-                const Effect& effect(*actor.effect_ptr);
+                const Effect& effect(*draw.actor_sp->effect_ptr);
                 for(unsigned int index=0;index < draw.uniform_buffers.size();index++){
                     const std::string& block_name(effect.uniform_block_names[index]);
                     GFX::Buffer& buffer(draw.uniform_buffers[index].buffer[circular_buffer_index]);
                     
-                    UniformUpdateFn(block_name, render_pass.camera, actor.body, buffer);
+                    UniformUpdateFn(block_name, render_pass.camera, draw.actor_sp->body, buffer);
                 }
             }
         }
@@ -253,13 +255,13 @@ void SceneMan::Update(const unsigned int circular_buffer_index) {
 void SceneMan::Draw() {
     assert(0);
 }
-std::vector<Actor*> SceneMan::GetActorPtrs(std::string regex_string) {
+std::vector<ActorWPtr> SceneMan::GetActorPtrs(std::string regex_string) {
     std::regex expression(regex_string);
-    std::vector<Actor*> actor_matches;
+    std::vector<ActorWPtr> actor_matches;
     
     for(auto &actor_iter : actors_) {
         if(std::regex_match(actor_iter.first,expression)) {
-            actor_matches.push_back(&actor_iter.second);
+            actor_matches.push_back(actor_iter.second);
         }
     }
     return actor_matches;
@@ -279,8 +281,8 @@ void SceneMan::ReleaseData() {
 void SceneMan::BuildPipelines() {
     for(auto& render_pass_iter:render_passes_) {
         RenderPass& render_pass(render_pass_iter.second);
-        for(auto actor_ptr:render_pass.actor_ptrs) {
-            this->BuildPipeline(*actor_ptr->effect_ptr,render_pass);
+        for(auto& actor_sp:render_pass.actor_ptrs) {
+            this->BuildPipeline(*actor_sp->effect_ptr,render_pass);
         }
     }
     loaded_bitflags_ |= Stage::PIPELINES;
@@ -308,12 +310,11 @@ void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
     assert(loaded_bitflags_ == Stage::ALL_LOADED);
     CommandBuffer command_buffer; // NOTE: Currently limited to one command buffer per render pass
     // Create draws
-    for(auto actor_ptr:render_pass.actor_ptrs) {
-        assert(actor_ptr != nullptr);
+    for(auto render_pass_actor_sp:render_pass.actor_ptrs) {
         struct Draw draw;
-        draw.actor_ptr = actor_ptr;
+        draw.actor_sp = render_pass_actor_sp;
         // Find pipeline
-        Effect& effect(*draw.actor_ptr->effect_ptr);
+        Effect& effect(*draw.actor_sp->effect_ptr);
         Pipeline* pipeline_ptr(this->FindPipeline(effect, render_pass));
         assert(pipeline_ptr != nullptr);
         draw.pipeline_ptr = pipeline_ptr;

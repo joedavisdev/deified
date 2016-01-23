@@ -70,6 +70,8 @@ struct Actor {
     Effect* effect_ptr;
     Actor():model_ptr(nullptr),effect_ptr(nullptr){}
 };
+typedef std::shared_ptr<Actor> ActorSPtr;
+typedef std::weak_ptr<Actor> ActorWPtr;
 struct Pipeline {
     Effect* effect_ptr;
     RenderPass* render_pass_ptr;
@@ -79,10 +81,10 @@ struct Draw {
     struct CircularGFXBuffer{
         GFX::Buffer buffer[g_circular_buffer_size];
     };
-    Actor* actor_ptr;
+    ActorSPtr actor_sp;
     Pipeline* pipeline_ptr;
     std::vector<CircularGFXBuffer> uniform_buffers;
-    Draw():actor_ptr(nullptr),pipeline_ptr(nullptr){}
+    Draw():pipeline_ptr(nullptr){}
 };
 struct CommandBuffer {
     GFX::CommandBuffer cb;
@@ -95,7 +97,7 @@ struct Camera {
 struct RenderPass {
     RenderPass():sample_count(1){}
     std::string actor_regex;
-    std::vector<Actor*> actor_ptrs;
+    std::vector<ActorSPtr> actor_ptrs;
     Camera camera; // TODO: Add a mechanism for the app to update these matrices
     unsigned int sample_count;
     std::vector<GFX::PixelFormat> colour_formats;
@@ -115,7 +117,7 @@ public:
     SceneMan();
     ~SceneMan();
     void Load(const std::string& scene_json_name);
-    std::vector<Actor*> GetActorPtrs(std::string regex_string);
+    std::vector<ActorWPtr> GetActorPtrs(std::string regex_string);
     void SetUniformUpdateFn(UniformUpdateCallback callback);
     void Bake();
     void Update(const unsigned int circular_buffer_index);
@@ -148,7 +150,7 @@ private:
     std::unordered_map<std::string,RenderPass> render_passes_;
     std::unordered_map<std::string,Effect> effects_;
     std::unordered_map<std::string,Model> models_;
-    std::unordered_map<std::string,Actor> actors_;
+    std::unordered_map<std::string,ActorSPtr> actors_;
     std::vector<Pipeline> pipelines_;
     GFX::Library gfx_default_library_;
     UniformUpdateCallback UniformUpdateFn;
