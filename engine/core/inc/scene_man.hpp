@@ -56,15 +56,13 @@ CPP11_PTR_DEF(Mesh)
 struct Model {
 public:
     Model();
-    ~Model();
     void ReleaseData();
-    void set_number_of_meshes(unsigned int number_of_meshes){number_of_meshes_=number_of_meshes;}
+    void InitializeMeshArray(const unsigned int size);
     unsigned int number_of_meshes(){return number_of_meshes_;}
-    void set_mesh_array(Mesh* mesh_array){delete[] mesh_array_;mesh_array_=mesh_array;}
-    Mesh* mesh_array(){return mesh_array_;}
+    std::vector<MeshSPtr> mesh_array(){return mesh_array_;}
 private:
     unsigned int number_of_meshes_;
-    Mesh* mesh_array_;
+    std::vector<MeshSPtr> mesh_array_;
 };
 CPP11_PTR_DEF(Model)
 struct PhysicsBody {

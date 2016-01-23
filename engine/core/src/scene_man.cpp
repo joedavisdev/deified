@@ -55,16 +55,17 @@ void Mesh::ReleaseData() {
 #pragma mark Model: Public functions
 Model::Model()
 :
-number_of_meshes_(0),
-mesh_array_(nullptr)
+number_of_meshes_(0)
 {}
-Model::~Model(){
-}
 void Model::ReleaseData() {
-    for(unsigned int index=0;index<number_of_meshes_;index++) {
-        mesh_array_[index].ReleaseData();
+    for(auto& mesh_sp:mesh_array_) {
+        mesh_sp->ReleaseData();
     }
-    delete []mesh_array_;
+    mesh_array_.clear();
+}
+void Model::InitializeMeshArray(const unsigned int size) {
+    mesh_array_.clear();
+    mesh_array_.resize(size);
 }
 #pragma mark SceneMan: Public functions
 SceneMan::SceneMan():
@@ -97,7 +98,7 @@ void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
     for(const auto &parsed_actor: parsed_actors) {
         // Search the POD map
         CPVRTModelPOD* pod_ptr(nullptr);
-        for(auto &pod_key_value: pod_map) {
+        for(auto& pod_key_value: pod_map) {
             if(parsed_actor.model_name.find(pod_key_value.first) != std::string::npos) {
                 pod_ptr = &pod_key_value.second;
                 break;
@@ -114,18 +115,17 @@ void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
     for(const auto &pod_key_value: pod_map) {
         Model model;
         const CPVRTModelPOD& pod(pod_key_value.second);
-        model.set_number_of_meshes(pod.nNumMesh);
-        model.set_mesh_array(new Mesh[model.number_of_meshes()]);
+        model.InitializeMeshArray(pod.nNumMesh);
         for(unsigned int index=0;index < pod.nNumMesh; index++){
             SPODMesh &pod_mesh(pod.pMesh[index]);
-            Mesh &mesh(model.mesh_array()[index]);
-            mesh = Mesh((char*)pod_mesh.pInterleaved,
+            auto& mesh(model.mesh_array().at(index));
+            mesh = std::make_shared<Mesh>(Mesh((char*)pod_mesh.pInterleaved,
                         pod_mesh.nNumVertex,
                         pod_mesh.sVertex.nStride,
                         (char*)pod_mesh.sFaces.pData,
                         PVRTModelPODCountIndices(pod_mesh),
-                        pod_mesh.sFaces.nStride);
-            mesh.InitializeGFX();
+                        pod_mesh.sFaces.nStride));
+            mesh->InitializeGFX();
         }
         models_.insert({pod_key_value.first,std::move(std::make_shared<Model>(model))});
     }
@@ -154,7 +154,7 @@ void SceneMan::LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_rend
         RenderPass render_pass;
         render_pass.actor_regex = parsed_render_pass.actor_regex;
         auto actor_wp_array(this->GetActorPtrs(render_pass.actor_regex));
-        for(auto actor_wp:actor_wp_array) {
+        for(auto& actor_wp:actor_wp_array) {
             render_pass.actor_ptrs.push_back(actor_wp.lock());
         }
         for(const auto &attachment_format: parsed_render_pass.colour_formats) {
@@ -259,7 +259,7 @@ std::vector<ActorWPtr> SceneMan::GetActorPtrs(std::string regex_string) {
     std::regex expression(regex_string);
     std::vector<ActorWPtr> actor_matches;
     
-    for(auto &actor_iter : actors_) {
+    for(auto& actor_iter:actors_) {
         if(std::regex_match(actor_iter.first,expression)) {
             actor_matches.push_back(actor_iter.second);
         }
@@ -268,7 +268,7 @@ std::vector<ActorWPtr> SceneMan::GetActorPtrs(std::string regex_string) {
 }
 #pragma mark SceneMan: Private functions
 void SceneMan::ReleaseData() {
-    for(auto &model: models_){
+    for(auto& model: models_){
         model.second->ReleaseData();
     }
     render_passes_.clear();
@@ -298,7 +298,7 @@ void SceneMan::BuildPipeline(Effect &effect, RenderPass &render_pass) {
 }
 Pipeline* SceneMan::FindPipeline(const Effect &effect, const RenderPass &render_pass) {
     Pipeline* pipeline_ptr(nullptr);
-    for(auto &pipeline:pipelines_) {
+    for(auto& pipeline:pipelines_) {
         if(pipeline.effect_ptr == &effect && pipeline.render_pass_ptr == &render_pass) {
             pipeline_ptr = &pipeline;
             break;
@@ -310,7 +310,7 @@ void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
     assert(loaded_bitflags_ == Stage::ALL_LOADED);
     CommandBuffer command_buffer; // NOTE: Currently limited to one command buffer per render pass
     // Create draws
-    for(auto render_pass_actor_sp:render_pass.actor_ptrs) {
+    for(auto& render_pass_actor_sp:render_pass.actor_ptrs) {
         struct Draw draw;
         draw.actor_sp = render_pass_actor_sp;
         // Find pipeline
