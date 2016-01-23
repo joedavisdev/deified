@@ -13,6 +13,10 @@ class ParsedEffect;
 class ParsedActor;
 class ParsedRenderPass;
 namespace Core {
+#define CPP11_PTR_DEF(_name) \
+typedef std::shared_ptr<_name> _name##SPtr; \
+typedef std::weak_ptr<_name> _name##WPtr;
+
 static const unsigned int g_circular_buffer_size = 2;
 // Forward declarations
 class CommandBuffer;
@@ -24,6 +28,7 @@ struct Effect {
     GFX::Effect gfx_effect;
     std::vector<std::string> uniform_block_names;
 };
+CPP11_PTR_DEF(Effect)
 class Mesh {
 public:
     Mesh();
@@ -47,6 +52,7 @@ private:
     GFX::Buffer     index_buffer_;
     bool            local_data_active_;
 };
+CPP11_PTR_DEF(Mesh)
 struct Model {
 public:
     Model();
@@ -60,23 +66,25 @@ private:
     unsigned int number_of_meshes_;
     Mesh* mesh_array_;
 };
+CPP11_PTR_DEF(Model)
 struct PhysicsBody {
     glm::vec4 position;
     glm::vec4 rotation;
 };
+CPP11_PTR_DEF(PhysicsBody)
 struct Actor {
     PhysicsBody body;
-    Model* model_ptr;
+    ModelSPtr model_sp;
     Effect* effect_ptr;
-    Actor():model_ptr(nullptr),effect_ptr(nullptr){}
+    Actor():effect_ptr(nullptr){}
 };
-typedef std::shared_ptr<Actor> ActorSPtr;
-typedef std::weak_ptr<Actor> ActorWPtr;
+CPP11_PTR_DEF(Actor)
 struct Pipeline {
     Effect* effect_ptr;
     RenderPass* render_pass_ptr;
     GFX::PipelineState gfx_pipeline;
 };
+CPP11_PTR_DEF(Pipeline)
 struct Draw {
     struct CircularGFXBuffer{
         GFX::Buffer buffer[g_circular_buffer_size];
@@ -86,6 +94,7 @@ struct Draw {
     std::vector<CircularGFXBuffer> uniform_buffers;
     Draw():pipeline_ptr(nullptr){}
 };
+CPP11_PTR_DEF(Draw)
 struct CommandBuffer {
     GFX::CommandBuffer cb;
     std::vector<Draw> draws;
@@ -104,6 +113,7 @@ struct RenderPass {
     GFX::PixelFormat depth_stencil_formats;
     std::vector<CommandBuffer> command_buffers;
 };
+CPP11_PTR_DEF(RenderPass)
 // std::function declarations
 typedef std::function<void(
     const std::string& block_name,
@@ -149,7 +159,7 @@ private:
     int baked_bitflags_;
     std::unordered_map<std::string,RenderPass> render_passes_;
     std::unordered_map<std::string,Effect> effects_;
-    std::unordered_map<std::string,Model> models_;
+    std::unordered_map<std::string,ModelSPtr> models_;
     std::unordered_map<std::string,ActorSPtr> actors_;
     std::vector<Pipeline> pipelines_;
     GFX::Library gfx_default_library_;

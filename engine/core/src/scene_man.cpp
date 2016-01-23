@@ -127,7 +127,7 @@ void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
                         pod_mesh.sFaces.nStride);
             mesh.InitializeGFX();
         }
-        models_.insert({pod_key_value.first,std::move(model)});
+        models_.insert({pod_key_value.first,std::move(std::make_shared<Model>(model))});
     }
     loaded_bitflags_ |= Stage::MODELS;
     // Load actors
@@ -137,7 +137,7 @@ void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
         if(map_model == models_.end()) {
             assert(0); // Model should exist
         }
-        actor.model_ptr = &map_model->second;
+        actor.model_sp = map_model->second;
         auto map_effect(effects_.find(parsed_actor.effect_name));
         if(map_effect == effects_.end()) {
             assert(0); // Model should exist
@@ -269,7 +269,7 @@ std::vector<ActorWPtr> SceneMan::GetActorPtrs(std::string regex_string) {
 #pragma mark SceneMan: Private functions
 void SceneMan::ReleaseData() {
     for(auto &model: models_){
-        model.second.ReleaseData();
+        model.second->ReleaseData();
     }
     render_passes_.clear();
     effects_.clear();
