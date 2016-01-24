@@ -13,10 +13,13 @@ class ParsedEffect;
 class ParsedActor;
 class ParsedRenderPass;
 namespace Core {
+#define CPP11_PTR_DEF(_name) \
+typedef std::shared_ptr<_name> _name##SPtr; \
+typedef std::weak_ptr<_name> _name##WPtr;
+
 static const unsigned int g_circular_buffer_size = 2;
 // Forward declarations
 class CommandBuffer;
-class RenderPass;
 // Structs & classes
 struct Effect {
     std::string frag_shader_name;
@@ -24,6 +27,7 @@ struct Effect {
     GFX::Effect gfx_effect;
     std::vector<std::string> uniform_block_names;
 };
+CPP11_PTR_DEF(Effect)
 class Mesh {
 public:
     Mesh();
@@ -35,10 +39,8 @@ public:
            unsigned int num_indices_bytes);
     ~Mesh();
     bool InitializeGFX();
-    void ReleaseLocalData();
     void ReleaseData();
 private:
-    void ReleaseGFXData();
     unsigned int    num_vertices_;
     unsigned int    stride_;
     unsigned int    num_indices_;
@@ -49,47 +51,30 @@ private:
     GFX::Buffer     index_buffer_;
     bool            local_data_active_;
 };
+CPP11_PTR_DEF(Mesh)
 struct Model {
 public:
     Model();
-    ~Model();
     void ReleaseData();
-    void set_number_of_meshes(unsigned int number_of_meshes){number_of_meshes_=number_of_meshes;}
+    void InitializeMeshArray(const unsigned int size);
     unsigned int number_of_meshes(){return number_of_meshes_;}
-    void set_mesh_array(Mesh* mesh_array){delete[] mesh_array_;mesh_array_=mesh_array;}
-    Mesh* mesh_array(){return mesh_array_;}
+    std::vector<MeshSPtr> mesh_array(){return mesh_array_;}
 private:
     unsigned int number_of_meshes_;
-    Mesh* mesh_array_;
+    std::vector<MeshSPtr> mesh_array_;
 };
+CPP11_PTR_DEF(Model)
 struct PhysicsBody {
     glm::vec4 position;
     glm::vec4 rotation;
 };
+CPP11_PTR_DEF(PhysicsBody)
 struct Actor {
     PhysicsBody body;
-    Model* model_ptr;
-    Effect* effect_ptr;
-    Actor():model_ptr(nullptr),effect_ptr(nullptr){}
+    ModelSPtr model_sp;
+    EffectSPtr effect_sp;
 };
-struct Pipeline {
-    Effect* effect_ptr;
-    RenderPass* render_pass_ptr;
-    GFX::PipelineState gfx_pipeline;
-};
-struct Draw {
-    struct CircularGFXBuffer{
-        GFX::Buffer buffer[g_circular_buffer_size];
-    };
-    Actor* actor_ptr;
-    Pipeline* pipeline_ptr;
-    std::vector<CircularGFXBuffer> uniform_buffers;
-    Draw():actor_ptr(nullptr),pipeline_ptr(nullptr){}
-};
-struct CommandBuffer {
-    GFX::CommandBuffer cb;
-    std::vector<Draw> draws;
-};
+CPP11_PTR_DEF(Actor)
 struct Camera {
     glm::mat4x4 view;
     glm::mat4x4 projection;
@@ -97,13 +82,34 @@ struct Camera {
 struct RenderPass {
     RenderPass():sample_count(1){}
     std::string actor_regex;
-    std::vector<Actor*> actor_ptrs;
+    std::vector<ActorSPtr> actor_sp_array;
     Camera camera; // TODO: Add a mechanism for the app to update these matrices
     unsigned int sample_count;
     std::vector<GFX::PixelFormat> colour_formats;
     GFX::PixelFormat depth_stencil_formats;
     std::vector<CommandBuffer> command_buffers;
 };
+CPP11_PTR_DEF(RenderPass)
+struct Pipeline {
+    EffectSPtr effect_sp;
+    RenderPassSPtr render_pass_sp;
+    GFX::PipelineState gfx_pipeline;
+};
+CPP11_PTR_DEF(Pipeline)
+struct Draw {
+    struct CircularGFXBuffer{
+        GFX::Buffer buffer[g_circular_buffer_size];
+    };
+    ActorSPtr actor_sp;
+    PipelineSPtr pipeline_sp;
+    std::vector<CircularGFXBuffer> uniform_buffers;
+};
+CPP11_PTR_DEF(Draw)
+struct CommandBuffer {
+    GFX::CommandBuffer cb;
+    std::vector<Draw> draws;
+};
+
 // std::function declarations
 typedef std::function<void(
     const std::string& block_name,
@@ -117,7 +123,7 @@ public:
     SceneMan();
     ~SceneMan();
     void Load(const std::string& scene_json_name);
-    std::vector<Actor*> GetActorPtrs(std::string regex_string);
+    std::vector<ActorWPtr> GetActorPtrs(std::string regex_string);
     void SetUniformUpdateFn(UniformUpdateCallback callback);
     void Bake();
     void Update(const unsigned int circular_buffer_index);
@@ -128,9 +134,9 @@ private:
     void LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_render_passes);
     void ReleaseData();
     void BuildPipelines();
-    void BuildPipeline(Effect &effect, RenderPass &render_pass);
-    Pipeline* FindPipeline(const Effect &effect, const RenderPass &render_pass);
-    void BuildCommandBuffers(RenderPass &render_pass);
+    void BuildPipeline(const EffectSPtr& effect_sp, const RenderPassSPtr& render_pass_sp);
+    PipelineSPtr FindPipeline(const EffectSPtr& effect_sp, const RenderPassSPtr& render_pass_sp);
+    void BuildCommandBuffers(RenderPassSPtr& render_pass_sp);
     void BakeEffects();
     void BakePipelines();
     void BakeCommandBuffers();
@@ -147,11 +153,11 @@ private:
     };
     int loaded_bitflags_;
     int baked_bitflags_;
-    std::unordered_map<std::string,RenderPass> render_passes_;
-    std::unordered_map<std::string,Effect> effects_;
-    std::unordered_map<std::string,Model> models_;
-    std::unordered_map<std::string,Actor> actors_;
-    std::vector<Pipeline> pipelines_;
+    std::unordered_map<std::string,RenderPassSPtr> render_passes_;
+    std::unordered_map<std::string,EffectSPtr> effects_;
+    std::unordered_map<std::string,ModelSPtr> models_;
+    std::unordered_map<std::string,ActorSPtr> actors_;
+    std::vector<PipelineSPtr> pipelines_;
     GFX::Library gfx_default_library_;
     UniformUpdateCallback UniformUpdateFn;
 };

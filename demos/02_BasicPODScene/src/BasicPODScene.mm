@@ -22,7 +22,7 @@ using namespace simd;
 
 static std::hash<std::string> StringHashFn;
 
-static const long kInFlightCommandBuffers = 3;
+static const long kInFlightCommandBuffers = 2;
 
 static const float4 kAmbientColors[2] = {
     {0.18, 0.24, 0.8, 1.0},
