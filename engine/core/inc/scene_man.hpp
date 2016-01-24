@@ -101,9 +101,8 @@ struct Draw {
         GFX::Buffer buffer[g_circular_buffer_size];
     };
     ActorSPtr actor_sp;
-    Pipeline* pipeline_ptr;
+    PipelineSPtr pipeline_sp;
     std::vector<CircularGFXBuffer> uniform_buffers;
-    Draw():pipeline_ptr(nullptr){}
 };
 CPP11_PTR_DEF(Draw)
 struct CommandBuffer {
@@ -136,7 +135,7 @@ private:
     void ReleaseData();
     void BuildPipelines();
     void BuildPipeline(const EffectSPtr& effect_sp, const RenderPassSPtr& render_pass_sp);
-    Pipeline* FindPipeline(const EffectSPtr& effect_sp, const RenderPassSPtr& render_pass_sp);
+    PipelineSPtr FindPipeline(const EffectSPtr& effect_sp, const RenderPassSPtr& render_pass_sp);
     void BuildCommandBuffers(RenderPassSPtr& render_pass_sp);
     void BakeEffects();
     void BakePipelines();
@@ -158,7 +157,7 @@ private:
     std::unordered_map<std::string,EffectSPtr> effects_;
     std::unordered_map<std::string,ModelSPtr> models_;
     std::unordered_map<std::string,ActorSPtr> actors_;
-    std::vector<Pipeline> pipelines_;
+    std::vector<PipelineSPtr> pipelines_;
     GFX::Library gfx_default_library_;
     UniformUpdateCallback UniformUpdateFn;
 };
