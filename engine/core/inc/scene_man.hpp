@@ -73,12 +73,11 @@ CPP11_PTR_DEF(PhysicsBody)
 struct Actor {
     PhysicsBody body;
     ModelSPtr model_sp;
-    Effect* effect_ptr;
-    Actor():effect_ptr(nullptr){}
+    EffectSPtr effect_sp;
 };
 CPP11_PTR_DEF(Actor)
 struct Pipeline {
-    Effect* effect_ptr;
+    EffectSPtr effect_sp;
     RenderPass* render_pass_ptr;
     GFX::PipelineState gfx_pipeline;
 };
@@ -136,8 +135,8 @@ private:
     void LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_render_passes);
     void ReleaseData();
     void BuildPipelines();
-    void BuildPipeline(Effect &effect, RenderPass &render_pass);
-    Pipeline* FindPipeline(const Effect &effect, const RenderPass &render_pass);
+    void BuildPipeline(const EffectSPtr& effect_sp, RenderPass &render_pass);
+    Pipeline* FindPipeline(const EffectSPtr& effect_sp, const RenderPass &render_pass);
     void BuildCommandBuffers(RenderPass &render_pass);
     void BakeEffects();
     void BakePipelines();
@@ -156,7 +155,7 @@ private:
     int loaded_bitflags_;
     int baked_bitflags_;
     std::unordered_map<std::string,RenderPass> render_passes_;
-    std::unordered_map<std::string,Effect> effects_;
+    std::unordered_map<std::string,EffectSPtr> effects_;
     std::unordered_map<std::string,ModelSPtr> models_;
     std::unordered_map<std::string,ActorSPtr> actors_;
     std::vector<Pipeline> pipelines_;

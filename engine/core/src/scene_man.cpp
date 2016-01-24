@@ -88,7 +88,7 @@ void SceneMan::LoadEffects(const std::vector<ParsedEffect>& parsed_effects) {
         effect.frag_shader_name = parsed_effect.frag_shader_name;
         effect.vert_shader_name = parsed_effect.vert_shader_name;
         effect.uniform_block_names = parsed_effect.uniform_block_names;
-        effects_.insert({parsed_effect.name,std::move(effect)});
+        effects_.insert({parsed_effect.name,std::move(std::make_shared<Effect>(effect))});
     }
     loaded_bitflags_ |= Stage::EFFECTS;
 }
@@ -142,7 +142,7 @@ void SceneMan::LoadActors(const std::vector<ParsedActor>& parsed_actors) {
         if(map_effect == effects_.end()) {
             assert(0); // Model should exist
         }
-        actor.effect_ptr = &map_effect->second;
+        actor.effect_sp = map_effect->second;
         actor.body.position = parsed_actor.world_position;
         actors_.insert({parsed_actor.name,std::move(std::make_shared<Actor>(actor))});
     }
@@ -194,8 +194,8 @@ void SceneMan::Load(const std::string& scene_json_name) {
 void SceneMan::BakeEffects(){
     assert((loaded_bitflags_ & Stage::EFFECTS) != 0);
     for(auto& effect_iter:effects_) {
-        Effect& effect(effect_iter.second);
-        effect.gfx_effect.Initialize(gfx_default_library_, effect.vert_shader_name, effect.frag_shader_name);
+        EffectSPtr& effect_sp(effect_iter.second);
+        effect_sp->gfx_effect.Initialize(gfx_default_library_, effect_sp->vert_shader_name, effect_sp->frag_shader_name);
     }
     baked_bitflags_ |= Stage::EFFECTS;
 }
@@ -204,7 +204,7 @@ void SceneMan::BakePipelines(){
     assert((baked_bitflags_ & Stage::EFFECTS) != 0);
     for(auto& pipeline:pipelines_) {
         GFX::PipelineDesc gfx_pipeline_desc;
-        Effect& effect(*pipeline.effect_ptr);
+        Effect& effect(*pipeline.effect_sp);
         const RenderPass& render_pass(*pipeline.render_pass_ptr);
         gfx_pipeline_desc.Initialize(effect.gfx_effect,
                                render_pass.sample_count,
@@ -240,7 +240,7 @@ void SceneMan::Update(const unsigned int circular_buffer_index) {
         RenderPass& render_pass(render_pass_iter.second);
         for(auto& command_buffer:render_pass.command_buffers) {
             for(auto& draw:command_buffer.draws) {
-                const Effect& effect(*draw.actor_sp->effect_ptr);
+                const Effect& effect(*draw.actor_sp->effect_sp);
                 for(unsigned int index=0;index < draw.uniform_buffers.size();index++){
                     const std::string& block_name(effect.uniform_block_names[index]);
                     GFX::Buffer& buffer(draw.uniform_buffers[index].buffer[circular_buffer_index]);
@@ -282,24 +282,24 @@ void SceneMan::BuildPipelines() {
     for(auto& render_pass_iter:render_passes_) {
         RenderPass& render_pass(render_pass_iter.second);
         for(auto& actor_sp:render_pass.actor_ptrs) {
-            this->BuildPipeline(*actor_sp->effect_ptr,render_pass);
+            this->BuildPipeline(actor_sp->effect_sp,render_pass);
         }
     }
     loaded_bitflags_ |= Stage::PIPELINES;
 }
-void SceneMan::BuildPipeline(Effect &effect, RenderPass &render_pass) {
-    Pipeline* pipeline_ptr(this->FindPipeline(effect,render_pass));
+void SceneMan::BuildPipeline(const EffectSPtr& effect_sp, RenderPass &render_pass) {
+    Pipeline* pipeline_ptr(this->FindPipeline(effect_sp,render_pass));
     if(pipeline_ptr == nullptr) {
         Pipeline pipeline;
-        pipeline.effect_ptr = &effect;
+        pipeline.effect_sp = effect_sp;
         pipeline.render_pass_ptr = &render_pass;
         pipelines_.push_back(std::move(pipeline));
     }
 }
-Pipeline* SceneMan::FindPipeline(const Effect &effect, const RenderPass &render_pass) {
+Pipeline* SceneMan::FindPipeline(const EffectSPtr& effect_sp, const RenderPass &render_pass) {
     Pipeline* pipeline_ptr(nullptr);
     for(auto& pipeline:pipelines_) {
-        if(pipeline.effect_ptr == &effect && pipeline.render_pass_ptr == &render_pass) {
+        if(pipeline.effect_sp == effect_sp && pipeline.render_pass_ptr == &render_pass) {
             pipeline_ptr = &pipeline;
             break;
         }
@@ -314,11 +314,11 @@ void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
         struct Draw draw;
         draw.actor_sp = render_pass_actor_sp;
         // Find pipeline
-        Effect& effect(*draw.actor_sp->effect_ptr);
-        Pipeline* pipeline_ptr(this->FindPipeline(effect, render_pass));
+        const EffectSPtr& effect_sp(draw.actor_sp->effect_sp);
+        Pipeline* pipeline_ptr(this->FindPipeline(effect_sp, render_pass));
         assert(pipeline_ptr != nullptr);
         draw.pipeline_ptr = pipeline_ptr;
-        for(const auto& block_name:effect.uniform_block_names) {
+        for(const auto& block_name:effect_sp->uniform_block_names) {
             const unsigned int uniform_block_size(uniform_block_sizes.find(block_name)->second);
             Draw::CircularGFXBuffer circular;
             for (unsigned int index = 0;index < g_circular_buffer_size;index++){
