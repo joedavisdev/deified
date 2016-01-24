@@ -155,7 +155,7 @@ void SceneMan::LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_rend
         render_pass.actor_regex = parsed_render_pass.actor_regex;
         auto actor_wp_array(this->GetActorPtrs(render_pass.actor_regex));
         for(auto& actor_wp:actor_wp_array) {
-            render_pass.actor_ptrs.push_back(actor_wp.lock());
+            render_pass.actor_sp_array.push_back(actor_wp.lock());
         }
         for(const auto &attachment_format: parsed_render_pass.colour_formats) {
             GFX::PixelFormat colour_attachment;
@@ -173,7 +173,7 @@ void SceneMan::LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_rend
             printf("ERROR: Failed to load depth_stencil_formats = %s\n", parsed_render_pass.depth_stencil_formats.c_str());
             assert(0);
         }
-        render_passes_.insert({parsed_render_pass.name,std::move(render_pass)});
+        render_passes_.insert({parsed_render_pass.name,std::move(std::make_shared<RenderPass>(render_pass))});
     }
     loaded_bitflags_ |= Stage::RENDER_PASSES;
 }
@@ -205,7 +205,7 @@ void SceneMan::BakePipelines(){
     for(auto& pipeline:pipelines_) {
         GFX::PipelineDesc gfx_pipeline_desc;
         Effect& effect(*pipeline.effect_sp);
-        const RenderPass& render_pass(*pipeline.render_pass_ptr);
+        const RenderPass& render_pass(*pipeline.render_pass_sp);
         gfx_pipeline_desc.Initialize(effect.gfx_effect,
                                render_pass.sample_count,
                                render_pass.colour_formats,
@@ -217,7 +217,7 @@ void SceneMan::BakePipelines(){
 }
 void SceneMan::BakeCommandBuffers() {
     for(auto& render_pass_iter:render_passes_){
-        for(auto& comand_buffer:render_pass_iter.second.command_buffers) {
+        for(auto& comand_buffer:render_pass_iter.second->command_buffers) {
             GFX::CommandBuffer& cb(comand_buffer.cb);
             for(auto& draw:comand_buffer.draws){
             }
@@ -237,7 +237,7 @@ void SceneMan::Update(const unsigned int circular_buffer_index) {
     assert(circular_buffer_index < g_circular_buffer_size);
     // Update uniform buffers
     for(auto& render_pass_iter:render_passes_) {
-        RenderPass& render_pass(render_pass_iter.second);
+        RenderPass& render_pass(*render_pass_iter.second);
         for(auto& command_buffer:render_pass.command_buffers) {
             for(auto& draw:command_buffer.draws) {
                 const Effect& effect(*draw.actor_sp->effect_sp);
@@ -280,42 +280,41 @@ void SceneMan::ReleaseData() {
 }
 void SceneMan::BuildPipelines() {
     for(auto& render_pass_iter:render_passes_) {
-        RenderPass& render_pass(render_pass_iter.second);
-        for(auto& actor_sp:render_pass.actor_ptrs) {
-            this->BuildPipeline(actor_sp->effect_sp,render_pass);
+        for(auto& actor_sp:render_pass_iter.second->actor_sp_array) {
+            this->BuildPipeline(actor_sp->effect_sp,render_pass_iter.second);
         }
     }
     loaded_bitflags_ |= Stage::PIPELINES;
 }
-void SceneMan::BuildPipeline(const EffectSPtr& effect_sp, RenderPass &render_pass) {
-    Pipeline* pipeline_ptr(this->FindPipeline(effect_sp,render_pass));
+void SceneMan::BuildPipeline(const EffectSPtr& effect_sp, const RenderPassSPtr& render_pass_sp) {
+    Pipeline* pipeline_ptr(this->FindPipeline(effect_sp,render_pass_sp));
     if(pipeline_ptr == nullptr) {
         Pipeline pipeline;
         pipeline.effect_sp = effect_sp;
-        pipeline.render_pass_ptr = &render_pass;
+        pipeline.render_pass_sp = render_pass_sp;
         pipelines_.push_back(std::move(pipeline));
     }
 }
-Pipeline* SceneMan::FindPipeline(const EffectSPtr& effect_sp, const RenderPass &render_pass) {
+Pipeline* SceneMan::FindPipeline(const EffectSPtr& effect_sp, const RenderPassSPtr& render_pass_sp) {
     Pipeline* pipeline_ptr(nullptr);
     for(auto& pipeline:pipelines_) {
-        if(pipeline.effect_sp == effect_sp && pipeline.render_pass_ptr == &render_pass) {
+        if(pipeline.effect_sp == effect_sp && pipeline.render_pass_sp == render_pass_sp) {
             pipeline_ptr = &pipeline;
             break;
         }
     }
     return pipeline_ptr;
 }
-void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
+void SceneMan::BuildCommandBuffers(RenderPassSPtr& render_pass_sp) {
     assert(loaded_bitflags_ == Stage::ALL_LOADED);
     CommandBuffer command_buffer; // NOTE: Currently limited to one command buffer per render pass
     // Create draws
-    for(auto& render_pass_actor_sp:render_pass.actor_ptrs) {
+    for(auto& render_pass_actor_sp:render_pass_sp->actor_sp_array) {
         struct Draw draw;
         draw.actor_sp = render_pass_actor_sp;
         // Find pipeline
         const EffectSPtr& effect_sp(draw.actor_sp->effect_sp);
-        Pipeline* pipeline_ptr(this->FindPipeline(effect_sp, render_pass));
+        Pipeline* pipeline_ptr(this->FindPipeline(effect_sp, render_pass_sp));
         assert(pipeline_ptr != nullptr);
         draw.pipeline_ptr = pipeline_ptr;
         for(const auto& block_name:effect_sp->uniform_block_names) {
@@ -329,6 +328,6 @@ void SceneMan::BuildCommandBuffers(RenderPass &render_pass) {
         command_buffer.draws.push_back(std::move(draw));
     }
     // TODO: Sort draws by pipeline
-    render_pass.command_buffers.push_back(std::move(command_buffer));
+    render_pass_sp->command_buffers.push_back(std::move(command_buffer));
 }
 }}

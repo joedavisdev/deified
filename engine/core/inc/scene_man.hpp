@@ -20,7 +20,6 @@ typedef std::weak_ptr<_name> _name##WPtr;
 static const unsigned int g_circular_buffer_size = 2;
 // Forward declarations
 class CommandBuffer;
-class RenderPass;
 // Structs & classes
 struct Effect {
     std::string frag_shader_name;
@@ -76,9 +75,24 @@ struct Actor {
     EffectSPtr effect_sp;
 };
 CPP11_PTR_DEF(Actor)
+struct Camera {
+    glm::mat4x4 view;
+    glm::mat4x4 projection;
+};
+struct RenderPass {
+    RenderPass():sample_count(1){}
+    std::string actor_regex;
+    std::vector<ActorSPtr> actor_sp_array;
+    Camera camera; // TODO: Add a mechanism for the app to update these matrices
+    unsigned int sample_count;
+    std::vector<GFX::PixelFormat> colour_formats;
+    GFX::PixelFormat depth_stencil_formats;
+    std::vector<CommandBuffer> command_buffers;
+};
+CPP11_PTR_DEF(RenderPass)
 struct Pipeline {
     EffectSPtr effect_sp;
-    RenderPass* render_pass_ptr;
+    RenderPassSPtr render_pass_sp;
     GFX::PipelineState gfx_pipeline;
 };
 CPP11_PTR_DEF(Pipeline)
@@ -96,21 +110,7 @@ struct CommandBuffer {
     GFX::CommandBuffer cb;
     std::vector<Draw> draws;
 };
-struct Camera {
-    glm::mat4x4 view;
-    glm::mat4x4 projection;
-};
-struct RenderPass {
-    RenderPass():sample_count(1){}
-    std::string actor_regex;
-    std::vector<ActorSPtr> actor_ptrs;
-    Camera camera; // TODO: Add a mechanism for the app to update these matrices
-    unsigned int sample_count;
-    std::vector<GFX::PixelFormat> colour_formats;
-    GFX::PixelFormat depth_stencil_formats;
-    std::vector<CommandBuffer> command_buffers;
-};
-CPP11_PTR_DEF(RenderPass)
+
 // std::function declarations
 typedef std::function<void(
     const std::string& block_name,
@@ -135,9 +135,9 @@ private:
     void LoadRenderPasses(const std::vector<ParsedRenderPass>& parsed_render_passes);
     void ReleaseData();
     void BuildPipelines();
-    void BuildPipeline(const EffectSPtr& effect_sp, RenderPass &render_pass);
-    Pipeline* FindPipeline(const EffectSPtr& effect_sp, const RenderPass &render_pass);
-    void BuildCommandBuffers(RenderPass &render_pass);
+    void BuildPipeline(const EffectSPtr& effect_sp, const RenderPassSPtr& render_pass_sp);
+    Pipeline* FindPipeline(const EffectSPtr& effect_sp, const RenderPassSPtr& render_pass_sp);
+    void BuildCommandBuffers(RenderPassSPtr& render_pass_sp);
     void BakeEffects();
     void BakePipelines();
     void BakeCommandBuffers();
@@ -154,7 +154,7 @@ private:
     };
     int loaded_bitflags_;
     int baked_bitflags_;
-    std::unordered_map<std::string,RenderPass> render_passes_;
+    std::unordered_map<std::string,RenderPassSPtr> render_passes_;
     std::unordered_map<std::string,EffectSPtr> effects_;
     std::unordered_map<std::string,ModelSPtr> models_;
     std::unordered_map<std::string,ActorSPtr> actors_;
